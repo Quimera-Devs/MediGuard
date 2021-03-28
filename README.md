@@ -1,2 +1,2 @@
 # MediGuard
-Medical Guard Assignments Software
+ Gestion de Guardias Medicas
