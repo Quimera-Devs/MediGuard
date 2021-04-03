@@ -9,5 +9,7 @@ public class AvaibleGuards extends AppCompatActivity {
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.avaible_guards);
+
+
     }
 }
