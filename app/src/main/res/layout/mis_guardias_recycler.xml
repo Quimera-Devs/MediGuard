@@ -12,7 +12,7 @@
         android:id="@+id/mis_guardias_recycler_id"
         android:scrollbars="vertical"
         android:clipToPadding="false"
-        >
+        tools:ignore="MissingConstraints">
 
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.programabit.mediguard.rest.ApiClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
