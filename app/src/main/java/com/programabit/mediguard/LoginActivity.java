@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity{
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(LoginActivity.this,AvaibleGuards.class).putExtra("data",loginResponse.getUsername()));
+                            startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data",loginResponse.getUsername()));
                         }
                     },700);
 

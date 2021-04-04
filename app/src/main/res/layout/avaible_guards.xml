@@ -3,82 +3,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:layout_centerVertical="true"
-        android:background="#fff"
-        android:layout_centerHorizontal="true">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorSecundario"
-        android:textSize="24sp"
-        android:fontFamily="serif"
-        android:text="Guardias disponibles"
-        android:gravity="center"/>
-
-    <TableLayout
-        android:layout_marginTop="10dp"
-        android:id="@+id/table_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/table_row1"
-            android:padding="10dp">
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:background="#fff"
+            android:layout_centerHorizontal="true">
 
             <TextView
-                android:id="@+id/centroSalud"
-                android:fontFamily="serif"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:textColor="#000"
-                android:text="Institucion"/>
-            <TextView
-                android:id="@+id/fecha"
-                android:textColor="#000"
-                android:fontFamily="serif"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:text="Fecha"/>
-            <TextView
-                android:textColor="#000"
-                android:id="@+id/turno"
+                android:textColor="@color/colorSecundario"
+                android:textSize="24sp"
                 android:fontFamily="serif"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:text="Turno"/>
+                android:text="Guardias disponibles"
+                android:gravity="center"/>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    android:id="@+id/recyclerView"
+                    tools:context="example.javatpoint.com.recyclerviewlist.MainActivity">
+                 </androidx.recyclerview.widget.RecyclerView>
 
+            <View
+                    android:layout_height="3dip"
+                    android:layout_width="match_parent"
+                    android:background="@color/colorSecundario"/>
 
-        </TableRow>
-        <View
-            android:layout_height="3dip"
-            android:layout_width="match_parent"
-            android:background="@color/colorSecundario"/>
-         </TableLayout>
         </LinearLayout>
     </ScrollView>
-    </LinearLayout>
-
+</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
