@@ -12,7 +12,7 @@ public class MisGuardiasModel {
         this.turno = turno;
     }
 
-    public String getCentroSalud() {
+    public static String getCentroSalud() {
         return centroSalud;
     }
 
@@ -20,7 +20,7 @@ public class MisGuardiasModel {
         this.centroSalud = centroSalud;
     }
 
-    public String getFecha() {
+    public static String getFecha() {
         return fecha;
     }
 
@@ -28,7 +28,7 @@ public class MisGuardiasModel {
         this.fecha = fecha;
     }
 
-    public String getTurno() {
+    public static String getTurno() {
         return turno;
     }
 

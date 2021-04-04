@@ -16,7 +16,7 @@ public class MisGuardiasAdapter extends RecyclerView.Adapter<MisGuardiasAdapter.
     private Context context;
     private List<MisGuardiasModel> misGuardiasModelList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         public TextView  centroSalud, fecha, turno;
 
@@ -38,7 +38,7 @@ public class MisGuardiasAdapter extends RecyclerView.Adapter<MisGuardiasAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mis_guardias_card,parent);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_mis_guardias_card,parent);
         return new MyViewHolder(itemView);
     }
 

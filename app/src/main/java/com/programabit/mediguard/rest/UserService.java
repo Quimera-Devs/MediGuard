@@ -18,6 +18,6 @@ public interface UserService {
     Call<LoginResponse> userLogin(@Body LoginRequest loginRequest);
 
     @GET("/mis_guardias")
-    Call<List<MisGuardiasDto>> getMisGuardias();
+    static Call<List<MisGuardiasDto>> getMisGuardias();
 
 }
