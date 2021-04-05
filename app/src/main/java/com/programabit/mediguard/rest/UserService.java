@@ -2,7 +2,7 @@ package com.programabit.mediguard.rest;
 
 import com.programabit.mediguard.LoginRequest;
 import com.programabit.mediguard.LoginResponse;
-import com.programabit.mediguard.MisGuardiasDto;
+import com.programabit.mediguard.GuardDto;
 
 import java.util.List;
 
@@ -18,6 +18,6 @@ public interface UserService {
     Call<LoginResponse> userLogin(@Body LoginRequest loginRequest);
 
     @GET("/mis_guardias")
-    static Call<List<MisGuardiasDto>> getMisGuardias();
+    Call<List<GuardDto>> getMisGuardias();
 
 }

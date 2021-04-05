@@ -12,7 +12,10 @@
         android:id="@+id/mis_guardias_recycler_id"
         android:scrollbars="vertical"
         android:clipToPadding="false"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/activity_mis_guardias_card"
+        >
+
 
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

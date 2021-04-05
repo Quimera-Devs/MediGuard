@@ -20,7 +20,7 @@
         android:orientation="vertical"
         android:layout_margin="10dp"
         android:layout_centerVertical="true"
-        android:background=""
+        android:background="@color/colorBlanco"
         android:layout_centerHorizontal="true">
 
     <TextView

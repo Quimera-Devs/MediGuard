@@ -2,6 +2,7 @@ package com.programabit.mediguard;
 
 
 public class MisGuardiasModel {
+    private int id;
     private String centroSalud;
     private String fecha;
     private String turno;
@@ -12,7 +13,7 @@ public class MisGuardiasModel {
         this.turno = turno;
     }
 
-    public static String getCentroSalud() {
+    public  String getCentroSalud() {
         return centroSalud;
     }
 
@@ -20,7 +21,7 @@ public class MisGuardiasModel {
         this.centroSalud = centroSalud;
     }
 
-    public static String getFecha() {
+    public  String getFecha() {
         return fecha;
     }
 
@@ -28,11 +29,15 @@ public class MisGuardiasModel {
         this.fecha = fecha;
     }
 
-    public static String getTurno() {
+    public  String getTurno() {
         return turno;
     }
 
     public void setTurno(String turno) {
         this.turno = turno;
+    }
+
+    public int getId() {
+        return id;
     }
 }
