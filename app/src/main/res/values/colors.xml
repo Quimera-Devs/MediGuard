@@ -3,9 +3,10 @@
 
     <color name="colorPrincipal">#8BC34A</color>
     <color name="colorSecundario">#4CAF50</color>
-    <color name="colorEnfasis">#4CAF50</color>
+    <color name="colorEnfasis">#005005</color>
     <color name="colorBlanco">#fff</color>
     <color name="colorSombraClaro">#EBEBEB</color>
     <color name="colorSombraOscuro">#A1A1A1</color>
+    <color name="colorCeleste">#4F7DFB</color>
 
 </resources>
