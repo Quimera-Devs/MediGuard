@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.programabit.mediguard.rest.GuardDto;
+
 public class MyGuardsListAdapter extends ListAdapter<GuardDto, MyGuardsViewHolder> {
 
     public MyGuardsListAdapter(@NonNull DiffUtil.ItemCallback<GuardDto> diffCallback){

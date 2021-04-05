@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.rest;
 
 import com.google.gson.annotations.SerializedName;
 

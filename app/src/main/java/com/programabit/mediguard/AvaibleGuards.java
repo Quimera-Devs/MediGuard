@@ -3,6 +3,8 @@ package com.programabit.mediguard;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.programabit.mediguard.rest.ApiClient;
+
 import java.util.List;
 
 import retrofit2.Call;

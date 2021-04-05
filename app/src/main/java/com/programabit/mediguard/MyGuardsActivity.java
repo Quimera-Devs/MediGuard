@@ -8,13 +8,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.programabit.mediguard.rest.GuardDto;
+import com.programabit.mediguard.rest.GuardsViewModel;
+
 import java.util.List;
 
 
 public class MyGuardsActivity extends AppCompatActivity {
 
     private GuardsViewModel guardsViewModel;
-    private List<MisGuardiasModel> misGuardiasModelList;
+    private List<GuardDto> myGuardsList;
     private MyGuardsViewHolder adapter;
     private RecyclerView recyclerView;
 
@@ -34,18 +37,7 @@ public class MyGuardsActivity extends AppCompatActivity {
             adapter.submitList(myGuards);
         });
 
-
-        //GuardiasViewModel = new ViewModelProvider(this,new MisGuardiasActivity(getApplication()).get(GuardiasViewModel.class));
-        //GuardiasViewModel.getMisGuardias().observe(this,misGuardias->{adapter.submitList(misGuardias)});
-
-
-        /*misGuardiasModelList = new ArrayList<>();
-        adapter = new MisGuardiasAdapter(this, misGuardiasModelList);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        */
         cargarMisGuardiasCards();
-
     }
 
     private void cargarMisGuardiasCards() {

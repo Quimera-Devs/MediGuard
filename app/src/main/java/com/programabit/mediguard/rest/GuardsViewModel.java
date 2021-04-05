@@ -1,10 +1,11 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.rest;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.programabit.mediguard.rest.GuardDto;
 import com.programabit.mediguard.rest.GuardRestRepository;
 
 import java.util.List;

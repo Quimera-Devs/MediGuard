@@ -30,37 +30,3 @@ public class MyGuardsViewHolder extends RecyclerView.ViewHolder {
     }
 }
 
-
-/*
-    private Context context;
-    private List<MisGuardiasModel> misGuardiasModelList;
-
-
-    public MisGuardiasViewHolder(Context context, List<MisGuardiasModel> misGuardiasModelList) {
-        this.context = context;
-        this.misGuardiasModelList = misGuardiasModelList;
-    }
-
-    @NonNull
-    @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_mis_guardias_card,parent);
-        return new MyViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        MisGuardiasModel guardiasModel = misGuardiasModelList.get(position);
-        holder.centroSalud.setText(MisGuardiasModel.getCentroSalud());
-        holder.fecha.setText(MisGuardiasModel.getFecha());
-        holder.turno.setText(MisGuardiasModel.getTurno());
-    }
-
-    @Override
-    public int getItemCount() {
-        return misGuardiasModelList.size();
-    }
-
- */
-
