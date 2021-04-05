@@ -16,7 +16,7 @@ public class AvaibleGuards extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.avaible_guards);
 
-        Call<List<AvaibleGuardsResponse>> response = ApiClient.getUserService().getAvaibleGuards();
+        //Call<List<AvaibleGuardsResponse>> response = ApiClient.getUserService().getAvaibleGuards();
 
     }
 }

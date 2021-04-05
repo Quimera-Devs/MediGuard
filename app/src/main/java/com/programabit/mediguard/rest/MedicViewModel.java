@@ -6,11 +6,11 @@ import androidx.lifecycle.AndroidViewModel;
 
 public class MedicViewModel extends AndroidViewModel {
     private MedicRestRepository medicRestRepository;
-    private final MedicDto myself;
+    private static MedicDto myself;
 
-    private MedicViewModel(Application application){
+    public MedicViewModel(Application application, String token){
         super(application);
-        medicRestRepository = new MedicRestRepository(application);
+        medicRestRepository = new MedicRestRepository(application, token);
         myself = medicRestRepository.getMyself();
     }
 
@@ -22,7 +22,8 @@ public class MedicViewModel extends AndroidViewModel {
         this.medicRestRepository = medicRestRepository;
     }
 
-    public MedicDto getMyself() {
+    public static MedicDto getMyself() {
+
         return myself;
     }
 }

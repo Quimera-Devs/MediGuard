@@ -6,20 +6,21 @@ import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Header;
 
 public class MedicRestRepository {
     private UserService apiService = ApiClient.getRetrofit().create(UserService.class);
     private MedicDto myself = new MedicDto();
     private Application application;
 
-    public MedicRestRepository(Application application){
+    public MedicRestRepository(Application application, String token){
         this.application = application;
-        loadMyself();
+        loadMyself(token);
     }
 
-    public void loadMyself(){
+    public void loadMyself(String token){
         myself=null;
-        Call<MedicDto> call = apiService.getMedic();
+        Call<MedicDto> call = apiService.getMedic(token);
         call.enqueue(new Callback<MedicDto>() {
             @Override
             public void onResponse(Call<MedicDto> call,
