@@ -8,5 +8,6 @@
     <color name="colorSombraClaro">#EBEBEB</color>
     <color name="colorSombraOscuro">#A1A1A1</color>
     <color name="colorCeleste">#4F7DFB</color>
-
+    <color name="colorNegro">#000000</color>
+    <color name="colorNegroTransparente">#11000000</color>
 </resources>

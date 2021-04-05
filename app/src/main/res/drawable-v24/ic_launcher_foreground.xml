@@ -9,9 +9,9 @@
     <group>
         <path
             android:pathData="M460 66L475.5 66L476 66.5L476 486L56.5 486L56 485.5L56 473L460 473L460 66Z"
-            android:fillColor="#000000"
+            android:fillColor="@color/colorNegro"
             android:fillAlpha="0.3411765"
-            android:strokeColor="#000000"
+            android:strokeColor="@color/colorNegro"
             android:strokeAlpha="0.3411765"
             android:strokeWidth="1" />
         <path
@@ -21,13 +21,13 @@
             android:strokeWidth="1" />
         <path
             android:pathData="M62 74L254 74L254 451L62 451L62 74Z"
-            android:fillColor="#FFFFFF"
-            android:strokeColor="#FFFFFF"
+            android:fillColor="@color/colorBlanco"
+            android:strokeColor="@color/colorBlanco"
             android:strokeWidth="1" />
         <path
             android:pathData="M367 380L444 380L444 451L367 451L367 380Z"
-            android:fillColor="#FFFFFF"
-            android:strokeColor="#FFFFFF"
+            android:fillColor="@color/colorBlanco"
+            android:strokeColor="@color/colorBlanco"
             android:strokeWidth="1" />
     </group>
 
