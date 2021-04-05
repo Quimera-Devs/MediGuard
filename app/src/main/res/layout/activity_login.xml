@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="206dp"
         android:contentDescription="@string/img_Logo"
-        app:srcCompat="@drawable/logo_nuevo2" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,32 +24,32 @@
         android:textColor="@color/colorSecundario"
         android:textSize="24sp" />
 
-    <TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:hint="@string/hintUsuario"
         android:layout_height="wrap_content">
-        <TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:inputType="text"
             android:id="@+id/edUsername"
             android:layout_height="wrap_content" />
-    </TextInputLayout>
-    <TextInputLayout
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_marginTop="30dp"
         android:hint="@string/hintContraseña"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_height="wrap_content">
-        <TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:inputType="textPassword"
             android:id="@+id/edPassword"
             android:layout_height="wrap_content" />
-    </TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnLogin"
