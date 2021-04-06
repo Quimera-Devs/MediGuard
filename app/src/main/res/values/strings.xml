@@ -10,6 +10,6 @@
     <string name="activity_name_dashboard">Dashboard</string>
     <string name="activity_name_avalible_guards">Guardias disponibles</string>
     <string name="activity_name_my_guards">Mis guardias</string>
-    <string name="activity_name_user_panel">Panel de usuario</string>
+    <string name="activity_name_user_panel">Opciones de usuario</string>
     <string name="activity_name_about">Acerca de</string>
 </resources>
