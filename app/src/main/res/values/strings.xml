@@ -1,10 +1,15 @@
 <resources>
-        <string name="app_name">MediGuard</string>
-        <string name="title_activity_login">Bienvenido a MediGuard</string>
-        <string name="btn_login">Ingresar</string>
-        <string name="hintUsuario">Usuario</string>
-        <string name="hintContraseña">Contraseña</string>
-        <string name="img_Logo">Logo</string>
-        <string name="nav_header_desc">Navigation header</string>
-        <string name="action_settings">Settings</string>
+    <string name="app_name">MediGuard</string>
+    <string name="title_activity_login">Bienvenido a MediGuard</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="hintUsuario">Usuario</string>
+    <string name="hintContraseña">Contraseña</string>
+    <string name="img_Logo">Logo</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="activity_name_dashboard">Dashboard</string>
+    <string name="activity_name_avalible_guards">Guardias disponibles</string>
+    <string name="activity_name_my_guards">Mis guardias</string>
+    <string name="activity_name_user_panel">Panel de usuario</string>
+    <string name="activity_name_about">Acerca de</string>
 </resources>
