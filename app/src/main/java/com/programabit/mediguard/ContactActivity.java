@@ -5,15 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
-public class AboutActivity extends AppCompatActivity {
+public class ContactActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_contact);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_about, true);
+        appToolbar(toolbar, R.string.activity_name_contact,true);
     }
 
     private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {

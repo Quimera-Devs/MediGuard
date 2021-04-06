@@ -7,8 +7,13 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
+        android:id="@+id/mContact"
+        android:title="@string/activity_name_contact"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/mAbout"
         android:title="@string/activity_name_about"
-        android:orderInCategory="101"
+        android:orderInCategory="102"
         app:showAsAction="never" />
 </menu>

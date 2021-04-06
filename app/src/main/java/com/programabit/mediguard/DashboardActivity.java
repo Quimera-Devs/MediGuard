@@ -44,6 +44,10 @@ public class DashboardActivity extends AppCompatActivity {
                 Intent intentSettings = new Intent(this, UserSettingsActivity.class);
                 startActivity(intentSettings);
                 break;
+            case R.id.mContact:
+                Intent intentContact = new Intent(this, ContactActivity.class);
+                startActivity(intentContact);
+                break;
             case R.id.mAbout:
                 Intent intentAbout = new Intent(this, AboutActivity.class);
                 startActivity(intentAbout);
