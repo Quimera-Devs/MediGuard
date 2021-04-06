@@ -1,5 +1,8 @@
 package com.programabit.mediguard.rest;
 
+import android.util.Log;
+
+import com.programabit.mediguard.DashboardActivity;
 import com.programabit.mediguard.LoginRequest;
 import com.programabit.mediguard.LoginResponse;
 
@@ -21,6 +24,7 @@ public interface UserService {
 
     @GET("/guardias_disponibles")
     Call<List<GuardDto>> getAvailableGuardsGuards();
+
 
     @GET("/medico_datos")
     Call<MedicDto> getMedic(@Header("Authorization") String token);

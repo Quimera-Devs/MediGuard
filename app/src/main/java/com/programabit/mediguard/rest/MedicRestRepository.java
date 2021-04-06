@@ -1,32 +1,42 @@
 package com.programabit.mediguard.rest;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Header;
 
 public class MedicRestRepository {
     private UserService apiService = ApiClient.getRetrofit().create(UserService.class);
     private MedicDto myself = new MedicDto();
     private Application application;
+    private String token;
 
-    public MedicRestRepository(Application application, String token){
+    public MedicRestRepository(Application application, String tokenValue){
         this.application = application;
-        loadMyself(token);
+        Log.i("creating medicrepo","aa");
+        token = tokenValue;
+        loadMyself();
+        Log.i("created medicrepo","aa");
     }
 
-    public void loadMyself(String token){
+    public void loadMyself(){
         myself=null;
-        Call<MedicDto> call = apiService.getMedic(token);
+        Call<MedicDto> call = apiService.getMedic("Token "+this.token);
         call.enqueue(new Callback<MedicDto>() {
             @Override
             public void onResponse(Call<MedicDto> call,
                                    Response<MedicDto> response) {
+                while (response.body() ==null){
+
+                }
                 MedicDto thisMedic = response.body();
+                Log.i("response body",response.body().toString());
+                Log.i("response body",response.body().getNombre_apellido());
                 if(thisMedic != null){
+
                     myself = thisMedic;
                 }
             }

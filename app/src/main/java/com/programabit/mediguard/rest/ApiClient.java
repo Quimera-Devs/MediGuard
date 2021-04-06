@@ -12,7 +12,9 @@ public class ApiClient {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().
+                addInterceptor(httpLoggingInterceptor).
+                build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -22,7 +24,6 @@ public class ApiClient {
 
         return retrofit;
     }
-
 
     public static UserService getUserService(){
         UserService userService = getRetrofit().create(UserService.class);
