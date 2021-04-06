@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.programabit.mediguard.rest.GuardsViewModel;
 import com.programabit.mediguard.rest.MedicDto;
 import com.programabit.mediguard.rest.MedicViewModel;
 

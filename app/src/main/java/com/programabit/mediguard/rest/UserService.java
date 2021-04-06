@@ -20,10 +20,10 @@ public interface UserService {
     Call<LoginResponse> userLogin(@Body LoginRequest loginRequest);
 
     @GET("/mis_guardias")
-    Call<List<GuardDto>> getMyGuards();
+    Call<List<GuardDto>> getMyGuards(@Header("Authorization") String token);
 
     @GET("/guardias_disponibles")
-    Call<List<GuardDto>> getAvailableGuardsGuards();
+    Call<List<GuardDto>> getAvailableGuardsGuards(@Header("Authorization") String token);
 
 
     @GET("/medico_datos")

@@ -13,10 +13,12 @@ import java.util.List;
 public class GuardsViewModel extends AndroidViewModel {
     private GuardRestRepository guardRestRepository;
     private final MutableLiveData<List<GuardDto>> myGuards;
+    private String token;
 
-    private GuardsViewModel(Application application){
+    private GuardsViewModel(Application application, String tokenValue){
         super(application);
-        guardRestRepository = new GuardRestRepository(application);
+        token = tokenValue;
+        guardRestRepository = new GuardRestRepository(application,tokenValue);
         myGuards = guardRestRepository.getMyGuards();
     }
 
