@@ -5,16 +5,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.programabit.mediguard.rest.ApiClient;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import okhttp3.OkHttp;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity{
     TextInputEditText username, password;
@@ -56,11 +62,12 @@ public class LoginActivity extends AppCompatActivity{
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this,"Acceso Correcto", Toast.LENGTH_LONG).show();
                     LoginResponse loginResponse = response.body();
+                    Log.i("login succesfull", loginResponse.getToken());
 
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data",loginResponse.getUsername()));
+                            startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data",loginResponse.getToken()));
                         }
                     },700);
 

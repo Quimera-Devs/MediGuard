@@ -6,6 +6,7 @@ public class LoginResponse {
     private int user_id;
     private String email;
     private String username;
+    private String token;
 
     public int getUser_id() {
         return user_id;
@@ -29,5 +30,9 @@ public class LoginResponse {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getToken() {
+        return token;
     }
 }
