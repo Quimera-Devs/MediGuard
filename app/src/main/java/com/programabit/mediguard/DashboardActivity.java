@@ -4,14 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.util.Log;
 import android.widget.TextView;
 
-public class DashboardActivity extends AppCompatActivity {
+import com.programabit.mediguard.rest.MedicDto;
+import com.programabit.mediguard.rest.MedicViewModel;
 
+public class DashboardActivity extends AppCompatActivity {
+    MedicViewModel medicViewModel;
     TextView username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +28,13 @@ public class DashboardActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if(intent.getExtras() != null){
-            String passedUsername = intent.getStringExtra("data");
-            username.setText("Welcome "+passedUsername);
+            String passedToken = intent.getStringExtra("data");
+            medicViewModel = new MedicViewModel(this.getApplication(),passedToken );
+            MedicDto myself = medicViewModel.getMyself();
+            if(myself !=null){
+                Log.i("Token test", myself.getDepartamento());
+                username.setText("Welcome "+ myself.getDepartamento());
+            }
         }
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
