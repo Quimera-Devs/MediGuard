@@ -30,10 +30,6 @@ public class UserSettingsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.mSettings:
-                Intent intentSettings = new Intent(this, UserSettingsActivity.class);
-                startActivity(intentSettings);
-                break;
             case R.id.mContact:
                 Intent intentContact = new Intent(this, ContactActivity.class);
                 startActivity(intentContact);
