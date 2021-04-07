@@ -38,11 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
-                    tools:listitem="@layout/guard_item"
-                    app:layout_constraintBottom_ToBottomOf="parent"
-                    app:layout_constraintLeft_ToLeftOf="parent"
-                    app:layout_constraintRight_ToRightOf="parent"
-                    app:layout_constrainttOP_TotOPOf="parent"/>
+                    tools:listitem="@layout/guard_item" />
 
             <View
                     android:layout_height="3dip"

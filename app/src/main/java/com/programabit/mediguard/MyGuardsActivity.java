@@ -27,15 +27,7 @@ public class MyGuardsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_guards);
 
         recyclerView = findViewById(R.id.mis_guardias_recycler_id);
-        final MyGuardsListAdapter adapter =
-                new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        guardsViewModel = new ViewModelProvider(this).get(GuardsViewModel.class);
-        guardsViewModel.getMyGuards().observe(this, myGuards -> {
-            adapter.submitList(myGuards);
-        });
 
         cargarMisGuardiasCards();
     }
