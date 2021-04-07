@@ -31,6 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
         appToolbar(toolbar, R.string.activity_name_dashboard,false);
     }
 
+    // AppBar (toolbar y menu):
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
