@@ -10,6 +10,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff">
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,15 +35,13 @@
                 android:text="Guardias disponibles"
                 android:gravity="center"/>
 
+
                 <androidx.recyclerview.widget.RecyclerView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/recyclerViewGuards"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
-                    android:id="@+id/recyclerView"
-                    tools:context="example.javatpoint.com.recyclerviewlist.MainActivity">
-                 </androidx.recyclerview.widget.RecyclerView>
+                    tools:listitem="@layout/guard_item" />
 
             <View
                     android:layout_height="3dip"
