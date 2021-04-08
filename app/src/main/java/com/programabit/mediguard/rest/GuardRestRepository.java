@@ -17,14 +17,16 @@ public class GuardRestRepository {
     private MutableLiveData<List<GuardDto>> myGuards = new MutableLiveData<>();
     private MutableLiveData<List<GuardDto>> availableGuards = new MutableLiveData<>();
     private Application application;
+    private String token;
 
-    public GuardRestRepository(Application application){
+    public GuardRestRepository(Application application, String tokenValue) {
         this.application = application;
+        this.token = tokenValue;
     }
 
     public void loadMyGuards(){
         myGuards.setValue(new ArrayList<>());
-        Call<List<GuardDto>> call = apiService.getMyGuards();
+        Call<List<GuardDto>> call = apiService.getMyGuards("Token "+this.token);
         call.enqueue(new Callback<List<GuardDto>>() {
             @Override
             public void onResponse(Call<List<GuardDto>> call,
@@ -45,7 +47,7 @@ public class GuardRestRepository {
 
     public void loadAvailableGuards(){
         availableGuards.setValue(new ArrayList<>());
-        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards();
+        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token "+this.token);
         call.enqueue(new Callback<List<GuardDto>>() {
             @Override
             public void onResponse(Call<List<GuardDto>> call,

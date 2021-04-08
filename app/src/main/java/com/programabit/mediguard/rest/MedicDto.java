@@ -1,5 +1,7 @@
 package com.programabit.mediguard.rest;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class MedicDto {
@@ -21,8 +23,8 @@ public class MedicDto {
     @SerializedName("departamento")
     private String departamento;
 
-    public MedicDto(String nombre_apellido, int ci, int ranking, int usuario, int nroCaja,
-                    int telefono, String direccion, String departamento) {
+    public MedicDto(int ci, String nombre_apellido, int ranking, int nroCaja,
+                    int telefono, String departamento, String direccion, int usuario) {
         this.nombre_apellido = nombre_apellido;
         this.ci = ci;
         this.ranking = ranking;
@@ -99,4 +101,5 @@ public class MedicDto {
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
+
 }

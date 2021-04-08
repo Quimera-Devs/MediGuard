@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,27 +12,46 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.programabit.mediguard.rest.MedicDto;
-import com.programabit.mediguard.rest.MedicViewModel;
+import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
+
+import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
-    MedicViewModel medicViewModel;
+    //MedicViewModel medicViewModel;
+    MedicRestRepositoryAsync medicRepo;
     TextView username;
+    String myToken = "";
+    MedicDto myself;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
         username = findViewById(R.id.username);
 
         Intent intent = getIntent();
 
         if(intent.getExtras() != null){
-            String passedToken = intent.getStringExtra("data");
-            medicViewModel = new MedicViewModel(this.getApplication(),passedToken );
-            MedicDto myself = medicViewModel.getMyself();
+            myToken = (intent.getStringExtra("data"));
+            Log.i("app token value set: ",myToken);
+            medicRepo = new MedicRestRepositoryAsync(this.getApplication(),myToken);
+            medicRepo.execute(new String[]{myToken});
+            try {
+                myself = medicRepo.get();
+                Log.i("try myself","getting");
+                Log.i("try myself",myself.getNombre_apellido());
+            } catch (ExecutionException e) {
+                Log.i("excecute exception",e.getMessage());
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                Log.i("interrup exception",e.getMessage());
+                e.printStackTrace();
+            }
+            Log.i("medicRepo created","ok");
+
+            Log.i("loged in user","aaaaaaa");
             if(myself !=null){
-                Log.i("Token test", myself.getDepartamento());
-                username.setText("Welcome "+ myself.getDepartamento());
+                //Log.i("Token test", myself.getDepartamento());
+                username.setText("Welcome "+ myself.getNombre_apellido());
             }
         }
 
@@ -71,5 +89,9 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setSubtitle(activity_name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
+    }
+
+    public String getMyTokenValue() {
+        return this.myToken;
     }
 }
