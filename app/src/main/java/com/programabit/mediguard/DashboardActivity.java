@@ -11,14 +11,17 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.programabit.mediguard.rest.GuardsViewModel;
 import com.programabit.mediguard.rest.MedicDto;
-import com.programabit.mediguard.rest.MedicViewModel;
+import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
+
+import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
-    MedicViewModel medicViewModel;
+    //MedicViewModel medicViewModel;
+    MedicRestRepositoryAsync medicRepo;
     TextView username;
     String myToken = "";
+    MedicDto myself;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,16 +33,26 @@ public class DashboardActivity extends AppCompatActivity {
         if(intent.getExtras() != null){
             myToken = (intent.getStringExtra("data"));
             Log.i("app token value set: ",myToken);
-            medicViewModel = new MedicViewModel(this.getApplication(), myToken);
-            Log.i("medicviewmodel created","ok");
+            medicRepo = new MedicRestRepositoryAsync(this.getApplication(),myToken);
+            medicRepo.execute(new String[]{myToken});
+            try {
+                myself = medicRepo.get();
+                Log.i("try myself","getting");
+                Log.i("try myself",myself.getNombre_apellido());
+            } catch (ExecutionException e) {
+                Log.i("excecute exception",e.getMessage());
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                Log.i("interrup exception",e.getMessage());
+                e.printStackTrace();
+            }
+            Log.i("medicRepo created","ok");
 
-            MedicDto myself = medicViewModel.getMyself();
-
-            Log.i("loged in user",myself.toString());
-            //if(myself !=null){
+            Log.i("loged in user","aaaaaaa");
+            if(myself !=null){
                 //Log.i("Token test", myself.getDepartamento());
-                //username.setText("Welcome "+ myself.getNombre_apellido());
-            //}
+                username.setText("Welcome "+ myself.getNombre_apellido());
+            }
         }
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
