@@ -1,10 +1,13 @@
 package com.programabit.mediguard.rest;
 
 import android.app.Application;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +15,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GuardRestRepository {
+public class GuardRestRepository extends AsyncTask<String,Void,List<GuardDto>> {
+
     private UserService apiService = ApiClient.getRetrofit().create(UserService.class);
-    private MutableLiveData<List<GuardDto>> myGuards = new MutableLiveData<>();
     private MutableLiveData<List<GuardDto>> availableGuards = new MutableLiveData<>();
     private Application application;
     private String token;
@@ -22,30 +25,34 @@ public class GuardRestRepository {
     public GuardRestRepository(Application application, String tokenValue) {
         this.application = application;
         this.token = tokenValue;
+        Log.i("GuardsRestRepo","repo created");
+
     }
 
-    public void loadMyGuards(){
-        myGuards.setValue(new ArrayList<>());
-        Call<List<GuardDto>> call = apiService.getMyGuards("Token "+this.token);
-        call.enqueue(new Callback<List<GuardDto>>() {
-            @Override
-            public void onResponse(Call<List<GuardDto>> call,
-                                   Response<List<GuardDto>> response) {
-                List<GuardDto> misGuardiasList = response.body();
-                if(misGuardiasList != null){
-                    myGuards.setValue(misGuardiasList);
-                }
-            }
+    @Override
+    protected List<GuardDto> doInBackground(String... strings) {
+        Call<List<GuardDto>> call = apiService.getMyGuards("Token " + strings[0]);
+        Log.i("GuardsViewModel","background call request");
+        Response response = null;
+        List<GuardDto> guardsList = null;
+        try {
+            response = call.execute();
+            Log.i("GuardsViewModel","try response");
 
-            @Override
-            public void onFailure(Call<List<GuardDto>> call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(),"Error: "+t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        } catch (IOException e) {
+            Log.i("response ioexception", e.getMessage());
+            e.printStackTrace();
+        }
+        if (response.isSuccessful()) {
+            guardsList = (List<GuardDto>) response.body();
+            Log.i("GuardsViewModel","got data");
+            return guardsList;
+        }else {
+            return null;
+        }
     }
 
-    public void loadAvailableGuards(){
+    public void loadAvailableGuards() {
         availableGuards.setValue(new ArrayList<>());
         Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token "+this.token);
         call.enqueue(new Callback<List<GuardDto>>() {
@@ -53,14 +60,14 @@ public class GuardRestRepository {
             public void onResponse(Call<List<GuardDto>> call,
                                    Response<List<GuardDto>> response) {
                 List<GuardDto> guardList = response.body();
-                if(guardList != null){
+                if (guardList != null) {
                     availableGuards.setValue(guardList);
                 }
             }
 
             @Override
             public void onFailure(Call<List<GuardDto>> call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(),"Error: "+t.getMessage(),
+                Toast.makeText(application.getApplicationContext(), "Error: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -72,14 +79,6 @@ public class GuardRestRepository {
 
     public void setApiService(UserService apiService) {
         this.apiService = apiService;
-    }
-
-    public MutableLiveData<List<GuardDto>> getMyGuards() {
-        return myGuards;
-    }
-
-    public void setMyGuards(MutableLiveData<List<GuardDto>> myGuards) {
-        this.myGuards = myGuards;
     }
 
     public MutableLiveData<List<GuardDto>> getAvailableGuards() {
@@ -97,4 +96,5 @@ public class GuardRestRepository {
     public void setApplication(Application application) {
         this.application = application;
     }
+
 }
