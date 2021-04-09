@@ -10,9 +10,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.programabit.mediguard.rest.GuardRestRepository;
 import com.programabit.mediguard.rest.GuardsViewModel;
 import com.programabit.mediguard.rest.MedicDto;
 import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
@@ -25,13 +26,15 @@ public class DashboardActivity extends AppCompatActivity {
     TextView username;
     String myToken = "";
     MedicDto myself;
-
+    Button myButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         username = findViewById(R.id.username);
+        myButton = findViewById(R.id.button);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
+
 
         Intent intent = getIntent();
 
@@ -66,6 +69,13 @@ public class DashboardActivity extends AppCompatActivity {
         guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
 
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Dashboard","Go to My Guards Activity");
+                startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("data",myToken));
+            }
+        });
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         appToolbar(toolbar, R.string.activity_name_dashboard,false);
     }
@@ -104,5 +114,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     public String getMyTokenValue() {
         return this.myToken;
+    }
+
+    public GuardsViewModel getGuardsViewModel() {
+        return guardsViewModel;
     }
 }
