@@ -3,6 +3,7 @@ package com.programabit.mediguard;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,49 +12,59 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.programabit.mediguard.rest.GuardRestRepository;
+import com.programabit.mediguard.rest.GuardsViewModel;
 import com.programabit.mediguard.rest.MedicDto;
 import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
 
 import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
-    //MedicViewModel medicViewModel;
     MedicRestRepositoryAsync medicRepo;
+    GuardsViewModel guardsViewModel;
     TextView username;
     String myToken = "";
     MedicDto myself;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         username = findViewById(R.id.username);
+        final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
         Intent intent = getIntent();
 
-        if(intent.getExtras() != null){
+        if(intent.getExtras() != null) {
             myToken = (intent.getStringExtra("data"));
-            Log.i("app token value set: ",myToken);
-            medicRepo = new MedicRestRepositoryAsync(this.getApplication(),myToken);
+            medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
             medicRepo.execute(new String[]{myToken});
+
+
             try {
                 myself = medicRepo.get();
-                Log.i("try myself","getting");
-                Log.i("try myself",myself.getNombre_apellido());
             } catch (ExecutionException e) {
-                Log.i("excecute exception",e.getMessage());
+                Log.i("excecute exception", e.getMessage());
                 e.printStackTrace();
             } catch (InterruptedException e) {
-                Log.i("interrup exception",e.getMessage());
+                Log.i("interrup exception", e.getMessage());
                 e.printStackTrace();
             }
-            Log.i("medicRepo created","ok");
-
-            Log.i("loged in user","aaaaaaa");
-            if(myself !=null){
-                //Log.i("Token test", myself.getDepartamento());
-                username.setText("Welcome "+ myself.getNombre_apellido());
+            if (myself != null) {
+                username.setText("Welcome " + myself.getNombre_apellido());
+                Log.i("dashboard","got user correctly");
             }
         }
+
+        guardsViewModel = new ViewModelProvider(this,
+                new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
+        Log.i("dashboard","guardsViewModel created");
+        guardsViewModel.getMyGuards().observe(this,
+                myGuards->{adapter.submitList(myGuards);});
+
+        Log.i("dashboard","observing my guards");
+        guardsViewModel.getNumGuards();
+        Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         appToolbar(toolbar, R.string.activity_name_dashboard,false);
