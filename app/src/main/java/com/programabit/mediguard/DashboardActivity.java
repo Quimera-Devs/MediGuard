@@ -10,18 +10,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.programabit.mediguard.rest.MedicDto;
 import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
 
 import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
+
     //MedicViewModel medicViewModel;
     MedicRestRepositoryAsync medicRepo;
     TextView username;
     String myToken = "";
     MedicDto myself;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +64,35 @@ public class DashboardActivity extends AppCompatActivity {
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         appToolbar(toolbar, R.string.activity_name_dashboard,false);
+
+        String TAG = "DashboardActivity";
+        
+        FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = ("Mediguard se ha sincronizado");
+                        if (!task.isSuccessful()) {
+                           msg = getString(R.string.msg_subscribe_failed);
+                        }
+                        Log.d(TAG, msg);
+                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+        
+        FirebaseMessaging.getInstance().subscribeToTopic(myself.getDepartamento())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = ("Departamento de registro: " + myself.getDepartamento());
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+                        Log.d(TAG, msg);
+                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     // AppBar (toolbar y menu):

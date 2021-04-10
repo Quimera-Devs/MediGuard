@@ -1,0 +1,426 @@
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\nbuildscript {\n    repositories {\n        google()\n        jcenter()\n    }\n    dependencies {\n        classpath 'com.android.tools.build:gradle:4.1.3'\n\n        // NOTE: Do not place your application dependencies here; they belong\n        // in the individual module build.gradle files\n    }\n}\n\nallprojects {\n    repositories {\n        google()\n        jcenter()\n    }\n}\n\ntask clean(type: Delete) {\n    delete rootProject.buildDir\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision 501c4e0f9f73c4f342272eadaaa4f39f68466368)
++++ build.gradle	(date 1617973868000)
+@@ -6,6 +6,7 @@
+     }
+     dependencies {
+         classpath 'com.android.tools.build:gradle:4.1.3'
++        classpath 'com.google.gms:google-services:4.3.5'
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.gitignore	(date 1617927176000)
++++ .idea/.gitignore	(date 1617927176000)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: app/src/main/java/com/programabit/mediguard/DashboardActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.programabit.mediguard;\n\nimport androidx.annotation.NonNull;\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.appcompat.widget.Toolbar;\n\nimport android.content.Intent;\nimport android.os.Bundle;\nimport android.view.Menu;\nimport android.view.MenuItem;\nimport android.util.Log;\nimport android.widget.TextView;\n\nimport com.programabit.mediguard.rest.MedicDto;\nimport com.programabit.mediguard.rest.MedicRestRepositoryAsync;\n\nimport java.util.concurrent.ExecutionException;\n\npublic class DashboardActivity extends AppCompatActivity {\n    //MedicViewModel medicViewModel;\n    MedicRestRepositoryAsync medicRepo;\n    TextView username;\n    String myToken = \"\";\n    MedicDto myself;\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_dashboard);\n        username = findViewById(R.id.username);\n\n        Intent intent = getIntent();\n\n        if(intent.getExtras() != null){\n            myToken = (intent.getStringExtra(\"data\"));\n            Log.i(\"app token value set: \",myToken);\n            medicRepo = new MedicRestRepositoryAsync(this.getApplication(),myToken);\n            medicRepo.execute(new String[]{myToken});\n            try {\n                myself = medicRepo.get();\n                Log.i(\"try myself\",\"getting\");\n                Log.i(\"try myself\",myself.getNombre_apellido());\n            } catch (ExecutionException e) {\n                Log.i(\"excecute exception\",e.getMessage());\n                e.printStackTrace();\n            } catch (InterruptedException e) {\n                Log.i(\"interrup exception\",e.getMessage());\n                e.printStackTrace();\n            }\n            Log.i(\"medicRepo created\",\"ok\");\n\n            Log.i(\"loged in user\",\"aaaaaaa\");\n            if(myself !=null){\n                //Log.i(\"Token test\", myself.getDepartamento());\n                username.setText(\"Welcome \"+ myself.getNombre_apellido());\n            }\n        }\n\n        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);\n        appToolbar(toolbar, R.string.activity_name_dashboard,false);\n    }\n\n    // AppBar (toolbar y menu):\n    @Override\n    public boolean onCreateOptionsMenu(Menu menu) {\n        getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);\n        return true;\n    }\n\n    @Override\n    public boolean onOptionsItemSelected(@NonNull MenuItem item) {\n        switch (item.getItemId()) {\n            case R.id.mSettings:\n                Intent intentSettings = new Intent(this, UserSettingsActivity.class);\n                startActivity(intentSettings);\n                break;\n            case R.id.mContact:\n                Intent intentContact = new Intent(this, ContactActivity.class);\n                startActivity(intentContact);\n                break;\n            case R.id.mAbout:\n                Intent intentAbout = new Intent(this, AboutActivity.class);\n                startActivity(intentAbout);\n                break;\n        }\n        return super.onOptionsItemSelected(item);\n    }\n\n    private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {\n        setSupportActionBar(toolbar);\n        getSupportActionBar().setSubtitle(activity_name);\n        getSupportActionBar().setDisplayHomeAsUpEnabled(enable);\n    }\n\n    public String getMyTokenValue() {\n        return this.myToken;\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/programabit/mediguard/DashboardActivity.java	(revision 501c4e0f9f73c4f342272eadaaa4f39f68466368)
++++ app/src/main/java/com/programabit/mediguard/DashboardActivity.java	(date 1617996205000)
+@@ -10,18 +10,25 @@
+ import android.view.MenuItem;
+ import android.util.Log;
+ import android.widget.TextView;
++import android.widget.Toast;
+ 
++import com.google.android.gms.tasks.OnCompleteListener;
++import com.google.android.gms.tasks.Task;
++import com.google.firebase.messaging.FirebaseMessaging;
+ import com.programabit.mediguard.rest.MedicDto;
+ import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
+ 
+ import java.util.concurrent.ExecutionException;
+ 
+ public class DashboardActivity extends AppCompatActivity {
++
+     //MedicViewModel medicViewModel;
+     MedicRestRepositoryAsync medicRepo;
+     TextView username;
+     String myToken = "";
+     MedicDto myself;
++
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+@@ -57,6 +64,35 @@
+ 
+         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+         appToolbar(toolbar, R.string.activity_name_dashboard,false);
++
++        String TAG = "DashboardActivity";
++        
++        FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
++                .addOnCompleteListener(new OnCompleteListener<Void>() {
++
++                    @Override
++                    public void onComplete(@NonNull Task<Void> task) {
++                        String msg = ("Mediguard se ha sincronizado");
++                        if (!task.isSuccessful()) {
++                           msg = getString(R.string.msg_subscribe_failed);
++                        }
++                        Log.d(TAG, msg);
++                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
++                    }
++                });
++        
++        FirebaseMessaging.getInstance().subscribeToTopic(myself.getDepartamento())
++                .addOnCompleteListener(new OnCompleteListener<Void>() {
++                    @Override
++                    public void onComplete(@NonNull Task<Void> task) {
++                        String msg = ("Departamento de registro: " + myself.getDepartamento());
++                        if (!task.isSuccessful()) {
++                            msg = getString(R.string.msg_subscribe_failed);
++                        }
++                        Log.d(TAG, msg);
++                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
++                    }
++                });
+     }
+ 
+     // AppBar (toolbar y menu):
+Index: app/src/main/java/com/programabit/mediguard/MyFirebaseMessagingService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/programabit/mediguard/MyFirebaseMessagingService.java	(date 1617985431000)
++++ app/src/main/java/com/programabit/mediguard/MyFirebaseMessagingService.java	(date 1617985431000)
+@@ -0,0 +1,75 @@
++package com.programabit.mediguard;
++
++import android.app.Notification;
++import android.app.NotificationChannel;
++import android.app.NotificationManager;
++import android.app.PendingIntent;
++import android.content.Context;
++import android.content.Intent;
++import android.media.RingtoneManager;
++import android.net.Uri;
++import android.os.Build;
++import android.util.Log;
++import android.widget.ImageView;
++import android.widget.Toast;
++
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.core.app.NotificationCompat;
++import androidx.core.app.NotificationManagerCompat;
++
++import com.google.firebase.messaging.FirebaseMessagingService;
++import com.google.firebase.messaging.RemoteMessage;
++
++public class MyFirebaseMessagingService extends FirebaseMessagingService {
++    private static final String TAG = "MyFirebaseMsgService";
++
++    @Override
++    public void onMessageReceived(RemoteMessage remoteMessage) {
++        super.onMessageReceived(remoteMessage);
++
++        createNotificationChannel();
++
++        if (remoteMessage.getData().size() > 0) {
++            Log.d(TAG, "Message data payload: " + remoteMessage.getNotification().getBody());
++
++        }
++        if (remoteMessage.getNotification() != null) {
++            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
++        }
++        Notification notification = new NotificationCompat.Builder(this,"MediguardChannel")
++                .setContentTitle(remoteMessage.getNotification().getTitle())
++                .setContentText(remoteMessage.getNotification().getBody())
++                .setSmallIcon(R.mipmap.ic_launcher)
++                .build();
++
++        
++
++        NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
++        manager.notify(123, notification);
++    }
++
++    @Override
++    public void onNewToken(String token) {
++        super.onNewToken(token);
++        Log.e("newToken", token);
++        Log.d("TOKEN", "Debug del nuevo token " + token);
++    }
++
++    private void createNotificationChannel() {
++        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
++            CharSequence name = getString(R.string.channel_name);
++            String description = getString(R.string.channel_description);
++            int importance = NotificationManager.IMPORTANCE_DEFAULT;
++            NotificationChannel channel = new NotificationChannel("mediguardPush", "MediGuard Notifications", NotificationManager.IMPORTANCE_HIGH);
++            channel.setDescription(description);
++            // Register the channel with the system; you can't change the importance
++            // or other notification behaviors after this
++            NotificationManager notificationManager = getSystemService(NotificationManager.class);
++            notificationManager.createNotificationChannel(channel);
++        }
++    }
++    
++
++}
++
++
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    package=\"com.programabit.mediguard\">\n\n    <uses-permission android:name=\"android.permission.INTERNET\" />\n\n    <application\n        android:usesCleartextTraffic=\"true\"\n        android:allowBackup=\"true\"\n        android:icon=\"@mipmap/ic_launcher\"\n        android:label=\"@string/app_name\"\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\n        android:supportsRtl=\"true\"\n        android:theme=\"@style/AppTheme\">\n        <activity\n            android:name=\".ContactActivity\"\n            android:parentActivityName=\".DashboardActivity\">\n            <meta-data\n                android:name=\"android.support.PARENT_ACTIVITY\"\n                android:value=\".DashboardActivity\" />\n        </activity>\n        <activity\n            android:name=\".AboutActivity\"\n            android:parentActivityName=\".DashboardActivity\">\n            <meta-data\n                android:name=\"android.support.PARENT_ACTIVITY\"\n                android:value=\".DashboardActivity\" />\n        </activity>\n        <activity\n            android:name=\".UserSettingsActivity\"\n            android:parentActivityName=\".DashboardActivity\">\n            <meta-data\n                android:name=\"android.support.PARENT_ACTIVITY\"\n                android:value=\".DashboardActivity\" />\n        </activity>\n        <activity android:name=\".DashboardActivity\">\n            <meta-data\n                android:name=\"android.support.PARENT_ACTIVITY\"\n                android:value=\".LoginActivity\" />\n        </activity>\n        <activity\n            android:name=\".LoginActivity\"\n            android:parentActivityName=\".DashboardActivity\">\n            <meta-data\n                android:name=\"android.support.PARENT_ACTIVITY\"\n                android:value=\".DashboardActivity\" />\n\n            <intent-filter>\n                <action android:name=\"android.intent.action.MAIN\" />\n\n                <category android:name=\"android.intent.category.LAUNCHER\" />\n            </intent-filter>\n        </activity>\n        <activity\n            android:name=\".AvaibleGuards\"\n            android:parentActivityName=\".DashboardActivity\">\n            <meta-data\n                android:name=\"android.support.PARENT_ACTIVITY\"\n                android:value=\".DashboardActivity\" />\n        </activity>\n        <activity android:name=\".MyGuardsActivity\"></activity>\n    </application>\n\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 501c4e0f9f73c4f342272eadaaa4f39f68466368)
++++ app/src/main/AndroidManifest.xml	(date 1617986696000)
+@@ -59,6 +59,12 @@
+                 android:value=".DashboardActivity" />
+         </activity>
+         <activity android:name=".MyGuardsActivity"></activity>
++        <service
++            android:name=".MyFirebaseMessagingService">
++            <intent-filter>
++                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
++            </intent-filter>
++        </service>
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\n    <string name=\"app_name\">MediGuard</string>\n    <string name=\"title_activity_login\">Bienvenido a MediGuard</string>\n    <string name=\"btn_login\">Ingresar</string>\n    <string name=\"hintUsuario\">Usuario</string>\n    <string name=\"hintContraseña\">Contraseña</string>\n    <string name=\"img_Logo\">Logo</string>\n    <string name=\"nav_header_desc\">Navigation header</string>\n    <string name=\"action_settings\">Settings</string>\n    <string name=\"activity_name_dashboard\">Dashboard</string>\n    <string name=\"activity_name_avalible_guards\">Guardias disponibles</string>\n    <string name=\"activity_name_my_guards\">Mis guardias</string>\n    <string name=\"activity_name_user_panel\">Opciones de usuario</string>\n    <string name=\"activity_name_contact\">Contacto</string>\n    <string name=\"activity_name_about\">Acerca de</string>\n</resources>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 501c4e0f9f73c4f342272eadaaa4f39f68466368)
++++ app/src/main/res/values/strings.xml	(date 1617985545000)
+@@ -13,4 +13,8 @@
+     <string name="activity_name_user_panel">Opciones de usuario</string>
+     <string name="activity_name_contact">Contacto</string>
+     <string name="activity_name_about">Acerca de</string>
++
++    <string name="channel_name">mediguard_channel</string>
++    <string name="channel_description">Channel for notifications of the Mediguard application. Best and more beautiful than any other application.</string>
++    <string name="msg_subscribe_failed">NO se ha logrado suscribir el topico</string>
+ </resources>
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>*.iml\n.gradle\n/local.properties\n/.idea/caches\n/.idea/libraries\n/.idea/modules.xml\n/.idea/workspace.xml\n/.idea/navEditor.xml\n/.idea/assetWizardSettings.xml\n.DS_Store\n/build\n/captures\n.externalNativeBuild\n.cxx\n# Built application files\n*.apk\n*.ap_\n*.aab\n\n# Files for the ART/Dalvik VM\n*.dex\n\n# Java class files\n*.class\n\n# Generated files\nbin/\ngen/\nout/\n\n# Gradle files\n.gradle/\nbuild/\n\n# Local configuration file (sdk path, etc)\nlocal.properties\n\n# Proguard folder generated by Eclipse\nproguard/\n\n# Log Files\n*.log\n\n# Android Studio Navigation editor temp files\n.navigation/\n\n# Android Studio captures folder\ncaptures/\n\n# IntelliJ\n*.iml\n.idea/workspace.xml\n.idea/tasks.xml\n.idea/gradle.xml\n.idea/assetWizardSettings.xml\n.idea/dictionaries\n.idea/libraries\n.idea/caches\n\n# Keystore files\n# Uncomment the following lines if you do not want to check your keystore files in.\n#*.jks\n#*.keystore\n\n# External native build folder generated in Android Studio 2.2 and later\n.externalNativeBuild\n\n# Google Services (e.g. APIs or Firebase)\ngoogle-services.json\n\n# Freeline\nfreeline.py\nfreeline/\nfreeline_project_description.json\n\n# fastlane\nfastlane/report.xml\nfastlane/Preview.html\nfastlane/screenshots\nfastlane/test_output\nfastlane/readme.md\n.idea/vcs.xml\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .gitignore	(revision 501c4e0f9f73c4f342272eadaaa4f39f68466368)
++++ .gitignore	(date 1617973690000)
+@@ -66,7 +66,7 @@
+ .externalNativeBuild
+ 
+ # Google Services (e.g. APIs or Firebase)
+-google-services.json
++app/google-services.json
+ 
+ # Freeline
+ freeline.py
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\n\nandroid {\n    compileSdkVersion 30\n    buildToolsVersion \"30.0.2\"\n\n    defaultConfig {\n        applicationId \"com.programabit.mediguard\"\n        minSdkVersion 16\n        targetSdkVersion 30\n        versionCode 1\n        versionName \"1.0\"\n\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n    }\n\n    buildTypes {\n        release {\n            minifyEnabled false\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n        }\n    }\n    compileOptions {\n        sourceCompatibility JavaVersion.VERSION_1_8;\n        targetCompatibility JavaVersion.VERSION_1_8;\n    }\n}\n\ndependencies {\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\n    implementation 'androidx.appcompat:appcompat:1.2.0'\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\n    testImplementation 'junit:junit:4.13.2'\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\n    implementation 'com.google.android.material:material:1.1.0'\n    implementation 'com.squareup.retrofit2:retrofit:2.8.1'\n    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'\n    implementation 'com.squareup.okhttp3:logging-interceptor:4.6.0'\n\n    def room_version = \"2.2.6\"\n    implementation \"androidx.room:room-runtime:$room_version\"\n    annotationProcessor \"androidx.room:room-compiler:$room_version\"\n    // optional - RxJava support for Room\n    implementation \"androidx.room:room-rxjava2:$room_version\"\n    // optional - Guava support for Room, including Optional and ListenableFuture\n    implementation \"androidx.room:room-guava:$room_version\"\n    // optional - Test helpers\n    testImplementation \"androidx.room:room-testing:$room_version\"\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 501c4e0f9f73c4f342272eadaaa4f39f68466368)
++++ app/build.gradle	(date 1617973868000)
+@@ -1,4 +1,5 @@
+ apply plugin: 'com.android.application'
++apply plugin: 'com.google.gms.google-services'
+ 
+ android {
+     compileSdkVersion 30
+@@ -30,6 +31,7 @@
+     implementation fileTree(dir: "libs", include: ["*.jar"])
+     implementation 'androidx.appcompat:appcompat:1.2.0'
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
++    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+     testImplementation 'junit:junit:4.13.2'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(date 1617927176000)
++++ .idea/compiler.xml	(date 1617927176000)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="1.8" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/inspectionProfiles/Project_Default.xml	(date 1617927175000)
++++ .idea/inspectionProfiles/Project_Default.xml	(date 1617927175000)
+@@ -0,0 +1,86 @@
++<component name="InspectionProjectProfileManager">
++  <profile version="1.0">
++    <option name="myName" value="Project Default" />
++    <inspection_tool class="AccessorsWereOverridden" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="ArgumentSelectionDefects" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="AssociatedTypeMismatch" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="CallDealloc" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="ClangTidy" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="DeprecatedApi" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="DuplicateAttribute" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="DuplicateSwitchCase" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="EmptyDeclOrStmt" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="EndlessLoop" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="EqualityInConditionalOperator" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="FormatSpecifiers" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="FunctionImplicitDeclaration" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="HidesClassScope" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="HidesUpperScope" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="HidingNonVirtualFunction" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="IllegalIdentifier" enabled="false" level="ERROR" enabled_by_default="false" />
++    <inspection_tool class="ImplementationHasNoInterface" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="ImplicitIntegerAndEnumConversion" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="ImplicitPointerAndIntegerConversion" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="IncompatibleEnums" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="IncompatibleInitializers" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="IncompatiblePointers" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="InterfaceHasNoImplementation" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="KRUnspecifiedParameters" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="KeyValueCoding" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="LastArgumentMustBeNull" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="LocalValueEscapesScope" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="MemberFunctionCanBeStatic" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="MethodIsLaterInTheScope" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="MissingReturn" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="MissingSwitchCase" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NoAttributeForProperty" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NoClassDefinition" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NoGetterOrSetter" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotImplementedFunctions" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotImplementedMethods" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotImplementsProtocol" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotInHierarchyMessage" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotInitializedVariable" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotReleasedValue" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotSuperclass" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="NotVisibleClass" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCDFA" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCLegacyObjCLiteral" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCLoopDoesntUseConditionVariable" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCNotLocalizedString" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCNotReleasedIvar" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCSimplify" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedClass" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedConcept" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedGlobalDeclaration" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedInstanceVariable" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedMacro" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedMethod" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedProperty" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedStruct" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OCUnusedTemplateParameter" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OverriddenAttributeMismatch" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="OverriddenTypeMismatch" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="PrivateCategoryShouldBeNearImplementation" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="PropertyAndIvarTypeMismatch" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="ReleasingOfAssignProperties" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="ResourceNotFound" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="SetterForReadonlyProperty" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="SignednessMismatch" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="StringLocalization" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="TypeParameterFindViewById" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnavailableInDeploymentTarget" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnresolvedCollectionMessage" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnresolvedMessage" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnresolvedReference" enabled="false" level="ERROR" enabled_by_default="false" />
++    <inspection_tool class="UnusedExpressionResult" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnusedImportStatement" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnusedLocalVariable" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnusedLocalization" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnusedParameter" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UnusedValue" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="UsingZeroAsNil" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="ValueMayNotFitIntoReceiver" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="VirtualCallInCtorOrDtor" enabled="false" level="WARNING" enabled_by_default="false" />
++  </profile>
++</component>
+\ No newline at end of file
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/jarRepositories.xml	(date 1617927218000)
++++ .idea/jarRepositories.xml	(date 1617927218000)
+@@ -0,0 +1,25 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="BintrayJCenter" />
++      <option name="name" value="BintrayJCenter" />
++      <option name="url" value="https://jcenter.bintray.com/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="Google" />
++      <option name="name" value="Google" />
++      <option name="url" value="https://dl.google.com/dl/android/maven2/" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(date 1617927176000)
++++ .idea/misc.xml	(date 1617927176000)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/build/classes" />
++  </component>
++  <component name="ProjectType">
++    <option name="id" value="Android" />
++  </component>
++</project>
+\ No newline at end of file
