@@ -2,14 +2,10 @@ package com.programabit.mediguard;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.programabit.mediguard.rest.ApiClient;
 import com.programabit.mediguard.rest.GuardsViewModel;
-
-import java.util.List;
-
-import retrofit2.Call;
 
 public class AvaibleGuardsActivity extends AppCompatActivity {
 
@@ -19,10 +15,12 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.avaible_guards);
+        setContentView(R.layout.activity_avaible_guards);
 
-       // recyclerView = findViewById(R.id.);
-        //Call<List<AvaibleGuardsResponse>> response = ApiClient.getUserService().getAvaibleGuards();
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewGuards);
+        final AvaibleGuardsListAdapter adapter = new AvaibleGuardsListAdapter(new AvaibleGuardsListAdapter.guardDiff());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 }
