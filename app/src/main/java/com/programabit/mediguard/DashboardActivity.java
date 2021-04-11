@@ -3,6 +3,7 @@ package com.programabit.mediguard;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.programabit.mediguard.rest.GuardRestRepository;
@@ -23,6 +25,8 @@ public class DashboardActivity extends AppCompatActivity {
     MedicRestRepositoryAsync medicRepo;
     GuardsViewModel guardsViewModel;
     TextView username;
+    CardView cvMisGuardias;
+    CardView cvGuardiasDispo;
     String myToken = "";
     MedicDto myself;
 
@@ -30,8 +34,26 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        username = findViewById(R.id.username);
+        username = findViewById(R.id.tvBienvenido);
+        cvMisGuardias = findViewById(R.id.cvMisGuardias);
+        cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
+
+        cvMisGuardias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Dashboard","Go to My Guards Activity");
+                startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("data",myToken));
+            }
+        });
+
+        cvMisGuardias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Dashboard","Go to Avaible Guards Activity");
+                startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("data",myToken));
+            }
+        });
 
         Intent intent = getIntent();
 
@@ -51,7 +73,7 @@ public class DashboardActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (myself != null) {
-                username.setText("Welcome " + myself.getNombre_apellido());
+                username.setText("Bienvenido Dr." + myself.getNombre_apellido());
                 Log.i("dashboard","got user correctly");
             }
         }

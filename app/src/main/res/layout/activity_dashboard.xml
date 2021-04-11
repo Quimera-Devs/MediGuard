@@ -1,143 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorBlanco"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorSombraClaro"
+    android:weightSum="5"
     tools:context=".DashboardActivity">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-
-        <TextView
-            android:id="@+id/tvBienvenido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/bienvenido"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:typeface="sans"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="147dp" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="95dp" />
-
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:padding="10dp">
         <ImageView
-            android:id="@+id/imgvLogoDashboard"
-            android:layout_width="163dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:contentDescription="@string/img_Logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:srcCompat="@drawable/logo" />
+            android:id = "@+id/imgViewPP"
+            android:src="@drawable/logo"
+            android:layout_centerInParent="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent">
+        <TextView
+            android:id ="@+id/tvBienvenido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bienvenido"
+            android:textColor="@color/colorPrincipal"
+            android:layout_below="@id/imgViewPP"
+            android:layout_centerHorizontal="true"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
 
-            <androidx.cardview.widget.CardView
+
+    </RelativeLayout>
+    
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background = "@drawable/background_gridlayout"
+        android:rowCount="1"
+        android:columnCount="2"
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMisGuardias"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:elevation="4dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardCornerRadius="4dp">
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:padding="10dp">
+            <ImageView
+                android:id="@+id/imgMisGuardias"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:src="@drawable/booking_confirmed"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/misguardias"
+                    android:textColor="@color/colorPrincipal"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="false"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerInParent="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="53dp"
-                        android:layout_marginLeft="53dp"
-                        android:layout_marginTop="27dp"
-                        tools:srcCompat="@drawable/booking_confirmed" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvGuardiasDispo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:elevation="4dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardCornerRadius="4dp">
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView3"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/misguardias"
-                        android:textColor="@color/colorPrincipal"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:padding="10dp">
+                <ImageView
+                    android:id="@+id/imgGuardiasDispo"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/medicine_wellness"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guardiasdispo"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrincipal"/>
+            </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="false"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="48dp"
-                        android:layout_marginLeft="46dp"
-                        android:layout_marginTop="27dp"
-                        tools:srcCompat="@drawable/medicine_wellness" />
+    </GridLayout>
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imageView4"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/guardiasdispo"
-                        android:textColor="@color/colorPrincipal"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</LinearLayout>
