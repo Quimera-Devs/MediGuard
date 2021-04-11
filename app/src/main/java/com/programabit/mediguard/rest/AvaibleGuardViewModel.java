@@ -2,11 +2,12 @@ package com.programabit.mediguard.rest;
 
 import android.app.Application;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-public class AvaibleGuardViewModel {
+public class AvaibleGuardViewModel extends AndroidViewModel {
     private AvaibleGuardRestRpository guardRestRepository;
     private final MutableLiveData<List<GuardDto>> myGuards;
     private String token;
