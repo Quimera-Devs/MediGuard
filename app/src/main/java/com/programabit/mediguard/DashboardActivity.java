@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.programabit.mediguard.rest.MedicDto;
@@ -28,6 +30,14 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         username = findViewById(R.id.username);
 
+        Button button = findViewById(R.id.buttonAvaibleGuardsId);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentAvaibleGuard = new Intent(DashboardActivity.this, AvaibleGuardsActivity.class);
+                intentAvaibleGuard.putExtra("app token value set: ",myToken);
+                startActivity(intentAvaibleGuard);
+            }
+        });
         Intent intent = getIntent();
 
         if(intent.getExtras() != null){
