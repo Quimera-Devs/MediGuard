@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -28,17 +29,9 @@ public interface UserService {
     @GET("/medico_datos")
     Call<List<MedicDto>> getMedic(@Header("Authorization") String token);
 
-    @PUT("/modificar_guardia/{id}/")
+    @PATCH("/modificar_guardia/{id}/")
     Call<GuardDto> editGuard(@Path("id") int Id,
-                             //@Body GuardDto guard,
-                             @Query("id") int id,
-                             @Query("fecha") String fecha,
-                             @Query("turno") String turno,
-                             @Query("disponible") boolean disponible,
-                             @Query("departamento") String departamento,
-                             @Query("min_ranking") int min_ranking,
-                             @Query("centroSalud") String centro_salud,
-                             @Query("medico") int medico,
+                             @Body GuardDto guard,
                              @Header("Authorization") String token);
 
 

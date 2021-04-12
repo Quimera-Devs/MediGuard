@@ -54,8 +54,4 @@ public class MyGuardsActivity extends AppCompatActivity {
         });
     }
 
-    private void cargarMisGuardiasCards() {
-
-
-    }
 }
