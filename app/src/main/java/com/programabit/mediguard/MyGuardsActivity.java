@@ -1,6 +1,8 @@
 package com.programabit.mediguard;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,16 +22,31 @@ public class MyGuardsActivity extends AppCompatActivity {
     private List<GuardDto> myGuardsList;
     private MyGuardsViewHolder adapter;
     private RecyclerView recyclerView;
+    private String myToken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_guards);
+        Log.i("My Guards Activity","start activity");
+        final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
         recyclerView = findViewById(R.id.mis_guardias_recycler_id);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Intent intent = getIntent();
 
-        cargarMisGuardiasCards();
+        if(intent.getExtras() != null) {
+            myToken = (intent.getStringExtra("data"));
+        }
+        Log.i("My Guards Activity","got token");
+        /*guardsViewModel = new ViewModelProvider(this,
+                new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);*/
+        Log.i("My Guards Activity","set view model");
+        guardsViewModel.getMyGuards().observe(this,
+                myGuards->{adapter.submitList(myGuards);});
+
+        Log.i("My Guards Activity","observing my guards list");
     }
 
     private void cargarMisGuardiasCards() {

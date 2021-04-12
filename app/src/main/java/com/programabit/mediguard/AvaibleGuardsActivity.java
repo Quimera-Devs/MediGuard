@@ -2,6 +2,8 @@ package com.programabit.mediguard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,14 +31,14 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if(intent.getExtras() != null) {
-            myToken = (intent.getStringExtra("data"));
+            myToken = (intent.getStringExtra("app token value set"));
         }
-
+        Log.i("My Guards Activity","got token");
         guardsViewModel = new ViewModelProvider(this,
                 new AvaibleGuardsFactory(this.getApplication(), myToken)).get(AvaibleGuardViewModel.class);
+        Log.i("My Guards Activity","set view model");
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
-
-
+        Log.i("My Guards Activity","observing my guards list");
     }
 }

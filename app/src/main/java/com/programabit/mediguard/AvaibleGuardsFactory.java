@@ -1,6 +1,7 @@
 package com.programabit.mediguard;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -24,7 +25,11 @@ public class AvaibleGuardsFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass == AvaibleGuardViewModel.class){
-           return (T) new AvaibleGuardViewModel(application,token);
+           try {
+             return (T) new AvaibleGuardViewModel(application,token);
+           } catch (Exception e) {
+               Log.i("exception", "Exception has ocurre while traying to lajksdkfa");
+           }
         }
         return null;
     }
