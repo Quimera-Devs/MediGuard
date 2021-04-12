@@ -13,14 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.programabit.mediguard.rest.GuardDto;
 import com.programabit.mediguard.rest.GuardsViewModel;
 
-import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class MyGuardsActivity extends AppCompatActivity {
 
     private GuardsViewModel guardsViewModel;
-    private List<GuardDto> myGuardsList;
-    private MyGuardsViewHolder adapter;
     private RecyclerView recyclerView;
     private String myToken;
 
@@ -40,17 +38,17 @@ public class MyGuardsActivity extends AppCompatActivity {
             myToken = (intent.getStringExtra("data"));
         }
         Log.i("My Guards Activity","got token");
-        /*guardsViewModel = new ViewModelProvider(this,
-                new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);*/
-        Log.i("My Guards Activity","set view model");
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
 
         Log.i("My Guards Activity","observing my guards list");
+
+        adapter.setOnItemClickListener(new MyGuardsListAdapter.onItemClickListener() {
+            @Override
+            public void onItemDelete(GuardDto myGuard) throws ExecutionException, InterruptedException {
+                guardsViewModel.delete(myGuard);
+            }
+        });
     }
 
-    private void cargarMisGuardiasCards() {
-
-
-    }
 }

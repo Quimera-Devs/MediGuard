@@ -1,10 +1,13 @@
 package com.programabit.mediguard.rest;
 
 import android.app.Application;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,58 +15,63 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GuardRestRepository {
+public class GuardRestRepository extends AsyncTask<String,Void,List<GuardDto>> {
+
     private UserService apiService = ApiClient.getRetrofit().create(UserService.class);
-    private MutableLiveData<List<GuardDto>> myGuards = new MutableLiveData<>();
     private MutableLiveData<List<GuardDto>> availableGuards = new MutableLiveData<>();
+    private GuardDto myGuard;
     private Application application;
     private String token;
 
     public GuardRestRepository(Application application, String tokenValue) {
         this.application = application;
         this.token = tokenValue;
+        Log.i("GuardsRestRepo","repo created");
+
     }
 
-    public void loadMyGuards(){
-        myGuards.setValue(new ArrayList<>());
-        Call<List<GuardDto>> call = apiService.getMyGuards("Token "+this.token);
-        call.enqueue(new Callback<List<GuardDto>>() {
-            @Override
-            public void onResponse(Call<List<GuardDto>> call,
-                                   Response<List<GuardDto>> response) {
-                List<GuardDto> misGuardiasList = response.body();
-                if(misGuardiasList != null){
-                    myGuards.setValue(misGuardiasList);
+    @Override
+    protected List<GuardDto> doInBackground(String... strings) {
+        switch (strings[1]){
+            case "getMyGuards":
+            Call<List<GuardDto>> call = apiService.getMyGuards("Token " + strings[0]);
+            Log.i("GuardsViewModel", "background call request");
+            Response response = null;
+            List<GuardDto> guardsList = null;
+            try {
+                response = call.execute();
+                Log.i("GuardsViewModel", "try response");
+
+            } catch (IOException e) {
+                Log.i("response ioexception", e.getMessage());
+                e.printStackTrace();
+            }
+            if (response.isSuccessful()) {
+                guardsList = (List<GuardDto>) response.body();
+                Log.i("GuardsViewModel", "got data");
+                return guardsList;
+            }
+            case "deleteGuards":
+                myGuard.setDisponible(true);
+                Call<GuardDto> delcall = apiService.editGuard(myGuard.getId(),
+                        myGuard,
+                        "Token " + token);
+                Log.i("GuardsRepo", "background delete call request");
+                 response = null;
+                guardsList = null;
+                try {
+                    response = delcall.execute();
+                    Log.i("GuardsRepo", "try delete response");
+
+                } catch (IOException e) {
+                    Log.i("response ioexception", e.getMessage());
+                    e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<List<GuardDto>> call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(),"Error: "+t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    public void loadAvailableGuards(){
-        availableGuards.setValue(new ArrayList<>());
-        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token "+this.token);
-        call.enqueue(new Callback<List<GuardDto>>() {
-            @Override
-            public void onResponse(Call<List<GuardDto>> call,
-                                   Response<List<GuardDto>> response) {
-                List<GuardDto> guardList = response.body();
-                if(guardList != null){
-                    availableGuards.setValue(guardList);
+                if (response.isSuccessful()) {
+                    Log.i("GuardsRepo", "delete complete");
                 }
-            }
-
-            @Override
-            public void onFailure(Call<List<GuardDto>> call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(),"Error: "+t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        }
+        return null;
     }
 
     public UserService getApiService() {
@@ -72,14 +80,6 @@ public class GuardRestRepository {
 
     public void setApiService(UserService apiService) {
         this.apiService = apiService;
-    }
-
-    public MutableLiveData<List<GuardDto>> getMyGuards() {
-        return myGuards;
-    }
-
-    public void setMyGuards(MutableLiveData<List<GuardDto>> myGuards) {
-        this.myGuards = myGuards;
     }
 
     public MutableLiveData<List<GuardDto>> getAvailableGuards() {
@@ -96,5 +96,13 @@ public class GuardRestRepository {
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public GuardDto getMyGuard() {
+        return myGuard;
+    }
+
+    public void setMyGuard(GuardDto myGuard) {
+        this.myGuard = myGuard;
     }
 }
