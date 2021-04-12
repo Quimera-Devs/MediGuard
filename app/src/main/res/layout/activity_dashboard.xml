@@ -86,6 +86,12 @@
                     android:text="@string/misguardias"
                     android:textColor="@color/colorPrincipal"
                     android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>

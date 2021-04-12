@@ -3,7 +3,6 @@ package com.programabit.mediguard;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.programabit.mediguard.rest.GuardRestRepository;
@@ -29,7 +29,7 @@ public class DashboardActivity extends AppCompatActivity {
     CardView cvGuardiasDispo;
     String myToken = "";
     MedicDto myself;
-
+    Button myButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,32 +37,9 @@ public class DashboardActivity extends AppCompatActivity {
         username = findViewById(R.id.tvBienvenido);
         cvMisGuardias = findViewById(R.id.cvMisGuardias);
         cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
+        myButton = findViewById(R.id.button);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
-        cvMisGuardias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Dashboard","Go to My Guards Activity");
-                startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("data",myToken));
-            }
-        });
-
-        cvMisGuardias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Dashboard","Go to Avaible Guards Activity");
-                startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("data",myToken));
-            }
-        });
-
-        Button button = findViewById(R.id.buttonAvaibleGuardsId);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intentAvaibleGuard = new Intent(DashboardActivity.this, AvaibleGuardsActivity.class);
-                intentAvaibleGuard.putExtra("app token value set: ",myToken);
-                startActivity(intentAvaibleGuard);
-            }
-        });
         Intent intent = getIntent();
 
         if(intent.getExtras() != null) {
@@ -96,6 +73,13 @@ public class DashboardActivity extends AppCompatActivity {
         guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
 
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Dashboard","Go to My Guards Activity");
+                startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("data",myToken));
+            }
+        });
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         appToolbar(toolbar, R.string.activity_name_dashboard,false);
     }
@@ -134,5 +118,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     public String getMyTokenValue() {
         return this.myToken;
+    }
+
+    public GuardsViewModel getGuardsViewModel() {
+        return guardsViewModel;
     }
 }
