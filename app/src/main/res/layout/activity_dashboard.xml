@@ -58,6 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:elevation="4dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
@@ -72,12 +73,13 @@
 
             <ImageView
                 android:id="@+id/imgMisGuardias"
-                android:layout_width="80dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:src="@drawable/booking_confirmed"
                 android:layout_marginTop="20dp"/>
 
                 <TextView
+                    android:id="@+id/txtMyGuards"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/misguardias"
@@ -98,6 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:elevation="4dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
@@ -110,11 +113,12 @@
                 android:padding="10dp">
                 <ImageView
                     android:id="@+id/imgGuardiasDispo"
-                    android:layout_width="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:src="@drawable/medicine_wellness"
                     android:layout_marginTop="20dp"/>
                 <TextView
+                    android:id="@+id/txtAvalibelGuards"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/guardiasdispo"
