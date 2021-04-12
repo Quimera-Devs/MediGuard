@@ -36,7 +36,7 @@
                 android:textColor="#000000"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <TextView
                 android:id="@+id/card_fecha_id"
@@ -48,7 +48,7 @@
                 android:textColor="#000000"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_centro_salud_id" />
+                app:layout_constraintTop_toBottomOf="@id/card_centro_salud_id"></TextView>
 
             <TextView
                 android:id="@+id/card_turno_id"
@@ -60,7 +60,7 @@
                 android:textColor="#000000"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_fecha_id" />
+                app:layout_constraintTop_toBottomOf="@id/card_fecha_id"></TextView>
 
             <ImageButton
                 android:id="@+id/delete_myGuard"

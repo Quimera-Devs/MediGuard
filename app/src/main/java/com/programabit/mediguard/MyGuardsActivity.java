@@ -3,13 +3,9 @@ package com.programabit.mediguard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +35,7 @@ public class MyGuardsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if(intent.getExtras() != null) {
-            myToken = (intent.getStringExtra("token"));
+            myToken = (intent.getStringExtra("data"));
         }
         Log.i("My Guards Activity","got token");
         guardsViewModel = new ViewModelProvider(this,
@@ -53,40 +49,13 @@ public class MyGuardsActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new MyGuardsListAdapter.onItemClickListener() {
             @Override
             public void onItemDelete(GuardDto myGuard) throws ExecutionException, InterruptedException {
-                //guardsViewModel.delete(myGuard);
+                guardsViewModel.delete(myGuard);
             }
         });
-
-        // Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_my_guards,true);
     }
 
-    // AppBar (toolbar y menu):
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
-        return true;
-    }
+    private void cargarMisGuardiasCards() {
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.mContact:
-                Intent intentContact = new Intent(this, ContactActivity.class);
-                startActivity(intentContact);
-                break;
-            case R.id.mAbout:
-                Intent intentAbout = new Intent(this, AboutActivity.class);
-                startActivity(intentAbout);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-    private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setSubtitle(activity_name);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
     }
 }

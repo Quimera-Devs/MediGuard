@@ -54,7 +54,15 @@ public class GuardRestRepository extends AsyncTask<String,Void,List<GuardDto>> {
             case "deleteGuards":
                 myGuard.setDisponible(true);
                 Call<GuardDto> delcall = apiService.editGuard(myGuard.getId(),
-                        myGuard,
+                        //myGuard,
+                        myGuard.getId(),
+                        myGuard.getFecha(),
+                        myGuard.getTurno(),
+                        true,
+                        myGuard.getDepartamento(),
+                        myGuard.getMin_ranking(),
+                        myGuard.getCentroSalud(),
+                        myGuard.getMedico(),
                         "Token " + token);
                 Log.i("GuardsRepo", "background delete call request");
                  response = null;
@@ -72,6 +80,10 @@ public class GuardRestRepository extends AsyncTask<String,Void,List<GuardDto>> {
                 }
         }
         return null;
+    }
+
+    public void deleteGuard(GuardDto myGuard){
+
     }
 
     public UserService getApiService() {
