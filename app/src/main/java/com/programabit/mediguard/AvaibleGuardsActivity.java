@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.programabit.mediguard.rest.AvaibleGuardViewModel;
+import com.programabit.mediguard.rest.GuardDto;
 import com.programabit.mediguard.rest.GuardsViewModel;
+
+import java.util.concurrent.ExecutionException;
 
 public class AvaibleGuardsActivity extends AppCompatActivity {
 
@@ -40,5 +43,12 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
         Log.i("My Guards Activity","observing my guards list");
+
+        adapter.setOnItemClickListener(new AvaibleGuardsListAdapter.onItemClickListener() {
+            @Override
+            public void onItemAssign(GuardDto myGuard) throws ExecutionException, InterruptedException {
+                guardsViewModel.assing(myGuard);
+            }
+        });
     }
 }

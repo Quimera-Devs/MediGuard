@@ -25,7 +25,7 @@ public class DashboardActivity extends AppCompatActivity {
     GuardsViewModel guardsViewModel;
     TextView username;
     String myToken = "";
-    MedicDto myself;
+    static MedicDto myself;
     Button myButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,5 +126,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     public GuardsViewModel getGuardsViewModel() {
         return guardsViewModel;
+    }
+
+    public static MedicDto getMyself() {
+        return myself;
     }
 }

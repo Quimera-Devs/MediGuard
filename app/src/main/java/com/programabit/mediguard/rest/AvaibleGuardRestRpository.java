@@ -3,16 +3,15 @@ package com.programabit.mediguard.rest;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.programabit.mediguard.DashboardActivity;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardDto>> {
@@ -21,6 +20,8 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
     private MutableLiveData<List<GuardDto>> availableGuards = new MutableLiveData<>();
     private Application application;
     private String token;
+    private GuardDto selectedGuard;
+
 
     public AvaibleGuardRestRpository(Application application, String tokenValue) {
         this.application = application;
@@ -29,25 +30,46 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
 
     @Override
     protected List<GuardDto> doInBackground(String... strings) {
-        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token " + strings[0]);
-        Log.i("GuardsViewModel","background call request");
-        Response response = null;
-        List<GuardDto> guardsList = null;
-        try {
-            response = call.execute();
-            Log.i("AvaibleGuardsViewModel","try response");
+        switch (strings[1]){
+            case "getMyGuards":
+                Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token " + strings[0]);
+                Log.i("GuardsViewModel", "background call request");
+                Response response = null;
+                List<GuardDto> guardsList = null;
+                try {
+                    response = call.execute();
+                    Log.i("AvaibleGuardsViewModel","try response");
+                } catch (IOException e) {
+                    Log.i("response ioexception", e.getMessage());
+                    e.printStackTrace();
+                }
+                if (response.isSuccessful()) {
+                    guardsList = (List<GuardDto>) response.body();
+                    Log.i("GuardsViewModel", "got data");
+                    return guardsList;
+                }
+            case "assignGuards":
+                selectedGuard.setDisponible(false);
+                selectedGuard.setMedico(DashboardActivity.getMyself().getCi());
+                Call<GuardDto> delcall = apiService.editGuard(selectedGuard.getId(),
+                        selectedGuard,
+                        "Token " + token);
+                Log.i("GuardsRepo", "background delete call request");
+                response = null;
+                guardsList = null;
+                try {
+                    response = delcall.execute();
+                    Log.i("GuardsRepo", "try delete response");
 
-        } catch (IOException e) {
-            Log.i("response ioexception", e.getMessage());
-            e.printStackTrace();
+                } catch (IOException e) {
+                    Log.i("response ioexception", e.getMessage());
+                    e.printStackTrace();
+                }
+                if (response.isSuccessful()) {
+                    Log.i("GuardsRepo", "delete complete");
+                }
         }
-        if (response.isSuccessful()) {
-            guardsList = (List<GuardDto>) response.body();
-            Log.i("AvaibleGuardsViewModel","got data");
-            return guardsList;
-        }else {
-            return null;
-        }
+        return null;
     }
 
     public UserService getApiService() {
@@ -80,5 +102,13 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public GuardDto getSelectedGuard() {
+        return selectedGuard;
+    }
+
+    public void setSelectedGuard(GuardDto selectedGuard) {
+        this.selectedGuard = selectedGuard;
     }
 }
