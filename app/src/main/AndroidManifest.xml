@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AvaibleGuards"
+            android:name=".AvaibleGuardsActivity"
             android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
