@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mis_guardias_card_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:layout_marginVertical="2dp"
+        android:elevation="3dp"
+        android:paddingVertical="2dp"
+        app:cardBackgroundColor="@color/colorBlanco"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="1dp"
+        app:contentPaddingBottom="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/card_centro_salud_id"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <TextView
+                android:id="@+id/card_fecha_id"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_centro_salud_id"></TextView>
+
+            <TextView
+                android:id="@+id/card_turno_id"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_fecha_id"></TextView>
+
+            <ImageButton
+                android:id="@+id/delete_myGuard"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/card_fecha_id"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
