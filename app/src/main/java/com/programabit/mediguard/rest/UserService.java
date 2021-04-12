@@ -10,6 +10,9 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UserService {
 
@@ -22,8 +25,21 @@ public interface UserService {
     @GET("/guardias_disponibles")
     Call<List<GuardDto>> getAvailableGuardsGuards(@Header("Authorization") String token);
 
-
     @GET("/medico_datos")
     Call<List<MedicDto>> getMedic(@Header("Authorization") String token);
+
+    @PUT("/modificar_guardia/{id}/")
+    Call<GuardDto> editGuard(@Path("id") int Id,
+                             //@Body GuardDto guard,
+                             @Query("id") int id,
+                             @Query("fecha") String fecha,
+                             @Query("turno") String turno,
+                             @Query("disponible") boolean disponible,
+                             @Query("departamento") String departamento,
+                             @Query("min_ranking") int min_ranking,
+                             @Query("centroSalud") String centro_salud,
+                             @Query("medico") int medico,
+                             @Header("Authorization") String token);
+
 
 }

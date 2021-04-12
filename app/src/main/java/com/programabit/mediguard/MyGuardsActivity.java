@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.programabit.mediguard.rest.GuardDto;
 import com.programabit.mediguard.rest.GuardsViewModel;
 
-import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class MyGuardsActivity extends AppCompatActivity {
@@ -45,6 +45,13 @@ public class MyGuardsActivity extends AppCompatActivity {
                 myGuards->{adapter.submitList(myGuards);});
 
         Log.i("My Guards Activity","observing my guards list");
+
+        adapter.setOnItemClickListener(new MyGuardsListAdapter.onItemClickListener() {
+            @Override
+            public void onItemDelete(GuardDto myGuard) throws ExecutionException, InterruptedException {
+                guardsViewModel.delete(myGuard);
+            }
+        });
     }
 
     private void cargarMisGuardiasCards() {
