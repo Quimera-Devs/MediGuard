@@ -13,6 +13,8 @@ import com.programabit.mediguard.domain.GuardDto;
 
 import java.util.concurrent.ExecutionException;
 
+import java.util.concurrent.ExecutionException;
+
 public class MyGuardsListAdapter extends ListAdapter<GuardDto, MyGuardsViewHolder> {
 
     private onItemClickListener listener;

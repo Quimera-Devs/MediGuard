@@ -1,52 +1,89 @@
-package com.programabit.mediguard.data;
+package com.programabit.mediguard.rest;
 
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.programabit.mediguard.domain.GuardDto;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardDto>> {
+public class GuardRestRepository extends AsyncTask<String,Void,List<GuardDto>> {
+
     private UserService apiService = ApiClient.getRetrofit().create(UserService.class);
-    private MutableLiveData<List<GuardDto>> myGuards = new MutableLiveData<>();
     private MutableLiveData<List<GuardDto>> availableGuards = new MutableLiveData<>();
+    private GuardDto myGuard;
     private Application application;
     private String token;
 
-    public AvaibleGuardRestRpository(Application application, String tokenValue) {
+    public GuardRestRepository(Application application, String tokenValue) {
         this.application = application;
         this.token = tokenValue;
+        Log.i("GuardsRestRepo","repo created");
+
     }
 
     @Override
     protected List<GuardDto> doInBackground(String... strings) {
-        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token " + strings[0]);
-        Log.i("GuardsViewModel","background call request");
-        Response response = null;
-        List<GuardDto> guardsList = null;
-        try {
-            response = call.execute();
-            Log.i("AvaibleGuardsViewModel","try response");
+        switch (strings[1]){
+            case "getMyGuards":
+            Call<List<GuardDto>> call = apiService.getMyGuards("Token " + strings[0]);
+            Log.i("GuardsViewModel", "background call request");
+            Response response = null;
+            List<GuardDto> guardsList = null;
+            try {
+                response = call.execute();
+                Log.i("GuardsViewModel", "try response");
 
-        } catch (IOException e) {
-            Log.i("response ioexception", e.getMessage());
-            e.printStackTrace();
+            } catch (IOException e) {
+                Log.i("response ioexception", e.getMessage());
+                e.printStackTrace();
+            }
+            if (response.isSuccessful()) {
+                guardsList = (List<GuardDto>) response.body();
+                Log.i("GuardsViewModel", "got data");
+                return guardsList;
+            }
+            case "deleteGuards":
+                myGuard.setDisponible(true);
+                Call<GuardDto> delcall = apiService.editGuard(myGuard.getId(),
+                        //myGuard,
+                        myGuard.getId(),
+                        myGuard.getFecha(),
+                        myGuard.getTurno(),
+                        true,
+                        myGuard.getDepartamento(),
+                        myGuard.getMin_ranking(),
+                        myGuard.getCentroSalud(),
+                        myGuard.getMedico(),
+                        "Token " + token);
+                Log.i("GuardsRepo", "background delete call request");
+                 response = null;
+                guardsList = null;
+                try {
+                    response = delcall.execute();
+                    Log.i("GuardsRepo", "try delete response");
+
+                } catch (IOException e) {
+                    Log.i("response ioexception", e.getMessage());
+                    e.printStackTrace();
+                }
+                if (response.isSuccessful()) {
+                    Log.i("GuardsRepo", "delete complete");
+                }
         }
-        if (response.isSuccessful()) {
-            guardsList = (List<GuardDto>) response.body();
-            Log.i("AvaibleGuardsViewModel","got data");
-            return guardsList;
-        }else {
-            return null;
-        }
+        return null;
+    }
+
+    public void deleteGuard(GuardDto myGuard){
+
     }
 
     public UserService getApiService() {
@@ -55,14 +92,6 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
 
     public void setApiService(UserService apiService) {
         this.apiService = apiService;
-    }
-
-    public MutableLiveData<List<GuardDto>> getMyGuards() {
-        return myGuards;
-    }
-
-    public void setMyGuards(MutableLiveData<List<GuardDto>> myGuards) {
-        this.myGuards = myGuards;
     }
 
     public MutableLiveData<List<GuardDto>> getAvailableGuards() {
@@ -79,5 +108,13 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public GuardDto getMyGuard() {
+        return myGuard;
+    }
+
+    public void setMyGuard(GuardDto myGuard) {
+        this.myGuard = myGuard;
     }
 }
