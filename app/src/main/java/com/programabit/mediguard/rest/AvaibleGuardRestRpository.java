@@ -27,27 +27,6 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
         this.token = tokenValue;
     }
 
-    public void loadMyGuards(){
-        myGuards.setValue(new ArrayList<>());
-        Call<List<GuardDto>> call = apiService.getMyGuards("Token "+this.token);
-        call.enqueue(new Callback<List<GuardDto>>() {
-            @Override
-            public void onResponse(Call<List<GuardDto>> call,
-                                   Response<List<GuardDto>> response) {
-                List<GuardDto> misGuardiasList = response.body();
-                if(misGuardiasList != null){
-                    myGuards.setValue(misGuardiasList);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<GuardDto>> call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(),"Error: "+t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     @Override
     protected List<GuardDto> doInBackground(String... strings) {
         Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token " + strings[0]);
@@ -69,27 +48,6 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
         }else {
             return null;
         }
-    }
-
-    public void loadAvailableGuards(){
-        availableGuards.setValue(new ArrayList<>());
-        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token "+this.token);
-        call.enqueue(new Callback<List<GuardDto>>() {
-            @Override
-            public void onResponse(Call<List<GuardDto>> call,
-                                   Response<List<GuardDto>> response) {
-                List<GuardDto> guardList = response.body();
-                if(guardList != null){
-                    availableGuards.setValue(guardList);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<GuardDto>> call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(),"Error: "+t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     public UserService getApiService() {

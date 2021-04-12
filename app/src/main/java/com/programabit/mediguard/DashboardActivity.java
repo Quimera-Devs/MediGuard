@@ -23,6 +23,7 @@ import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
 import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
+    //MedicViewModel medicViewModel;
     MedicRestRepositoryAsync medicRepo;
     GuardsViewModel guardsViewModel;
     TextView username;
