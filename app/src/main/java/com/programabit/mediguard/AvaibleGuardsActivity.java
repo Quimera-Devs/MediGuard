@@ -1,28 +1,44 @@
 package com.programabit.mediguard;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.programabit.mediguard.rest.ApiClient;
+import com.programabit.mediguard.rest.AvaibleGuardViewModel;
 import com.programabit.mediguard.rest.GuardsViewModel;
-
-import java.util.List;
-
-import retrofit2.Call;
 
 public class AvaibleGuardsActivity extends AppCompatActivity {
 
-    private GuardsViewModel guardsViewModel;
+    private AvaibleGuardViewModel guardsViewModel;
     private RecyclerView recyclerView;
+    private String myToken;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.avaible_guards);
+        setContentView(R.layout.activity_avaible_guards);
 
-       // recyclerView = findViewById(R.id.);
-        //Call<List<AvaibleGuardsResponse>> response = ApiClient.getUserService().getAvaibleGuards();
+        final AvaibleGuardsListAdapter adapter = new AvaibleGuardsListAdapter(new AvaibleGuardsListAdapter.guardDiff());
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewGuards);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Intent intent = getIntent();
+
+        if(intent.getExtras() != null) {
+            myToken = (intent.getStringExtra("app token value set"));
+        }
+        Log.i("My Guards Activity","got token");
+        guardsViewModel = new ViewModelProvider(this,
+                new AvaibleGuardsFactory(this.getApplication(), myToken)).get(AvaibleGuardViewModel.class);
+        Log.i("My Guards Activity","set view model");
+        guardsViewModel.getMyGuards().observe(this,
+                myGuards->{adapter.submitList(myGuards);});
+        Log.i("My Guards Activity","observing my guards list");
     }
 }

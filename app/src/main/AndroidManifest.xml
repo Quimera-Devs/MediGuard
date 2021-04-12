@@ -58,7 +58,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-        <activity android:name=".MyGuardsActivity"></activity>
+
     </application>
 
 </manifest>

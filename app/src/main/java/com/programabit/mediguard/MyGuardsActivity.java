@@ -38,9 +38,6 @@ public class MyGuardsActivity extends AppCompatActivity {
             myToken = (intent.getStringExtra("data"));
         }
         Log.i("My Guards Activity","got token");
-        guardsViewModel = new ViewModelProvider(this,
-                new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
-        Log.i("My Guards Activity","set view model");
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
 

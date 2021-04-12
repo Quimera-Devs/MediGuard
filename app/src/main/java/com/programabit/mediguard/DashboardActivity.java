@@ -36,6 +36,14 @@ public class DashboardActivity extends AppCompatActivity {
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
 
+        Button button = findViewById(R.id.buttonAvaibleGuardsId);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentAvaibleGuard = new Intent(DashboardActivity.this, AvaibleGuardsActivity.class);
+                intentAvaibleGuard.putExtra("app token value set",myToken);
+                startActivity(intentAvaibleGuard);
+            }
+        });
         Intent intent = getIntent();
 
         if(intent.getExtras() != null) {
