@@ -42,14 +42,12 @@ public class DashboardActivity extends AppCompatActivity {
         myButton = findViewById(R.id.button);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
+        // Setear extras (token y usuario)
         Intent intent = getIntent();
-
         if(intent.getExtras() != null) {
             myToken = (intent.getStringExtra("data"));
             medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
             medicRepo.execute(new String[]{myToken});
-
-
             try {
                 myself = medicRepo.get();
             } catch (ExecutionException e) {
@@ -65,16 +63,16 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
 
-        guardsViewModel = new ViewModelProvider(this,
-                new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
-        Log.i("dashboard","guardsViewModel created");
-        guardsViewModel.getMyGuards().observe(this,
-                myGuards->{adapter.submitList(myGuards);});
+        // Intent a MIS GUARDIAS (Nehuen)
+        cvMisGuardias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Dashboard","Go to My Guards Activity");
+                startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("data",myToken));
+            }
+        });
 
-        Log.i("dashboard","observing my guards");
-        guardsViewModel.getNumGuards();
-        Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
-
+        // Button MIS GUARDIAS (Nehuen)
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,17 +80,49 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("data",myToken));
             }
         });
+
+        // Intent a GUARDIAS DISPONIBLES (Javier)
+        cvGuardiasDispo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Dashboard","Go to Avaible Guards Activity");
+                startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("data",myToken));
+            }
+        });
+
+        // Button GUARDIAS DISPONIBLES (Javier)
+        Button button = findViewById(R.id.buttonAvaibleGuardsId);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentAvaibleGuard = new Intent(DashboardActivity.this, AvaibleGuardsActivity.class);
+                intentAvaibleGuard.putExtra("app token value set",myToken);
+                startActivity(intentAvaibleGuard);
+            }
+        });
+
+        // Que es? adapter del cardview?? <--- escribanlo
+        guardsViewModel = new ViewModelProvider(this,
+                new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
+        Log.i("dashboard","guardsViewModel created");
+        guardsViewModel.getMyGuards().observe(this,
+                myGuards->{adapter.submitList(myGuards);});
+        Log.i("dashboard","observing my guards");
+        guardsViewModel.getNumGuards();
+        Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
+
+        // Toolbar
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         appToolbar(toolbar, R.string.activity_name_dashboard,false);
     }
 
-    // AppBar (toolbar y menu):
+    // AppBar menu:
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
         return true;
     }
 
+    // AppBar menu:
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -112,6 +142,7 @@ public class DashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // AppBar toolbar:
     private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
         setSupportActionBar(toolbar);
         getSupportActionBar().setSubtitle(activity_name);
