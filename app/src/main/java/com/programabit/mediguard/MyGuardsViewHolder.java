@@ -25,7 +25,7 @@ public class MyGuardsViewHolder extends RecyclerView.ViewHolder {
     }
 
     static MyGuardsViewHolder create(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_my_guard_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_my_guards, parent, false);
         return new MyGuardsViewHolder(view);
     }
 }

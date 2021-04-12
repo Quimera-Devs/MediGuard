@@ -1,6 +1,5 @@
 package com.programabit.mediguard;
 
-import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,6 @@ public class MyGuardsListAdapter extends ListAdapter<GuardDto, MyGuardsViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull MyGuardsViewHolder holder, int position) {
-        Log.i("MyGuardsListAdapter","on bind view holder");
         GuardDto guardActual = getItem(position);
         holder.bind(guardActual.getCentroSalud(),guardActual.getFecha(),guardActual.getTurno());
     }
