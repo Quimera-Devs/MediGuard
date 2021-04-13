@@ -1,36 +1,21 @@
 package com.programabit.mediguard;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-
-public class UserSettingsActivity extends AppCompatActivity {
-    ImageButton imgUserPhoto;
+public class UserPhotoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
 
-        // Intent a CAMBIAR FOTO (Ramon)
-        imgUserPhoto = (ImageButton) findViewById(R.id.userPhoto);
-        imgUserPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserSettingsActivity.this,UserPhotoActivity.class));
-            }
-        });
-
-        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         appToolbar(toolbar, R.string.activity_name_user_panel,true);
     }
