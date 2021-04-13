@@ -113,7 +113,6 @@ public class DashboardActivity extends AppCompatActivity {
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-
         }
     }
     // AppBar (toolbar y menu):
