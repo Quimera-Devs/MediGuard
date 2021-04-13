@@ -80,17 +80,13 @@
 
                 <TextView
                     android:id="@+id/txtMyGuards"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/misguardias"
                     android:textSize="12sp"
-                    android:textColor="@color/colorPrincipal"/>
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/misguardias" />
+                    android:textColor="@color/colorPrincipal"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -119,16 +115,13 @@
                     android:layout_marginTop="20dp"/>
                 <TextView
                     android:id="@+id/txtAvalibelGuards"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/guardiasdispo"
                     android:textSize="12sp"
-                    android:textColor="@color/colorPrincipal"/>
-                <Button
-                    android:id="@+id/buttonAvaibleGuardsId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/guardiasdispo" />
+                    android:textColor="@color/colorPrincipal"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </GridLayout>

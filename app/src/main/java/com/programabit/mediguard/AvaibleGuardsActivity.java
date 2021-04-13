@@ -31,7 +31,7 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if(intent.getExtras() != null) {
-            myToken = (intent.getStringExtra("app token value set"));
+            myToken = (intent.getStringExtra("token"));
         }
         Log.i("My Guards Activity","got token");
         guardsViewModel = new ViewModelProvider(this,
