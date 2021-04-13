@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +34,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        createNotificationChannel();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         username = findViewById(R.id.username);
@@ -73,8 +77,11 @@ public class DashboardActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         String msg = ("Mediguard se ha sincronizado");
+                        Log.e("TOPICO CI", Integer.toString(myself.getCi()));
                         if (!task.isSuccessful()) {
-                           msg = getString(R.string.msg_subscribe_failed);
+                           msg = getString(R.string.msg_subscribe_medic_failed);
+
+
                         }
                         Log.d(TAG, msg);
                         Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -86,15 +93,29 @@ public class DashboardActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         String msg = ("Departamento de registro: " + myself.getDepartamento());
+                        Log.e("TOPICO DEPARTAMAENTO", myself.getDepartamento());
+
                         if (!task.isSuccessful()) {
-                            msg = getString(R.string.msg_subscribe_failed);
+                            msg = getString(R.string.msg_subscribe_dept_failed);
                         }
                         Log.d(TAG, msg);
                         Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
+            channel.setDescription(description);
 
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
+    }
     // AppBar (toolbar y menu):
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
