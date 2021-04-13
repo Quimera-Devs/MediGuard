@@ -16,4 +16,9 @@
         android:title="@string/activity_name_about"
         android:orderInCategory="102"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/mLogoff"
+        android:title="@string/activity_name_logoff"
+        android:orderInCategory="102"
+        app:showAsAction="never" />
 </menu>
