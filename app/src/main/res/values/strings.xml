@@ -31,4 +31,5 @@
     <string name="bienvenido">Bienvenido a MediGuard</string>
     <string name="misguardias">MIS GUARDIAS</string>
     <string name="guardiasdispo">GUARDIAS DISPONIBLES</string>
+    <string name="acivity_name_update_photo">Actualizar foto</string>
 </resources>

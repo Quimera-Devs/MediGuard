@@ -26,7 +26,8 @@ public class UserSettingsActivity extends AppCompatActivity {
         imgUserPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserSettingsActivity.this,UserPhotoActivity.class));
+                Intent intentPhoto = new Intent(UserSettingsActivity.this,UserPhotoActivity.class);
+                startActivity(intentPhoto);
             }
         });
 

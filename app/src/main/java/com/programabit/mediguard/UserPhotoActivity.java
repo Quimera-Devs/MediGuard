@@ -14,10 +14,11 @@ public class UserPhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_settings);
+        setContentView(R.layout.activity_user_photo);
 
+        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_user_panel,true);
+        appToolbar(toolbar, R.string.acivity_name_update_photo,true);
     }
 
     // AppBar (toolbar y menu):
