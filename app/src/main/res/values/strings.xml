@@ -19,4 +19,7 @@
     <string name="bienvenido">Bienvenido a MediGuard</string>
     <string name="misguardias">MIS GUARDIAS</string>
     <string name="guardiasdispo">GUARDIAS DISPONIBLES</string>
+    <string name="repository">Ver codigo fuente</string>
+    <string name="members">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
+
 </resources>
