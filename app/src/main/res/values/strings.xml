@@ -14,9 +14,22 @@
     <string name="activity_name_contact">Contacto</string>
     <string name="activity_name_about">Acerca de</string>
     <string name="imgProfile">Foto Usuario</string>
+    <string name="user_name">Nombre de usuario</string>
+    <string name="user_id_name">Documento</string>
+    <string name="user_addres_name">Dirección</string>
+    <string name="user_dir_edit">Ingresar domicilio</string>
+    <string name="btn_save_changes">Guardar cambios</string>
+    <string name="user_phone_name">Teléfono</string>
+    <string name="user_phone_edit">Ingresar número</string>
+    <string name="user_account_n_name">Nº de Caja</string>
+    <string name="identification">Cédula</string>
+    <string name="cheking_account">xxxxxxxxxxxxx</string>
+    <string name="btn_edit_user_settings">Editar datos</string>
+    <string name="activity_name_logoff">Cerrar sesión</string>
     <string name="selectphoto">Seleccionar de galeria</string>
     <string name="capturephoto">Abrir camara</string>
     <string name="bienvenido">Bienvenido a MediGuard</string>
     <string name="misguardias">MIS GUARDIAS</string>
     <string name="guardiasdispo">GUARDIAS DISPONIBLES</string>
+    <string name="acivity_name_update_photo">Actualizar foto</string>
 </resources>

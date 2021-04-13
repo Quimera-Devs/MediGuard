@@ -58,7 +58,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-        <activity android:name=".MyGuardsActivity"></activity>
+        <activity android:name=".MyGuardsActivity"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+        <activity android:name=".UserPhotoActivity"
+            android:parentActivityName=".UserSettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UserSettingsActivity" />
+        </activity>
     </application>
 
 </manifest>

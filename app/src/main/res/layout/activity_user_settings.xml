@@ -1,65 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBlanco"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".UserSettingsActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:fillViewport="true"
+        android:fadeScrollbars="false">
 
-        <!--put image.xml as background to your image view-->
-
-        <ImageView
-            android:id="@+id/imageViewPP"
-            android:layout_width="wrap_content"
+        <TableLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="@string/imgProfile" />
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/capture_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="351dp"
-            android:text="@string/capturephoto"
-            android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/userPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/imgProfile"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
-        <Button
-            android:id="@+id/select_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="265dp"
-            android:text="@string/selectphoto"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:text="@string/user_name"
+                android:textColor="@color/colorSecundario"
+                android:textSize="24sp" />
 
-    </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TableRow android:layout_marginTop="35dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/user_id_name" />
+
+                <TextView
+                    android:id="@+id/lblCedula"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/identification" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="30dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/user_addres_name" />
+
+                <TextView
+                    android:id="@+id/edtxtDir"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/user_dir_edit" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="30dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/user_phone_name" />
+
+                <TextView
+                    android:id="@+id/edtxtPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/user_phone_edit" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="30dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/user_account_n_name" />
+
+                <TextView
+                    android:id="@+id/lblCheckingAccount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/cheking_account" />
+            </TableRow>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:layout_marginBottom="?attr/actionBarSize">
+
+                <Button
+                    android:id="@+id/btnEditUserSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:background="@color/colorPrincipal"
+                    android:text="@string/btn_edit_user_settings"
+                    android:textColor="@color/colorBlanco"
+                    android:layout_marginBottom="50dp"/>
+            </RelativeLayout>
+        </TableLayout>
+    </ScrollView>
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+
+</RelativeLayout>
