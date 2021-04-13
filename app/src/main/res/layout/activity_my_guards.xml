@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     >
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/mis_guardias_recycler_id"
         android:scrollbars="vertical"
         android:clipToPadding="false"
         tools:ignore="MissingConstraints"
-        tools:listitem="@layout/activity_mis_guardias_card"
+        tools:listitem="@layout/activity_my_guard_card"
         >
 
 
