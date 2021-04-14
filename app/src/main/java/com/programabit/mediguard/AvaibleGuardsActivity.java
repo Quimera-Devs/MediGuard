@@ -17,7 +17,6 @@ import com.programabit.mediguard.rest.AvaibleGuardViewModel;
 import com.programabit.mediguard.rest.GuardsViewModel;
 
 public class AvaibleGuardsActivity extends AppCompatActivity {
-
     private AvaibleGuardViewModel guardsViewModel;
     private RecyclerView recyclerView;
     private String myToken;
@@ -29,7 +28,7 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
 
         final AvaibleGuardsListAdapter adapter = new AvaibleGuardsListAdapter(new AvaibleGuardsListAdapter.guardDiff());
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewGuards);
+        recyclerView = findViewById(R.id.recyclerViewGuards);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Intent intent = getIntent();
@@ -61,12 +60,10 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mContact:
-                Intent intentContact = new Intent(this, ContactActivity.class);
-                startActivity(intentContact);
+                startActivity(new Intent(this, ContactActivity.class));
                 break;
             case R.id.mAbout:
-                Intent intentAbout = new Intent(this, AboutActivity.class);
-                startActivity(intentAbout);
+                startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
