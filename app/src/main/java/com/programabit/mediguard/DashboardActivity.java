@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
@@ -62,29 +63,23 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         // Intent a MIS GUARDIAS (Nehuen)
-        cvMisGuardias.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Dashboard","Go to My Guards Activity");
-                startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("token",myToken));
-            }
+        cvMisGuardias.setOnClickListener(v -> {
+            Log.i("Dashboard","Go to My Guards Activity");
+            startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("token",myToken));
         });
 
         // Intent a GUARDIAS DISPONIBLES (Javier)
-        cvGuardiasDispo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Dashboard","Go to Avaible Guards Activity");
-                startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("token",myToken));
-            }
+        cvGuardiasDispo.setOnClickListener(v -> {
+            Log.i("Dashboard","Go to Avaible Guards Activity");
+            startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("token",myToken));
         });
 
-        // Que es? adapter del cardview?? <--- escribanlo
+        // ViewModel
         guardsViewModel = new ViewModelProvider(this,
                 new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
         Log.i("dashboard","guardsViewModel created");
         guardsViewModel.getMyGuards().observe(this,
-                myGuards->{adapter.submitList(myGuards);});
+                adapter::submitList);
         Log.i("dashboard","observing my guards");
         guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
@@ -106,7 +101,15 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.mSettings) {
-            startActivity(new Intent(this, UserSettingsActivity.class));
+            Intent intent = new Intent(this, UserSettingsActivity.class).putExtra("token",myToken);
+            intent.putExtra("ci", myself.getCi());
+            intent.putExtra("dir", myself.getDireccion());
+            intent.putExtra("department", myself.getDepartamento());
+            intent.putExtra("name", myself.getNombre_apellido());
+            intent.putExtra("account_num", myself.getNroCaja());
+            intent.putExtra("ranking", myself.getRanking());
+            intent.putExtra("phone", myself.getTelefono());
+            startActivity(intent);
         } else if (itemId == R.id.mContact) {
             startActivity(new Intent(this, ContactActivity.class));
         } else if (itemId == R.id.mAbout) {

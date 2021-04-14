@@ -32,4 +32,8 @@
     <string name="misguardias">MIS GUARDIAS</string>
     <string name="guardiasdispo">GUARDIAS DISPONIBLES</string>
     <string name="acivity_name_update_photo">Actualizar foto</string>
+    <string name="user_department">Departamento</string>
+    <string name="user_department_edit">Ingresar departamento</string>
+    <string name="user_ranking">Ranking</string>
+    <string name="user_ranking_edit">Nº XXX</string>
 </resources>
