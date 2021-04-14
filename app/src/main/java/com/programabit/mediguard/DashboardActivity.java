@@ -3,10 +3,12 @@ package com.programabit.mediguard;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
@@ -22,27 +24,29 @@ import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
 import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
+    //MedicViewModel medicViewModel;
     MedicRestRepositoryAsync medicRepo;
     GuardsViewModel guardsViewModel;
     TextView username;
+    CardView cvMisGuardias;
+    CardView cvGuardiasDispo;
     String myToken = "";
     MedicDto myself;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        username = findViewById(R.id.username);
+        username = findViewById(R.id.tvBienvenido);
+        cvMisGuardias = findViewById(R.id.cvMisGuardias);
+        cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
+        // Setear extras (token y usuario)
         Intent intent = getIntent();
-
         if(intent.getExtras() != null) {
             myToken = (intent.getStringExtra("data"));
             medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
             medicRepo.execute(new String[]{myToken});
-
-
             try {
                 myself = medicRepo.get();
             } catch (ExecutionException e) {
@@ -53,37 +57,59 @@ public class DashboardActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (myself != null) {
-                username.setText("Welcome " + myself.getNombre_apellido());
+                username.setText("Bienvenido Dr." + myself.getNombre_apellido());
                 Log.i("dashboard","got user correctly");
             }
         }
 
+        // Intent a MIS GUARDIAS (Nehuen)
+        cvMisGuardias.setOnClickListener(v -> {
+            Log.i("Dashboard","Go to My Guards Activity");
+            startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("token",myToken));
+        });
+
+        // Intent a GUARDIAS DISPONIBLES (Javier)
+        cvGuardiasDispo.setOnClickListener(v -> {
+            Log.i("Dashboard","Go to Avaible Guards Activity");
+            startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("token",myToken));
+        });
+
+        // ViewModel
         guardsViewModel = new ViewModelProvider(this,
                 new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
         Log.i("dashboard","guardsViewModel created");
         guardsViewModel.getMyGuards().observe(this,
-                myGuards->{adapter.submitList(myGuards);});
-
+                adapter::submitList);
         Log.i("dashboard","observing my guards");
         guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
 
+        // Toolbar
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         appToolbar(toolbar, R.string.activity_name_dashboard,false);
     }
 
-    // AppBar (toolbar y menu):
+    // AppBar menu:
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
         return true;
     }
 
+    // AppBar menu:
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.mSettings) {
-            startActivity(new Intent(this, UserSettingsActivity.class));
+            Intent intent = new Intent(this, UserSettingsActivity.class).putExtra("token",myToken);
+            intent.putExtra("ci", myself.getCi());
+            intent.putExtra("dir", myself.getDireccion());
+            intent.putExtra("department", myself.getDepartamento());
+            intent.putExtra("name", myself.getNombre_apellido());
+            intent.putExtra("account_num", myself.getNroCaja());
+            intent.putExtra("ranking", myself.getRanking());
+            intent.putExtra("phone", myself.getTelefono());
+            startActivity(intent);
         } else if (itemId == R.id.mContact) {
             startActivity(new Intent(this, ContactActivity.class));
         } else if (itemId == R.id.mAbout) {
@@ -92,6 +118,7 @@ public class DashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // AppBar toolbar:
     private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
@@ -102,5 +129,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     public String getMyTokenValue() {
         return this.myToken;
+    }
+
+    public GuardsViewModel getGuardsViewModel() {
+        return guardsViewModel;
     }
 }
