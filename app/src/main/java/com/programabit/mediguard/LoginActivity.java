@@ -1,6 +1,9 @@
 package com.programabit.mediguard;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +18,6 @@ import com.programabit.mediguard.rest.ApiClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +30,7 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createNotificationChannel();
         setContentView(R.layout.activity_login);username = findViewById(R.id.edUsername);
         password = findViewById(R.id.edPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -46,8 +49,18 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
     }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
+            channel.setDescription(description);
 
-
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
     public void login(){
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername(username.getText().toString());
@@ -86,6 +99,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
     }
+
 
 }
 

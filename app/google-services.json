@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "282192093423",
+    "project_id": "mediguardpush",
+    "storage_bucket": "mediguardpush.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282192093423:android:016ea9d20c586fabeb3b1a",
+        "android_client_info": {
+          "package_name": "com.programabit.mediguard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282192093423-s60h7kjrct2k94j468i3l1ifa9ori4gc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIaVTkqpEfpP12k_HAeMzz1RWGmiQPELI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282192093423-s60h7kjrct2k94j468i3l1ifa9ori4gc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
