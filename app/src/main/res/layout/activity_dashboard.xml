@@ -1,18 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorSombraClaro"
+    android:weightSum="5"
     tools:context=".DashboardActivity">
 
-    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Welcome username"
-        android:textSize="18sp"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id = "@+id/imgViewPP"
+            android:src="@drawable/banner"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"/>
+
+        <TextView
+            android:id ="@+id/tvBienvenido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bienvenido"
+            android:textColor="@color/colorPrincipal"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background = "@android:color/transparent"
+        android:rowCount="1"
+        android:columnCount="2"
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMisGuardias"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imgMisGuardias"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/booking_confirmed"
+                android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/txtMyGuards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/misguardias"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrincipal"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvGuardiasDispo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardCornerRadius="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="10dp">
+                <ImageView
+                    android:id="@+id/imgGuardiasDispo"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:src="@drawable/medicine_wellness"
+                    android:layout_marginTop="20dp"/>
+                <TextView
+                    android:id="@+id/txtAvalibelGuards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guardiasdispo"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrincipal"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+</LinearLayout>
