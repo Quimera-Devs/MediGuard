@@ -41,9 +41,12 @@ public class UserPhotoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // AppBar toolbar:
     private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setSubtitle(activity_name);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setSubtitle(activity_name);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
     }
 }
