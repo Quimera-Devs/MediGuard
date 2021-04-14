@@ -30,15 +30,13 @@ public class UserPhotoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.mContact:
-                Intent intentContact = new Intent(this, ContactActivity.class);
-                startActivity(intentContact);
-                break;
-            case R.id.mAbout:
-                Intent intentAbout = new Intent(this, AboutActivity.class);
-                startActivity(intentAbout);
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.mSettings) {
+            startActivity(new Intent(this, UserSettingsActivity.class));
+        } else if (itemId == R.id.mContact) {
+            startActivity(new Intent(this, ContactActivity.class));
+        } else if (itemId == R.id.mAbout) {
+            startActivity(new Intent(this, AboutActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
