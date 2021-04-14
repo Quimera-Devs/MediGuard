@@ -29,12 +29,13 @@
                 android:id="@+id/userPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:layout_marginTop="16dp"
                 android:contentDescription="@string/imgProfile"
                 android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
             <TextView
+                android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -44,7 +45,7 @@
                 android:textColor="@color/colorSecundario"
                 android:textSize="24sp" />
 
-            <TableRow android:layout_marginTop="35dp">
+            <TableRow android:layout_marginTop="34dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -56,7 +57,7 @@
                     android:text="@string/user_id_name" />
 
                 <TextView
-                    android:id="@+id/lblCedula"
+                    android:id="@+id/tvCedula"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -66,29 +67,7 @@
                     android:text="@string/identification" />
             </TableRow>
 
-            <TableRow android:layout_marginTop="30dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="2"
-                    android:gravity="end"
-                    android:text="@string/user_addres_name" />
-
-                <TextView
-                    android:id="@+id/edtxtDir"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="2"
-                    android:gravity="start"
-                    android:text="@string/user_dir_edit" />
-            </TableRow>
-
-            <TableRow android:layout_marginTop="30dp">
+            <TableRow android:layout_marginTop="28dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -100,7 +79,7 @@
                     android:text="@string/user_phone_name" />
 
                 <TextView
-                    android:id="@+id/edtxtPhone"
+                    android:id="@+id/tvPhone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -110,7 +89,52 @@
                     android:text="@string/user_phone_edit" />
             </TableRow>
 
-            <TableRow android:layout_marginTop="30dp">
+
+            <TableRow android:layout_marginTop="28dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/user_addres_name" />
+
+                <TextView
+                    android:id="@+id/tvDir"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/user_dir_edit" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="28dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/user_department" />
+
+                <TextView
+                    android:id="@+id/tvDepartment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/user_department_edit" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="28dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -122,7 +146,7 @@
                     android:text="@string/user_account_n_name" />
 
                 <TextView
-                    android:id="@+id/lblCheckingAccount"
+                    android:id="@+id/tvCheckingAccount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -130,6 +154,28 @@
                     android:layout_weight="2"
                     android:gravity="start"
                     android:text="@string/cheking_account" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="28dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="end"
+                    android:text="@string/user_ranking" />
+
+                <TextView
+                    android:id="@+id/tvRanking"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/user_ranking_edit" />
             </TableRow>
 
             <RelativeLayout
