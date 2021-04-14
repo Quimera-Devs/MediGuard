@@ -1,54 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorSombraClaro"
+    android:orientation="vertical"
+    tools:context=".AvaibleGuardsActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:fillViewport="true"
-        android:fadeScrollbars="false"
-        android:layout_marginTop="?attr/actionBarSize">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:background="#fff">
-
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGuards"
+                android:layout_marginTop="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorSecundario"
-                android:textSize="24sp"
-                android:fontFamily="serif"
-                android:text="@string/activity_name_avalible_guards"
-                android:gravity="center"/>
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/guard_item" />
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewGuards"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="vertical"
-                    tools:listitem="@layout/guard_item" />
-
-            <View
-                    android:layout_height="3dip"
-                    android:layout_width="match_parent"
-                    android:background="@color/colorSecundario"/>
-
-        </LinearLayout>
-    </ScrollView>
-
+    </FrameLayout>
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
-
 </RelativeLayout>
