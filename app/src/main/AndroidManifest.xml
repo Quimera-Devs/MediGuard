@@ -4,8 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:usesCleartextTraffic="true"
@@ -15,41 +13,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
         <activity
-            android:name=".ui.ContactActivity"
-            android:parentActivityName=".ui.DashboardActivity">
+            android:name=".ContactActivity"
+            android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.DashboardActivity" />
+                android:value=".DashboardActivity" />
         </activity>
         <activity
-            android:name=".ui.AboutActivity"
-            android:parentActivityName=".ui.DashboardActivity">
+            android:name=".AboutActivity"
+            android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.DashboardActivity" />
+                android:value=".DashboardActivity" />
         </activity>
         <activity
-            android:name=".ui.UserSettingsActivity"
-            android:parentActivityName=".ui.DashboardActivity">
+            android:name=".UserSettingsActivity"
+            android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.DashboardActivity" />
+                android:value=".DashboardActivity" />
         </activity>
-        <activity android:name=".ui.DashboardActivity">
+        <activity android:name=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.LoginActivity" />
+                android:value=".LoginActivity" />
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
-            android:parentActivityName=".ui.DashboardActivity">
+            android:name=".LoginActivity"
+            android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.DashboardActivity" />
+                android:value=".DashboardActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,27 +53,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.AvaibleGuardsActivity"
-            android:parentActivityName=".ui.DashboardActivity">
-        </activity>
-        <activity android:name=".ui.MyGuardsActivity"
-            android:parentActivityName=".ui.DashboardActivity">
-
-        </activity>
-
-        <service
-            android:name=".data.services.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-
-        </service>
-
-        <activity android:name=".ui.UserPhotoActivity"
-            android:parentActivityName=".ui.UserSettingsActivity">
+            android:name=".AvaibleGuardsActivity"
+            android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.UserSettingsActivity" />
+                android:value=".DashboardActivity" />
+        </activity>
+        <activity android:name=".MyGuardsActivity"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+        <activity android:name=".UserPhotoActivity"
+            android:parentActivityName=".UserSettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UserSettingsActivity" />
         </activity>
     </application>
 

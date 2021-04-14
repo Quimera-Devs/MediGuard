@@ -1,4 +1,4 @@
-package com.programabit.mediguard.ui;
+package com.programabit.mediguard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.programabit.mediguard.R;
-import com.programabit.mediguard.domain.AvaibleGuardViewModel;
+import com.programabit.mediguard.rest.AvaibleGuardViewModel;
+import com.programabit.mediguard.rest.GuardsViewModel;
 
 public class AvaibleGuardsActivity extends AppCompatActivity {
     private AvaibleGuardViewModel guardsViewModel;
@@ -58,29 +58,20 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.mSettings) {
-            startActivity(new Intent(this, UserSettingsActivity.class));
-        } else if (itemId == R.id.mContact) {
-            startActivity(new Intent(this, ContactActivity.class));
-        } else if (itemId == R.id.mAbout) {
-            startActivity(new Intent(this, AboutActivity.class));
+        switch (item.getItemId()) {
+            case R.id.mContact:
+                startActivity(new Intent(this, ContactActivity.class));
+                break;
+            case R.id.mAbout:
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // AppBar toolbar:
     private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle(activity_name);
-        }
+        getSupportActionBar().setSubtitle(activity_name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 }

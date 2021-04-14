@@ -5,23 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlanco"
+    android:background="@color/colorSombraClaro"
     android:orientation="vertical"
-    tools:context=".ui.AvaibleGuardsActivity">
+    tools:context=".AvaibleGuardsActivity">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewGuards"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/guard_item" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewGuards"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    app:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/guard_item" />
 
-    </FrameLayout>
+        </FrameLayout>
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 </RelativeLayout>
