@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="wrap_content"
-    tools:context=".MyGuardsActivity">
+    tools:context=".MyGuardsActivity"
+    android:background="@color/colorBlanco">
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -19,7 +20,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             >
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_height="match_parent"
