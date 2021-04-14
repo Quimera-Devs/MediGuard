@@ -58,20 +58,23 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.mContact:
-                startActivity(new Intent(this, ContactActivity.class));
-                break;
-            case R.id.mAbout:
-                startActivity(new Intent(this, AboutActivity.class));
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.mSettings) {
+            startActivity(new Intent(this, UserSettingsActivity.class));
+        } else if (itemId == R.id.mContact) {
+            startActivity(new Intent(this, ContactActivity.class));
+        } else if (itemId == R.id.mAbout) {
+            startActivity(new Intent(this, AboutActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
 
+    // AppBar toolbar:
     private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setSubtitle(activity_name);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setSubtitle(activity_name);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
     }
 }
