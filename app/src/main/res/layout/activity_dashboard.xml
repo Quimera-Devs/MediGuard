@@ -27,7 +27,8 @@
             android:id = "@+id/imgViewPP"
             android:src="@drawable/banner"
             android:layout_width="match_parent"
-            android:layout_height="65dp"/>
+            android:layout_height="65dp"
+            android:contentDescription="@string/img_Logo" />
 
         <TextView
             android:id ="@+id/tvBienvenido"
@@ -58,10 +59,11 @@
             android:layout_height="0dp"
             android:layout_margin="10dp"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:cardCornerRadius="4dp"
+            android:background="@color/colorBlanco"
             android:elevation="4dp"
             android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            app:cardCornerRadius="4dp">
+            android:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:src="@drawable/booking_confirmed"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/misguardias" />
 
                 <TextView
                     android:id="@+id/txtMyGuards"
@@ -96,10 +99,11 @@
             android:layout_height="0dp"
             android:layout_margin="10dp"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:cardCornerRadius="4dp"
+            android:background="@color/colorBlanco"
             android:elevation="4dp"
             android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            app:cardCornerRadius="4dp">
+            android:layout_rowWeight="1">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -111,7 +115,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:src="@drawable/medicine_wellness"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/guardiasdispo" />
                 <TextView
                     android:id="@+id/txtAvalibelGuards"
                     android:layout_width="match_parent"
