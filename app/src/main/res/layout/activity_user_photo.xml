@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserPhotoActivity">
+
+
+    <LinearLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!--put image.xml as background to your image view-->
+
+        <ImageView
+            android:id="@+id/imageViewPP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/imgProfile" />
+
+        <Button
+            android:id="@+id/capture_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/capturephoto"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/select_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/selectphoto"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+
+</RelativeLayout>
