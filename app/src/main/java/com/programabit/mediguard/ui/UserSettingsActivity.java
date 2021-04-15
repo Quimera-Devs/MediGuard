@@ -1,25 +1,20 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.programabit.mediguard.rest.AvaibleGuardViewModel;
-import com.programabit.mediguard.rest.GuardsViewModel;
-import com.programabit.mediguard.rest.MedicDto;
-import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
+import com.programabit.mediguard.R;
+import com.programabit.mediguard.domain.MedicDto;
+import com.programabit.mediguard.data.MedicRestRepositoryAsync;
 
 import java.util.concurrent.ExecutionException;
 

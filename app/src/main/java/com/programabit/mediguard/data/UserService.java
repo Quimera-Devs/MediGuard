@@ -1,7 +1,7 @@
-package com.programabit.mediguard.rest;
+package com.programabit.mediguard.data;
 
-import com.programabit.mediguard.LoginRequest;
-import com.programabit.mediguard.LoginResponse;
+import com.programabit.mediguard.domain.GuardDto;
+import com.programabit.mediguard.domain.MedicDto;
 
 import java.util.List;
 
@@ -11,9 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface UserService {
 
