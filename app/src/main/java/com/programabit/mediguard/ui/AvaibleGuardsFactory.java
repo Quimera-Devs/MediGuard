@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.ui;
 
 import android.app.Application;
 import android.util.Log;
@@ -7,9 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.programabit.mediguard.rest.AvaibleGuardViewModel;
-
-import java.util.concurrent.ExecutionException;
+import com.programabit.mediguard.domain.AvaibleGuardViewModel;
 
 public class AvaibleGuardsFactory extends ViewModelProvider.NewInstanceFactory {
     private String token;

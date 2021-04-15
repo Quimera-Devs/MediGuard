@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorBlanco"
     android:weightSum="5"
-    tools:context=".DashboardActivity">
+    tools:context=".ui.DashboardActivity">
 
     <include
         android:id="@+id/toolbar"

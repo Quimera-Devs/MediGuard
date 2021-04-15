@@ -1,4 +1,4 @@
-package com.programabit.mediguard.rest;
+package com.programabit.mediguard.data;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

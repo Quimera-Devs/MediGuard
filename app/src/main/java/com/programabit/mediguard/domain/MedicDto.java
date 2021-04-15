@@ -1,6 +1,4 @@
-package com.programabit.mediguard.rest;
-
-import androidx.annotation.NonNull;
+package com.programabit.mediguard.domain;
 
 import com.google.gson.annotations.SerializedName;
 

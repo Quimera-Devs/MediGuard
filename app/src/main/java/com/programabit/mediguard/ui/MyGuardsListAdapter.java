@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.ui;
 
 import android.util.Log;
 import android.view.ViewGroup;
@@ -8,7 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import com.programabit.mediguard.rest.GuardDto;
+import com.programabit.mediguard.R;
+import com.programabit.mediguard.domain.GuardDto;
 
 import java.util.concurrent.ExecutionException;
 

@@ -1,18 +1,18 @@
-package com.programabit.mediguard.rest;
+package com.programabit.mediguard.data;
 
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.programabit.mediguard.domain.MedicDto;
 
 import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MedicRestRepositoryAsync extends AsyncTask<String,Void,MedicDto> {
+public class MedicRestRepositoryAsync extends AsyncTask<String,Void, MedicDto> {
 
     private UserService apiService = ApiClient.getRetrofit().create(UserService.class);
     private MedicDto myself = new MedicDto();
