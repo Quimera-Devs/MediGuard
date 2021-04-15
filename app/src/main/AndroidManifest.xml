@@ -58,15 +58,10 @@
         <activity
             android:name=".AvaibleGuardsActivity"
             android:parentActivityName=".DashboardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
         </activity>
         <activity android:name=".MyGuardsActivity"
             android:parentActivityName=".DashboardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+
         </activity>
 
         <service
