@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,23 +11,19 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.programabit.mediguard.rest.GuardRestRepository;
-import com.programabit.mediguard.rest.GuardsViewModel;
-import com.programabit.mediguard.rest.MedicDto;
-import com.programabit.mediguard.rest.MedicRestRepositoryAsync;
+import com.programabit.mediguard.R;
+import com.programabit.mediguard.domain.GuardsViewModel;
+import com.programabit.mediguard.domain.MedicDto;
+import com.programabit.mediguard.data.MedicRestRepositoryAsync;
 
 import java.util.concurrent.ExecutionException;
 

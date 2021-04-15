@@ -1,9 +1,11 @@
-package com.programabit.mediguard.rest;
+package com.programabit.mediguard.domain;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import com.programabit.mediguard.data.AvaibleGuardRestRpository;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

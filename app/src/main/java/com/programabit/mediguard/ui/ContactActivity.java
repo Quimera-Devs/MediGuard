@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,15 +9,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class AboutActivity extends AppCompatActivity {
+import com.programabit.mediguard.R;
+
+public class ContactActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_contact);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_about, true);
+        appToolbar(toolbar, R.string.activity_name_contact,true);
     }
 
     // AppBar (toolbar y menu):
@@ -32,8 +34,8 @@ public class AboutActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.mSettings) {
             startActivity(new Intent(this, UserSettingsActivity.class));
-        } else if (itemId == R.id.mContact) {
-            startActivity(new Intent(this, ContactActivity.class));
+        } else if (itemId == R.id.mAbout) {
+            startActivity(new Intent(this, AboutActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

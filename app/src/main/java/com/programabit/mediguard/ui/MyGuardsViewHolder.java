@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.programabit.mediguard.R;
 
 public class MyGuardsViewHolder extends RecyclerView.ViewHolder {
 

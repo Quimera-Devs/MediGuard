@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.programabit.mediguard.rest.AvaibleGuardViewModel;
-import com.programabit.mediguard.rest.GuardsViewModel;
+import com.programabit.mediguard.R;
+import com.programabit.mediguard.domain.AvaibleGuardViewModel;
 
 public class AvaibleGuardsActivity extends AppCompatActivity {
     private AvaibleGuardViewModel guardsViewModel;
