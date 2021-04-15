@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.programabit.mediguard.R;
@@ -21,7 +20,6 @@ import java.util.concurrent.ExecutionException;
 
 public class UserSettingsActivity extends AppCompatActivity {
     ImageButton imgUserPhoto;
-    ImageView imgUserPicture;
     TextView username;
     TextView ci;
     TextView dir;
@@ -82,8 +80,8 @@ public class UserSettingsActivity extends AppCompatActivity {
         // Intent a CAMBIAR FOTO (Ramon)
         imgUserPhoto = findViewById(R.id.userPhoto);
         imgUserPhoto.setOnClickListener(v -> {
-            Log.i("Settings","Go to User Photo");
-            startActivity(new Intent(UserSettingsActivity.this,UserPhotoActivity.class).putExtra("token",myToken));
+            Intent intentPhoto = new Intent(UserSettingsActivity.this,UserPhotoActivity.class);
+            startActivity(intentPhoto);
         });
 
         // AppBar Toolbar

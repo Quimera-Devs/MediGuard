@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.programabit.mediguard.R;
-import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.domain.GuardsViewModel;
 import com.programabit.mediguard.domain.MedicDto;
 import com.programabit.mediguard.data.MedicRestRepositoryAsync;
@@ -130,9 +129,6 @@ public class DashboardActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    /*We need create notification channel for the push notification, the docs says it's ok call this
-    function anywhere and many times because it didn't cause overload*/
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
@@ -189,15 +185,5 @@ public class DashboardActivity extends AppCompatActivity {
 
     public GuardsViewModel getGuardsViewModel() {
         return guardsViewModel;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        TokenPreference preference = new TokenPreference(this);
-        if (preference.getToken().isEmpty()) {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-        }
     }
 }

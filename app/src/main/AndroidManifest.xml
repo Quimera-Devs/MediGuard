@@ -13,38 +13,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
         <activity
-            android:name=".ContactActivity"
-            android:parentActivityName=".DashboardActivity">
+            android:name=".ui.ContactActivity"
+            android:parentActivityName=".ui.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value=".ui.DashboardActivity" />
         </activity>
         <activity
-            android:name=".AboutActivity"
-            android:parentActivityName=".DashboardActivity">
+            android:name=".ui.AboutActivity"
+            android:parentActivityName=".ui.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value=".ui.DashboardActivity" />
         </activity>
         <activity
-            android:name=".UserSettingsActivity"
-            android:parentActivityName=".DashboardActivity">
+            android:name=".ui.UserSettingsActivity"
+            android:parentActivityName=".ui.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value=".ui.DashboardActivity" />
         </activity>
-        <activity android:name=".DashboardActivity">
+        <activity android:name=".ui.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".ui.LoginActivity" />
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".DashboardActivity">
+            android:name=".ui.LoginActivity"
+            android:parentActivityName=".ui.DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value=".ui.DashboardActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,18 +56,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AvaibleGuardsActivity"
-            android:parentActivityName=".DashboardActivity">
+            android:name=".ui.AvaibleGuardsActivity"
+            android:parentActivityName=".ui.DashboardActivity">
         </activity>
-        <activity android:name=".MyGuardsActivity"
-            android:parentActivityName=".DashboardActivity">
+        <activity android:name=".ui.MyGuardsActivity"
+            android:parentActivityName=".ui.DashboardActivity">
 
         </activity>
-        <activity android:name=".UserPhotoActivity"
-            android:parentActivityName=".UserSettingsActivity">
+
+        <service
+            android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+
+        </service>
+
+        <activity android:name=".ui.UserPhotoActivity"
+            android:parentActivityName=".ui.UserSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UserSettingsActivity" />
+                android:value=".ui.UserSettingsActivity" />
         </activity>
     </application>
 
