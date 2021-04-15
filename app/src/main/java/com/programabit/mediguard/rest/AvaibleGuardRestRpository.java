@@ -29,7 +29,7 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
 
     @Override
     protected List<GuardDto> doInBackground(String... strings) {
-        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token " + strings[0]);
+        Call<List<GuardDto>> call = apiService.getAvailableGuardsGuards("Token "+strings[0]);
         Log.i("GuardsViewModel","background call request");
         Response response = null;
         List<GuardDto> guardsList = null;

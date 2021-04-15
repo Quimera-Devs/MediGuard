@@ -26,7 +26,8 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_avaible_guards);
 
-        final AvaibleGuardsListAdapter adapter = new AvaibleGuardsListAdapter(new AvaibleGuardsListAdapter.guardDiff());
+        final AvaibleGuardsListAdapter adapter = new AvaibleGuardsListAdapter
+                (new AvaibleGuardsListAdapter.guardDiff());
 
         recyclerView = findViewById(R.id.recyclerViewGuards);
         recyclerView.setAdapter(adapter);
@@ -38,7 +39,8 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
         }
         Log.i("My Guards Activity","got token");
         guardsViewModel = new ViewModelProvider(this,
-                new AvaibleGuardsFactory(this.getApplication(), myToken)).get(AvaibleGuardViewModel.class);
+                new AvaibleGuardsFactory(this.getApplication(), myToken))
+                .get(AvaibleGuardViewModel.class);
         Log.i("My Guards Activity","set view model");
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});

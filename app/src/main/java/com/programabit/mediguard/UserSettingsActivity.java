@@ -85,7 +85,8 @@ public class UserSettingsActivity extends AppCompatActivity {
         // Intent a CAMBIAR FOTO (Ramon)
         imgUserPhoto = findViewById(R.id.userPhoto);
         imgUserPhoto.setOnClickListener(v -> {
-            Intent intentPhoto = new Intent(UserSettingsActivity.this,UserPhotoActivity.class);
+            Intent intentPhoto =
+                    new Intent(UserSettingsActivity.this,UserPhotoActivity.class);
             startActivity(intentPhoto);
         });
 

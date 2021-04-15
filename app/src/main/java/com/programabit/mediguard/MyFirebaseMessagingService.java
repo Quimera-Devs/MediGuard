@@ -39,7 +39,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String title = dataMap.get("title");
             String body = dataMap.get("body");
             //String otherdatavalue = dataMap.get("otherdatakey");
-            Notification notification = new NotificationCompat.Builder(this,"mediguardPush")
+            Notification notification = new NotificationCompat
+                    .Builder(this,"mediguardPush")
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -73,7 +74,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
+            NotificationChannel channel =
+                    new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
             channel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);

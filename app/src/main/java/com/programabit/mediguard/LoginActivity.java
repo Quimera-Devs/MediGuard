@@ -39,8 +39,11 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                if(TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())){
-                    Toast.makeText(LoginActivity.this,"Usuario / Contraseña Requeridos", Toast.LENGTH_LONG).show();
+                if(TextUtils.isEmpty(username.getText().toString())
+                        || TextUtils.isEmpty(password.getText().toString())){
+
+                    Toast.makeText(LoginActivity.this
+                            ,"Usuario / Contraseña Requeridos", Toast.LENGTH_LONG).show();
                 }else{
                     //proceed to login
                     login();
@@ -54,7 +57,8 @@ public class LoginActivity extends AppCompatActivity{
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
+            NotificationChannel channel =
+                    new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
             channel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -72,34 +76,33 @@ public class LoginActivity extends AppCompatActivity{
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
                 if(response.isSuccessful()){
-                    Toast.makeText(LoginActivity.this,"Acceso Correcto", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this
+                            ,"Acceso Correcto", Toast.LENGTH_LONG).show();
                     LoginResponse loginResponse = response.body();
                     Log.i("login succesfull", loginResponse.getToken());
 
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data",loginResponse.getToken()));
+                            startActivity(new Intent(
+                                    LoginActivity.this,DashboardActivity.class)
+                                    .putExtra("data",loginResponse.getToken()));
                         }
                     },700);
 
                 }else{
-                    Toast.makeText(LoginActivity.this,"Usuario o Contraseña incorrectos", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this
+                            ,"Usuario o Contraseña incorrectos", Toast.LENGTH_LONG).show();
 
                 }
-
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
+                Toast.makeText(LoginActivity.this
+                        ,"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
-
-
 }
 

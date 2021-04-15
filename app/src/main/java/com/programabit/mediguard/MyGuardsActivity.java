@@ -33,7 +33,8 @@ public class MyGuardsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_guards);
         Log.i("My Guards Activity","start activity");
-        final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
+        final MyGuardsListAdapter adapter = new MyGuardsListAdapter(
+                new MyGuardsListAdapter.guardDiff());
 
         recyclerView = findViewById(R.id.mis_guardias_recycler_id);
         recyclerView.setAdapter(adapter);
@@ -54,12 +55,13 @@ public class MyGuardsActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new MyGuardsListAdapter.onItemClickListener() {
             @Override
-            public void onItemDelete(GuardDto myGuard) throws ExecutionException, InterruptedException {
+            public void onItemDelete(GuardDto myGuard)
+                    throws ExecutionException, InterruptedException {
                 new AlertDialog.Builder(MyGuardsActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Quitando guardia")
-                        .setMessage("¿Desea devolver esta guardia?")
-                        .setPositiveButton("Si", new DialogInterface.OnClickListener()
+                        .setTitle(getString(R.string.delete_confirmation_title))
+                        .setMessage(R.string.delete_confirmation_msg)
+                        .setPositiveButton(R.string.delete_confirmation_yes, new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -73,7 +75,7 @@ public class MyGuardsActivity extends AppCompatActivity {
                             }
 
                         })
-                        .setNegativeButton("No", null)
+                        .setNegativeButton(R.string.delete_confirmation_no, null)
                         .show();
                 //
             }

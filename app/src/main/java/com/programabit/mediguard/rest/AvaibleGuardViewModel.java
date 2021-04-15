@@ -13,7 +13,8 @@ public class AvaibleGuardViewModel extends AndroidViewModel {
     private final MutableLiveData<List<GuardDto>> avaibleGuards;
     private String token;
 
-    public AvaibleGuardViewModel(Application application, String tokenValue) throws ExecutionException, InterruptedException {
+    public AvaibleGuardViewModel(Application application, String tokenValue)
+            throws ExecutionException, InterruptedException {
         super(application);
         token = tokenValue;
         guardRestRepository = new AvaibleGuardRestRpository(application,tokenValue);
