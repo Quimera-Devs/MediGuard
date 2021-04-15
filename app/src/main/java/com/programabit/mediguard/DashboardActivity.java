@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
@@ -32,7 +33,6 @@ import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    //MedicViewModel medicViewModel;
     MedicRestRepositoryAsync medicRepo;
     GuardsViewModel guardsViewModel;
     TextView username;
@@ -40,7 +40,6 @@ public class DashboardActivity extends AppCompatActivity {
     CardView cvGuardiasDispo;
     String myToken = "";
     MedicDto myself;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -82,6 +82,12 @@ public class MyGuardsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     // AppBar toolbar:
     private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
         setSupportActionBar(toolbar);
