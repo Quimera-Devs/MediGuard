@@ -1,5 +1,7 @@
 package com.programabit.mediguard;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,7 +55,27 @@ public class MyGuardsActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new MyGuardsListAdapter.onItemClickListener() {
             @Override
             public void onItemDelete(GuardDto myGuard) throws ExecutionException, InterruptedException {
-                //guardsViewModel.delete(myGuard);
+                new AlertDialog.Builder(MyGuardsActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Quitando guardia")
+                        .setMessage("¿Desea devolver esta guardia?")
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    guardsViewModel.delete(myGuard);
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                //
             }
         });
 
