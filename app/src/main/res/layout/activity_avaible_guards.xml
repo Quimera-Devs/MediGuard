@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlanco"
     android:orientation="vertical"
-    tools:context=".AvaibleGuardsActivity">
+    tools:context=".ui.AvaibleGuardsActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

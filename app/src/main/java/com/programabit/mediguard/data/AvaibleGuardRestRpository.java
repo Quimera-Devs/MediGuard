@@ -1,18 +1,17 @@
-package com.programabit.mediguard.rest;
+package com.programabit.mediguard.data;
 
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.programabit.mediguard.domain.GuardDto;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardDto>> {

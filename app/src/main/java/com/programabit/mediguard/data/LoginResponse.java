@@ -1,4 +1,4 @@
-package com.programabit.mediguard;
+package com.programabit.mediguard.data;
 
 public class LoginResponse {
 
