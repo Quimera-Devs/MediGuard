@@ -28,6 +28,7 @@
 <string name="activity_name_logoff">Cerrar sesión</string>
 <string name="selectphoto">Seleccionar de galeria</string>
 <string name="capturephoto">Abrir camara</string>
+    <string name="uploadphoto">Guardar</string>
 <string name="bienvenido">Bienvenido a MediGuard</string>
 <string name="misguardias">MIS GUARDIAS</string>
 <string name="guardiasdispo">GUARDIAS DISPONIBLES</string>

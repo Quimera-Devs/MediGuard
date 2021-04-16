@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBlanco"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.UserPhotoActivity">
 
+            <ImageView
+                android:id="@+id/userPicture"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:contentDescription="@string/imgProfile"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
-    <LinearLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/layout_button"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <!--put image.xml as background to your image view-->
 
-        <ImageView
-            android:id="@+id/imageViewPP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/imgProfile" />
+                <Button
+                    android:id="@+id/btnChoose"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrincipal"
+                    android:text="@string/selectphoto"
+                    android:textColor="@color/colorBlanco" />
 
-        <Button
-            android:id="@+id/capture_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/capturephoto"
-            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/select_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/selectphoto"
-            android:textStyle="bold" />
+                <Button
+                    android:id="@+id/btnUpload"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrincipal"
+                    android:text="@string/uploadphoto"
+                    android:textColor="@color/colorBlanco" />
+            </LinearLayout>
 
-    </LinearLayout>
 
-    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
-
-</RelativeLayout>
+</LinearLayout>
