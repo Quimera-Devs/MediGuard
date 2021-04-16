@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.programabit.mediguard.R;
+import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.domain.GuardsViewModel;
 import com.programabit.mediguard.domain.MedicDto;
 import com.programabit.mediguard.data.MedicRestRepositoryAsync;
@@ -185,5 +186,15 @@ public class DashboardActivity extends AppCompatActivity {
 
     public GuardsViewModel getGuardsViewModel() {
         return guardsViewModel;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TokenPreference preference = new TokenPreference(this);
+        if (preference.getToken().isEmpty()) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
     }
 }

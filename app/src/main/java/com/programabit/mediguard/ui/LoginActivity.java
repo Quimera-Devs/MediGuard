@@ -18,6 +18,7 @@ import com.programabit.mediguard.R;
 import com.programabit.mediguard.data.ApiClient;
 import com.programabit.mediguard.data.LoginRequest;
 import com.programabit.mediguard.data.LoginResponse;
+import com.programabit.mediguard.data.preferences.TokenPreference;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,7 +49,6 @@ public class LoginActivity extends AppCompatActivity{
                     //proceed to login
                     login();
                 }
-
             }
         });
     }
@@ -74,17 +74,14 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                if(response.isSuccessful()){
+                if(response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this,"Acceso Correcto", Toast.LENGTH_LONG).show();
                     LoginResponse loginResponse = response.body();
                     Log.i("login succesfull", loginResponse.getToken());
-
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data",loginResponse.getToken()));
-                        }
-                    },700);
+                    TokenPreference preferences = new TokenPreference(LoginActivity.this);
+                    preferences.saveToken(loginResponse.getToken());
+                    startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data",loginResponse.getToken()));
+                    finish();
 
                 }else{
                     Toast.makeText(LoginActivity.this,"Usuario o Contraseña incorrectos", Toast.LENGTH_LONG).show();
@@ -99,10 +96,16 @@ public class LoginActivity extends AppCompatActivity{
 
             }
         });
-
-
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TokenPreference preference = new TokenPreference(this);
+        if (!preference.getToken().isEmpty()) {
+            startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data", preference.getToken()));
+            finish();
+        }
+    }
 }
 
