@@ -2,7 +2,9 @@ package com.programabit.mediguard.ui;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
+
         setContentView(R.layout.activity_login);username = findViewById(R.id.edUsername);
         password = findViewById(R.id.edPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity{
                     //proceed to login
                     login();
                 }
+
             }
         });
     }
@@ -74,8 +78,8 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                if(response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this,"Acceso Correcto", Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Acceso Correcto", Toast.LENGTH_LONG).show();
                     LoginResponse loginResponse = response.body();
                     Log.i("login succesfull", loginResponse.getToken());
                     TokenPreference preferences = new TokenPreference(LoginActivity.this);
@@ -92,9 +96,11 @@ public class LoginActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"Throwable "+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Throwable " + t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
             }
+
+
         });
     }
 
@@ -103,7 +109,7 @@ public class LoginActivity extends AppCompatActivity{
         super.onResume();
         TokenPreference preference = new TokenPreference(this);
         if (!preference.getToken().isEmpty()) {
-            startActivity(new Intent(LoginActivity.this,DashboardActivity.class).putExtra("data", preference.getToken()));
+            startActivity(new Intent(LoginActivity.this, DashboardActivity.class).putExtra("data", preference.getToken()));
             finish();
         }
     }
