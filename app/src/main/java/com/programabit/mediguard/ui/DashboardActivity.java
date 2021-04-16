@@ -130,6 +130,9 @@ public class DashboardActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /*We need create notification channel for the push notification, the docs says it's ok call this
+    function anywhere and many times because it didn't cause overload*/
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
