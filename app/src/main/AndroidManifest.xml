@@ -43,12 +43,7 @@
                 android:value=".ui.LoginActivity" />
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
-            android:parentActivityName=".ui.DashboardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.DashboardActivity" />
-
+            android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,10 +53,15 @@
         <activity
             android:name=".ui.AvaibleGuardsActivity"
             android:parentActivityName=".ui.DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DashboardActivity" />
         </activity>
         <activity android:name=".ui.MyGuardsActivity"
             android:parentActivityName=".ui.DashboardActivity">
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DashboardActivity" />
         </activity>
 
         <service

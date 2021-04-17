@@ -1,6 +1,7 @@
 package com.programabit.mediguard.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -28,7 +29,7 @@ import com.programabit.mediguard.data.MedicRestRepositoryAsync;
 
 import java.util.concurrent.ExecutionException;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
 
     MedicRestRepositoryAsync medicRepo;
     GuardsViewModel guardsViewModel;
@@ -91,9 +92,6 @@ public class DashboardActivity extends AppCompatActivity {
         guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
 
-        // Toolbar
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_dashboard,false);
 
         String TAG = "DashboardActivity";
 
@@ -121,7 +119,6 @@ public class DashboardActivity extends AppCompatActivity {
                         String msg = ("Departamento de registro: " + myself.getDepartamento());
                         Log.e("TOPICO DEPARTAMAENTO", myself.getDepartamento());
 
-    // AppBar menu:
                         if (!task.isSuccessful()) {
                             msg = getString(R.string.msg_subscribe_dept_failed);
                         }
@@ -145,44 +142,6 @@ public class DashboardActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-    // AppBar (toolbar y menu):
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
-        return true;
-    }
-
-    // AppBar menu:
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.mSettings) {
-            Intent intent = new Intent(this, UserSettingsActivity.class).putExtra("token",myToken);
-            intent.putExtra("ci", myself.getCi());
-            intent.putExtra("dir", myself.getDireccion());
-            intent.putExtra("department", myself.getDepartamento());
-            intent.putExtra("name", myself.getNombre_apellido());
-            intent.putExtra("account_num", myself.getNroCaja());
-            intent.putExtra("ranking", myself.getRanking());
-            intent.putExtra("phone", myself.getTelefono());
-            startActivity(intent);
-        } else if (itemId == R.id.mContact) {
-            startActivity(new Intent(this, ContactActivity.class));
-        } else if (itemId == R.id.mAbout) {
-            startActivity(new Intent(this, AboutActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    // AppBar toolbar:
-    private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle(activity_name);
-        }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
-    }
-
     public String getMyTokenValue() {
         return this.myToken;
     }
