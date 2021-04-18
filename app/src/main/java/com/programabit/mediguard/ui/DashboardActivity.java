@@ -38,6 +38,7 @@ public class DashboardActivity extends BaseActivity {
     CardView cvGuardiasDispo;
     String myToken = "";
     MedicDto myself;
+    TextView tvGuardiasActivas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class DashboardActivity extends BaseActivity {
         username = findViewById(R.id.tvBienvenido);
         cvMisGuardias = findViewById(R.id.cvMisGuardias);
         cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
+        tvGuardiasActivas = findViewById(R.id.tvGuardiasActivas);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
         // Setear extras (token y usuario)
@@ -91,6 +93,7 @@ public class DashboardActivity extends BaseActivity {
         Log.i("dashboard","observing my guards");
         guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
+        tvGuardiasActivas.setText("Ud. tiene : " + guardsViewModel.getNumGuards() + "guardia(s) activa(s)");
 
       
         String TAG = "DashboardActivity";
