@@ -44,5 +44,6 @@
 <string name="user_ranking_edit">user ranking edit</string>
 <string name="repository">Ver codigo fuente</string>
 <string name="members">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
+    <string name="crear_alarma">Crear Alarma</string>
 
 </resources>
