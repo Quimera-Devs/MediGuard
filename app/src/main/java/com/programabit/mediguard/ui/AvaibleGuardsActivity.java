@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.programabit.mediguard.R;
 import com.programabit.mediguard.domain.AvaibleGuardViewModel;
 
-public class AvaibleGuardsActivity extends AppCompatActivity {
+
+public class AvaibleGuardsActivity extends BaseActivity {
     private AvaibleGuardViewModel guardsViewModel;
     private RecyclerView recyclerView;
     private String myToken;
@@ -43,44 +44,6 @@ public class AvaibleGuardsActivity extends AppCompatActivity {
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
         Log.i("My Guards Activity","observing my guards list");
-
-        // Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_avalible_guards,true);
-    }
-
-    // AppBar (toolbar y menu):
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.mSettings) {
-            startActivity(new Intent(this, UserSettingsActivity.class));
-        } else if (itemId == R.id.mContact) {
-            startActivity(new Intent(this, ContactActivity.class));
-        } else if (itemId == R.id.mAbout) {
-            startActivity(new Intent(this, AboutActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    // AppBar toolbar:
-    private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle(activity_name);
-        }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+      
     }
 }
