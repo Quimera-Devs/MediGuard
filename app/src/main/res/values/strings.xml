@@ -38,8 +38,12 @@
 <string name="msg_subscribe_dept_failed">No ha sido posible sincronizar Departamento</string>
 <string name="default_notification_channel_id">mediguardPush</string>
 <string name="channel_name">mediguard Notifications</string>
-    <string name="user_department">userdepartament</string>
-    <string name="user_department_edit">user deptartament edit</string>
-    <string name="user_ranking">user rnaking edit</string>
-    <string name="user_ranking_edit">user ranking edit</string>
+<string name="user_department">userdepartament</string>
+<string name="user_department_edit">user deptartament edit</string>
+<string name="user_ranking">user rnaking edit</string>
+<string name="user_ranking_edit">user ranking edit</string>
+<string name="repository">Ver codigo fuente</string>
+<string name="members">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
+    <string name="crear_alarma">Crear Alarma</string>
+
 </resources>

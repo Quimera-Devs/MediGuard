@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Build;
+import android.provider.AlarmClock;
+import android.provider.CalendarContract;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -19,6 +21,7 @@ import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.ui.AvaibleGuardsActivity;
 import com.programabit.mediguard.ui.MyGuardsActivity;
 
+import java.util.Calendar;
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -45,7 +48,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         TokenPreference preference = new TokenPreference(this);
         String token = preference.getToken();
 
-
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             Map<String, String> dataMap = remoteMessage.getData();
@@ -53,37 +55,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String body = dataMap.get("body");
             String place = dataMap.get("place");
             //String otherdatavalue = dataMap.get("otherdatakey");
-            switch (title){
+        
+
+
+            switch (title) {
                 case "NUEVA GUARDIA DISPONIBLE":
-                    Intent toAvaibleGuards = new Intent(this, AvaibleGuardsActivity.class).putExtra("token",token);
+                    Intent toAvaibleGuards = new Intent(this, AvaibleGuardsActivity.class).putExtra("token", token);
                     TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
                     stackBuilder.addNextIntentWithParentStack(toAvaibleGuards);
                     PendingIntent resultPendingIntent =
                             stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                    Notification notification = new NotificationCompat.Builder(this,"mediguardPush")
-                        .setContentIntent(resultPendingIntent)
-                        .setContentTitle(title)
-                        .setContentText(place)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(body))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setAutoCancel(true)
-                        .build();
-
-                    NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
-                    manager.notify(RandomInt(), notification);
-                    return;
-
-                case "GUARDIA ASIGNADA":
-                    Intent toMyGuards = new Intent(this, MyGuardsActivity.class).putExtra("token",token);
-                    TaskStackBuilder stackBuilder2 = TaskStackBuilder.create(this);
-                    stackBuilder2.addNextIntentWithParentStack(toMyGuards);
-                    PendingIntent resultPendingIntent2 =
-                            stackBuilder2.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                    Notification notification2 = new NotificationCompat.Builder(this,"mediguardPush")
-                            .setContentIntent(resultPendingIntent2)
+                    Notification notification = new NotificationCompat.Builder(this, "mediguardPush")
+                            .setContentIntent(resultPendingIntent)
                             .setContentTitle(title)
                             .setContentText(place)
                             .setStyle(new NotificationCompat.BigTextStyle()
@@ -92,11 +76,56 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setAutoCancel(true)
                             .build();
 
+                    NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
+                    manager.notify(RandomInt(), notification);
+                    return;
+
+                case "GUARDIA ASIGNADA":
+                    //Intent para que la notificacion lleve al usuario a Mis Guardias
+                    Intent toMyGuards = new Intent(this, MyGuardsActivity.class).putExtra("token", token);
+                    TaskStackBuilder stackBuilder2 = TaskStackBuilder.create(this);
+                    stackBuilder2.addNextIntentWithParentStack(toMyGuards);
+                    PendingIntent toMyGuardsPendingIntent =
+                            stackBuilder2.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+                    Calendar beginTime = Calendar.getInstance();
+                    beginTime.set(2024, 0, 19, 7, 30);
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(2024, 0, 19, 8, 30);
+                    Intent InsertGuardiaIntent = new Intent(Intent.ACTION_INSERT)
+                            .setData(CalendarContract.Events.CONTENT_URI)
+                            .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                            .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                            .putExtra(CalendarContract.Events.TITLE, "Yoga")
+                            .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
+                            .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
+                            .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                            .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
+                    startActivity(InsertGuardiaIntent);
+
+                    PendingIntent pendingInsertGuardiaEvent =
+                            PendingIntent.getBroadcast(this, 0, InsertGuardiaIntent, 0);
+
+                    Notification notification2 = new NotificationCompat.Builder(this, "mediguardPush")
+                            .setContentIntent(toMyGuardsPendingIntent)
+                            .setContentTitle(title)
+                            .setContentText(place)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(body))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setAutoCancel(true)
+                            .setContentIntent(pendingInsertGuardiaEvent)
+                            .addAction(R.drawable.ic_menu_share, getString(R.string.crear_alarma),
+                                    pendingInsertGuardiaEvent)
+                            .build();
+
                     NotificationManagerCompat manager2 = NotificationManagerCompat.from(getApplicationContext());
                     manager2.notify(RandomInt(), notification2);
-            }
+                    return;
             }
         }
+    }
 
     @Override
     public void onNewToken(String token) {
@@ -106,12 +135,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-    public int RandomInt(){
+    public int RandomInt() {
         int min = 1;
         int max = 9999;
-        int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+        int random_int = (int) Math.floor(Math.random() * (max - min + 1) + min);
         return random_int;
 
+    }
+
+    public void createAlarm(String message, int hour, int minutes) {
+        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                .putExtra(AlarmClock.EXTRA_MESSAGE, message)
+                .putExtra(AlarmClock.EXTRA_HOUR, hour)
+                .putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
 }
