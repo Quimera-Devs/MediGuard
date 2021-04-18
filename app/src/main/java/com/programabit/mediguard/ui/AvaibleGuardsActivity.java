@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.programabit.mediguard.R;
 import com.programabit.mediguard.domain.AvaibleGuardViewModel;
 
+
 public class AvaibleGuardsActivity extends BaseActivity {
     private AvaibleGuardViewModel guardsViewModel;
     private RecyclerView recyclerView;
@@ -43,6 +44,6 @@ public class AvaibleGuardsActivity extends BaseActivity {
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
         Log.i("My Guards Activity","observing my guards list");
-
+      
     }
 }

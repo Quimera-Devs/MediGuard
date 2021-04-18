@@ -45,13 +45,11 @@ public class UserSettingsActivity extends BaseActivity {
         ranking     = findViewById(R.id.tvRanking);
         department  = findViewById(R.id.tvDepartment);
 
-
         // Intent a CAMBIAR FOTO (Ramon)
         imgUserPhoto = findViewById(R.id.userPhoto);
         imgUserPhoto.setOnClickListener(v -> {
             Log.i("Settings","Go to User Photo");
             startActivity(new Intent(UserSettingsActivity.this,UserPhotoActivity.class).putExtra("token",myToken));
         });
-
     }
 }

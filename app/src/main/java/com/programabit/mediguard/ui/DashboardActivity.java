@@ -92,7 +92,7 @@ public class DashboardActivity extends BaseActivity {
         guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
 
-
+      
         String TAG = "DashboardActivity";
 
         FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
@@ -142,6 +142,7 @@ public class DashboardActivity extends BaseActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+  
     public String getMyTokenValue() {
         return this.myToken;
     }
