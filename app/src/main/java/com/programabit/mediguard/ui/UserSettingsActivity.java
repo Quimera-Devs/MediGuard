@@ -1,27 +1,16 @@
 package com.programabit.mediguard.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.programabit.mediguard.R;
-import com.programabit.mediguard.domain.MedicDto;
-import com.programabit.mediguard.data.MedicRestRepositoryAsync;
-
-import java.util.concurrent.ExecutionException;
+import com.programabit.mediguard.data.preferences.TokenPreference;
 
 public class UserSettingsActivity extends BaseActivity {
     ImageButton imgUserPhoto;
-    ImageView imgUserPicture;
     TextView username;
     TextView ci;
     TextView dir;
@@ -29,9 +18,9 @@ public class UserSettingsActivity extends BaseActivity {
     TextView account_num;
     TextView ranking;
     TextView department;
-    MedicRestRepositoryAsync medicRepo;
-    MedicDto myself;
-    private String myToken;
+
+    TokenPreference preference = new TokenPreference(this);
+    private String myToken = preference.getToken();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
