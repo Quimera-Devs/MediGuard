@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.programabit.mediguard.R;
+import com.programabit.mediguard.data.preferences.TokenPreference;
 
 public abstract class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -76,7 +77,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.mAbout) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (itemId == R.id.mLogoff) {
-            // ACA FALTA BORRAR TOKEN
+            TokenPreference preferences = new TokenPreference(this);
+            preferences.saveToken("");
             startActivity(new Intent(this, LoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
