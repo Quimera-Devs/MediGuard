@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.programabit.mediguard.R;
 import com.programabit.mediguard.domain.AvaibleGuardViewModel;
+import com.programabit.mediguard.domain.GuardDto;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class AvaibleGuardsActivity extends BaseActivity {
@@ -42,10 +45,16 @@ public class AvaibleGuardsActivity extends BaseActivity {
         guardsViewModel = new ViewModelProvider(this,
                 new AvaibleGuardsFactory(this.getApplication(), myToken))
                 .get(AvaibleGuardViewModel.class);
-        Log.i("My Guards Activity","set view model");
+        Log.i("Available Guards Activi","set view model");
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
         Log.i("My Guards Activity","observing my guards list");
-      
+
+        adapter.setOnItemClickListener(new AvaibleGuardsListAdapter.onItemClickListener() {
+            @Override
+            public void onItemAssign(GuardDto myGuard) throws ExecutionException, InterruptedException {
+                guardsViewModel.assing(myGuard);
+            }
+        });
     }
 }
