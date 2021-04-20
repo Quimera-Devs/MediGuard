@@ -1,6 +1,7 @@
 package com.programabit.mediguard.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -28,7 +29,7 @@ import com.programabit.mediguard.data.MedicRestRepositoryAsync;
 
 import java.util.concurrent.ExecutionException;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
 
     MedicRestRepositoryAsync medicRepo;
     GuardsViewModel guardsViewModel;
@@ -37,6 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
     CardView cvGuardiasDispo;
     String myToken = "";
     MedicDto myself;
+    TextView tvGuardiasActivas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,8 @@ public class DashboardActivity extends AppCompatActivity {
         username = findViewById(R.id.tvBienvenido);
         cvMisGuardias = findViewById(R.id.cvMisGuardias);
         cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
-        final MyGuardsListAdapter adapter =
-                new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
+        tvGuardiasActivas = findViewById(R.id.tvGuardiasActivas);
+        final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
         // Setear extras (token y usuario)
         Intent intent = getIntent();
@@ -65,8 +67,7 @@ public class DashboardActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (myself != null) {
-                username.setText(getString(R.string.dashboard_welcome_dr)
-                        + myself.getNombre_apellido());
+                username.setText("Bienvenido Dr." + myself.getNombre_apellido());
                 Log.i("dashboard","got user correctly");
             }
         }
@@ -74,16 +75,13 @@ public class DashboardActivity extends AppCompatActivity {
         // Intent a MIS GUARDIAS (Nehuen)
         cvMisGuardias.setOnClickListener(v -> {
             Log.i("Dashboard","Go to My Guards Activity");
-            startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class)
-                    .putExtra("token",myToken));
+            startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("token",myToken));
         });
 
         // Intent a GUARDIAS DISPONIBLES (Javier)
         cvGuardiasDispo.setOnClickListener(v -> {
             Log.i("Dashboard","Go to Avaible Guards Activity");
-            startActivity(
-                    new Intent(DashboardActivity.this,AvaibleGuardsActivity.class)
-                            .putExtra("token",myToken));
+            startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("token",myToken));
         });
 
         // ViewModel
@@ -94,11 +92,10 @@ public class DashboardActivity extends AppCompatActivity {
                 adapter::submitList);
         Log.i("dashboard","observing my guards");
         guardsViewModel.getNumGuards();
+        Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
+        tvGuardiasActivas.setText("Ud. tiene : " + guardsViewModel.getNumGuards() + "guardia(s) activa(s)");
 
-        // Toolbar
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_dashboard,false);
-
+      
         String TAG = "DashboardActivity";
 
         FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
@@ -106,14 +103,15 @@ public class DashboardActivity extends AppCompatActivity {
 
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        String msg = getString(R.string.notification_success_msg);
+                        String msg = ("Mediguard se ha sincronizado");
                         Log.e("TOPICO CI", Integer.toString(myself.getCi()));
                         if (!task.isSuccessful()) {
                            msg = getString(R.string.msg_subscribe_medic_failed);
+
+
                         }
                         Log.d(TAG, msg);
-                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT)
-                                .show();
+                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -123,13 +121,12 @@ public class DashboardActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         String msg = ("Departamento de registro: " + myself.getDepartamento());
                         Log.e("TOPICO DEPARTAMAENTO", myself.getDepartamento());
-    // AppBar menu:
+
                         if (!task.isSuccessful()) {
                             msg = getString(R.string.msg_subscribe_dept_failed);
                         }
                         Log.d(TAG, msg);
-                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT)
-                                .show();
+                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -141,53 +138,14 @@ public class DashboardActivity extends AppCompatActivity {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel
-                    ("mediguardPush", "MediGuard Notifications", importance);
+            NotificationChannel channel = new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
             channel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
-    // AppBar (toolbar y menu):
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
-        return true;
-    }
-
-    // AppBar menu:
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.mSettings) {
-            Intent intent = new Intent(this, UserSettingsActivity.class)
-                    .putExtra("token",myToken);
-            intent.putExtra("ci", myself.getCi());
-            intent.putExtra("dir", myself.getDireccion());
-            intent.putExtra("department", myself.getDepartamento());
-            intent.putExtra("name", myself.getNombre_apellido());
-            intent.putExtra("account_num", myself.getNroCaja());
-            intent.putExtra("ranking", myself.getRanking());
-            intent.putExtra("phone", myself.getTelefono());
-            startActivity(intent);
-        } else if (itemId == R.id.mContact) {
-            startActivity(new Intent(this, ContactActivity.class));
-        } else if (itemId == R.id.mAbout) {
-            startActivity(new Intent(this, AboutActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    // AppBar toolbar:
-    private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle(activity_name);
-        }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
-    }
-
+  
     public String getMyTokenValue() {
         return this.myToken;
     }

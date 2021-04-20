@@ -23,7 +23,7 @@ import com.programabit.mediguard.domain.GuardsViewModel;
 import java.util.concurrent.ExecutionException;
 
 
-public class MyGuardsActivity extends AppCompatActivity {
+public class MyGuardsActivity extends BaseActivity {
 
     private GuardsViewModel guardsViewModel;
     private RecyclerView recyclerView;
@@ -81,44 +81,5 @@ public class MyGuardsActivity extends AppCompatActivity {
                 //
             }
         });
-
-        // Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_my_guards,true);
-    }
-
-    // AppBar (toolbar y menu):
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.mSettings) {
-            startActivity(new Intent(this, UserSettingsActivity.class));
-        } else if (itemId == R.id.mContact) {
-            startActivity(new Intent(this, ContactActivity.class));
-        } else if (itemId == R.id.mAbout) {
-            startActivity(new Intent(this, AboutActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
-
-    // AppBar toolbar:
-    private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle(activity_name);
-        }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
     }
 }

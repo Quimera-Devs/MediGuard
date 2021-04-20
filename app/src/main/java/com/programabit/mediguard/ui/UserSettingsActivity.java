@@ -1,27 +1,20 @@
 package com.programabit.mediguard.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.programabit.mediguard.R;
-import com.programabit.mediguard.domain.MedicDto;
 import com.programabit.mediguard.data.MedicRestRepositoryAsync;
+import com.programabit.mediguard.data.preferences.TokenPreference;
+import com.programabit.mediguard.domain.MedicDto;
 
 import java.util.concurrent.ExecutionException;
 
-public class UserSettingsActivity extends AppCompatActivity {
+public class UserSettingsActivity extends BaseActivity {
     ImageButton imgUserPhoto;
-    ImageView imgUserPicture;
     TextView username;
     TextView ci;
     TextView dir;
@@ -31,97 +24,62 @@ public class UserSettingsActivity extends AppCompatActivity {
     TextView department;
     MedicRestRepositoryAsync medicRepo;
     MedicDto myself;
-    private String myToken;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
-        username    = findViewById(R.id.tvUserName);
-        ci          = findViewById(R.id.tvCedula);
-        dir         = findViewById(R.id.tvDir);
-        phone         = findViewById(R.id.tvPhone);
+        username = findViewById(R.id.tvUserName);
+        ci = findViewById(R.id.tvCedula);
+        dir = findViewById(R.id.tvDir);
+        phone = findViewById(R.id.tvPhone);
         account_num = findViewById(R.id.tvCheckingAccount);
-        ranking     = findViewById(R.id.tvRanking);
-        department  = findViewById(R.id.tvDepartment);
+        ranking = findViewById(R.id.tvRanking);
+        department = findViewById(R.id.tvDepartment);
+        TokenPreference preference = new TokenPreference(this);
+        String myToken = preference.getToken();
 
-        // Setear extras (token y usuario)
-        Intent intent = getIntent();
-        if(intent.getExtras() != null) {
-            myToken = (intent.getStringExtra("data"));
+        // Intent a CAMBIAR FOTO (Ramon)
+        imgUserPhoto = findViewById(R.id.userPhoto);
+        imgUserPhoto.setOnClickListener(v -> {
+            Log.i("Settings", "Go to User Photo");
+            startActivity(new Intent(UserSettingsActivity.this, UserPhotoActivity.class).putExtra("token", myToken));
+        });
+
+
+        // Setear token y usuario (Matias)
+        if (!myToken.isEmpty()) {
+            Log.i("Settings", "got token correctly");
+
             medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
             medicRepo.execute(new String[]{myToken});
             try {
                 myself = medicRepo.get();
             } catch (ExecutionException e) {
-                Log.i("execute exception", e.getMessage());
+                Log.i("excecute exception", e.getMessage());
                 e.printStackTrace();
             } catch (InterruptedException e) {
-                Log.i("interrupt exception", e.getMessage());
+                Log.i("interrup exception", e.getMessage());
                 e.printStackTrace();
             }
             if (myself != null) {
+                Integer cii = myself.getCi();
+                Integer phonee = myself.getTelefono();
+                Integer account = myself.getNroCaja();
+                Integer rank = myself.getRanking();
+
                 username.setText(myself.getNombre_apellido());
-                Log.i("user_settings","got user correctly");
+                ci.setText(cii.toString());
+                dir.setText(myself.getDireccion());
+                phone.setText(phonee.toString());
+                account_num.setText(account.toString());
+                ranking.setText(rank.toString());
+                department.setText(myself.getDepartamento());
+                Log.i("Settings", "filled user data correctly");
             }
         }
 
 
-        if(intent.getExtras() != null) {
-            myToken = (intent.getStringExtra("token"));
-            username.setText(intent.getStringExtra("name"));
-            ci.setText(intent.getStringExtra("ci"));
-            dir.setText(intent.getStringExtra("dir"));
-            phone.setText(intent.getStringExtra("phone"));
-            account_num.setText(intent.getStringExtra("name"));
-            ranking.setText(intent.getStringExtra("ranking"));
-            department.setText(intent.getStringExtra("department"));
-            Log.i("settings","got user correctly");
-            }
-
-        // Intent a CAMBIAR FOTO (Ramon)
-        imgUserPhoto = findViewById(R.id.userPhoto);
-        imgUserPhoto.setOnClickListener(v -> {
-            Log.i("Settings","Go to User Photo");
-            startActivity(new Intent(UserSettingsActivity.this,UserPhotoActivity.class).putExtra("token",myToken));
-        });
-
-        // AppBar Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        appToolbar(toolbar, R.string.activity_name_user_panel,true);
-    }
-
-    // AppBar Menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_options, menu);
-        return true;
-    }
-
-    // AppBar Menu Items
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.mContact) {
-            startActivity(new Intent(this, ContactActivity.class));
-        } else if (itemId == R.id.mAbout) {
-            startActivity(new Intent(this, AboutActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    // AppBar toolbar:
-    private void appToolbar(Toolbar toolbar, int activity_name, boolean enable) {
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle(activity_name);
-        }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 }
