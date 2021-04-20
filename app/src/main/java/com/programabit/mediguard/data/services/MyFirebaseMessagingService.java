@@ -74,6 +74,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .bigText(body))
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true)
+                            //.setContentIntent(pendingAlarmGuard)
+                            //.addAction(R.drawable.ic_menu_send, getString(R.string.crear_alarma), pendingAlarmGuard)
                             .build();
 
                     NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
@@ -96,23 +98,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     assert turn != null;
                     int turn_hour = Integer.parseInt(ParseTurno(turn));
 
-                    //Intent y pendingIntent para que al presionar "Crear Alarma" se despliegue 
+                    //Intent y pendingIntent para que al presionar "Crear Alarma" se despliegue
                     //la aplicacion calendar por defecto del dispositivo
                     Calendar beginTime = Calendar.getInstance();
-                    beginTime.set(date_day,date_month,date_year,turn_hour,00);
+                    beginTime.set(date_year,date_month,date_day,turn_hour,00);
+                    Log.e("DATOS FECHA",Integer.toString(date_year) + Integer.toString(date_month) + Integer.toString(date_day) );
                     Calendar endTime = Calendar.getInstance();
-                    endTime.set(date_day,date_month,date_year,turn_hour + 8,00);
-
+                    endTime.set(date_day,date_month,date_year,turn_hour,00);
 
                     Intent alarmGuardIntent = new Intent(Intent.ACTION_INSERT)
                             .setData(CalendarContract.Events.CONTENT_URI)
                             .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                            .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                            .putExtra(CalendarContract.Events.TITLE, place + turn)
+                            //.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                            .putExtra(CalendarContract.Events.TITLE, place + " " + turn)
                             .putExtra(CalendarContract.Events.DESCRIPTION, body)
                             .putExtra(CalendarContract.Events.EVENT_LOCATION, place)
                             .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
-                            //startActivity(alarmGuardIntent);
 
                     PendingIntent pendingAlarmGuard =
                             PendingIntent.getActivity(this, 0, alarmGuardIntent, 0);
