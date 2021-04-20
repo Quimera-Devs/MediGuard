@@ -51,5 +51,11 @@
     <string name="delete_confirmation_msg">Desea darse de baja de esta guardia?</string>
     <string name="delete_confirmation_yes">SI</string>
     <string name="delete_confirmation_no">NO</string>
+    <string name="medical_entity_name" translatable="false">Sociedad Médica:</string>
+    <string name="medical_entity_phone" translatable="false">X-XXX-XX-XX</string>
+    <string name="tech_support">Soporte Técnico:</string>
+    <string name="medical_entity_email" translatable="false">sociedad_medica@mail.com</string>
+    <string name="tech_support_email" translatable="false">devschimera@gmail.com</string>
+    <string name="tech_support_wpp" translatable="false">+598 XXX XXX XXX</string>
 
 </resources>

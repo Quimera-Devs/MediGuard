@@ -39,4 +39,5 @@
     <string name="delete_confirmation_no">NO</string>
     <string name="msg_subscribe_medic_failed">Could Not synchronize with Medic ID</string>
     <string name="msg_subscribe_dept_failed">Could Not synchronize location</string>
+    <string name="tech_support">Tech Support:</string>
 </resources>
