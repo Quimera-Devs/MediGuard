@@ -10,7 +10,7 @@
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
             android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
+            android:padding="@dimen/activity_horizontal_margin"
+            android:stretchColumns="*">
 
             <TextView
                 android:id="@+id/tvMedicalEntityName"
@@ -39,7 +40,7 @@
                 <ImageButton
                     android:id="@+id/imgMedicalEntityPhone"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/user_phone_name"
                     app:srcCompat="@drawable/ic_baseline_call_24" />
@@ -47,7 +48,7 @@
                 <TextView
                     android:id="@+id/tvMedicalEntityPhone"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/medical_entity_phone"
                     android:textStyle="bold"
                     android:gravity="center_vertical"
@@ -59,7 +60,7 @@
             <ImageButton
                     android:id="@+id/imgMedicalEntityMail"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/medical_entity_email"
                     app:srcCompat="@drawable/ic_baseline_email_24" />
@@ -89,7 +90,7 @@
                 <ImageButton
                     android:id="@+id/imgTechSupportPhone"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/user_phone_name"
                     app:srcCompat="@drawable/ic_baseline_call_24" />
@@ -109,7 +110,7 @@
                 <ImageButton
                     android:id="@+id/imgTechSupportEmail"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/tech_support_email"
                     app:srcCompat="@drawable/ic_baseline_email_24" />
