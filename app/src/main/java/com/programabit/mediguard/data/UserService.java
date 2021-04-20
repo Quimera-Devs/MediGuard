@@ -12,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UserService {
 
@@ -30,6 +31,12 @@ public interface UserService {
     @PATCH("/modificar_guardia/{id}/")
     Call<GuardDto> editGuard(@Path("id") int Id,
                              @Body GuardDto guard,
+                             @Header("Authorization") String token);
+
+    @PATCH("/modificar_guardia/{id}/")
+    Call<GuardDto> patchGuard(@Path("id") int Id,
+                             @Query("idMedic") int idMedic,
+                             @Query("available") boolean available,
                              @Header("Authorization") String token);
 
 

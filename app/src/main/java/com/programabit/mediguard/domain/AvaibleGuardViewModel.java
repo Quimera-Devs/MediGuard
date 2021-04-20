@@ -37,6 +37,19 @@ public class AvaibleGuardViewModel extends AndroidViewModel {
         avaibleGuards.setValue(guardRestRepository.execute(new String[]{token,"getAvailableGuards"}).get());
     }
 
+    public void assingFromNotify(int idGuard, int idMedic, boolean isAvailable)
+            throws ExecutionException, InterruptedException {
+
+        GuardDto notiffGuard = new GuardDto();
+        notiffGuard.setId(idGuard);
+        notiffGuard.setMedico(idMedic);
+        notiffGuard.setDisponible(isAvailable);
+        guardRestRepository = new AvaibleGuardRestRpository(myapplication,token);
+        guardRestRepository.setSelectedGuard(notiffGuard);
+        guardRestRepository.execute(new String[]{token,"assignGuardsNotiff"}).get();
+        Log.i("GuardsViewModel", "assign complete");
+    }
+
     public AvaibleGuardRestRpository getGuardRestRepository() {
         return guardRestRepository;
     }
