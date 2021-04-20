@@ -51,9 +51,8 @@ public class UserSettingsActivity extends BaseActivity {
         // Setear token y usuario (Matias)
         if (!myToken.isEmpty()) {
             Log.i("Settings", "got token correctly");
-
             medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
-            medicRepo.execute(new String[]{myToken});
+            medicRepo.execute(myToken);
             try {
                 myself = medicRepo.get();
             } catch (ExecutionException e) {
@@ -64,17 +63,12 @@ public class UserSettingsActivity extends BaseActivity {
                 e.printStackTrace();
             }
             if (myself != null) {
-                Integer cii = myself.getCi();
-                Integer phonee = myself.getTelefono();
-                Integer account = myself.getNroCaja();
-                Integer rank = myself.getRanking();
-
                 username.setText(myself.getNombre_apellido());
-                ci.setText(cii.toString());
+                ci.setText(String.valueOf(myself.getCi()));
                 dir.setText(myself.getDireccion());
-                phone.setText(phonee.toString());
-                account_num.setText(account.toString());
-                ranking.setText(rank.toString());
+                phone.setText(String.valueOf(myself.getTelefono()));
+                account_num.setText(String.valueOf(myself.getNroCaja()));
+                ranking.setText(String.format("%sº", myself.getRanking()));
                 department.setText(myself.getDepartamento());
                 Log.i("Settings", "filled user data correctly");
             }

@@ -65,7 +65,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="2"
                     android:gravity="start"
-                    android:text="@string/identification" />
+                    android:text="@string/identification"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow android:layout_marginTop="28dp">
@@ -87,7 +88,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="2"
                     android:gravity="start"
-                    android:text="@string/user_phone_edit" />
+                    android:text="@string/user_phone_edit"
+                    android:textStyle="bold" />
             </TableRow>
 
 
@@ -110,7 +112,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="2"
                     android:gravity="start"
-                    android:text="@string/user_dir_edit" />
+                    android:text="@string/user_dir_edit"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow android:layout_marginTop="28dp">
@@ -132,7 +135,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="2"
                     android:gravity="start"
-                    android:text="@string/user_department_edit" />
+                    android:text="@string/user_department_edit"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow android:layout_marginTop="28dp">
@@ -154,7 +158,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="2"
                     android:gravity="start"
-                    android:text="@string/cheking_account" />
+                    android:text="@string/cheking_account"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow android:layout_marginTop="28dp">
@@ -176,7 +181,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="2"
                     android:gravity="start"
-                    android:text="@string/user_ranking_edit" />
+                    android:text="@string/user_ranking_edit"
+                    android:textStyle="bold" />
             </TableRow>
 
             <RelativeLayout
@@ -197,7 +203,5 @@
             </RelativeLayout>
         </TableLayout>
     </ScrollView>
-
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
-
 </RelativeLayout>
