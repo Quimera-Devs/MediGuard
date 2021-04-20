@@ -29,7 +29,8 @@ public class AvaibleGuardsViewHolder extends RecyclerView.ViewHolder {
     }
 
     static AvaibleGuardsViewHolder create(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.guard_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.guard_item, parent, false);
         return new AvaibleGuardsViewHolder(view);
     }
 }
