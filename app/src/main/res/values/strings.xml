@@ -43,7 +43,8 @@
 <string name="user_ranking">user rnaking edit</string>
 <string name="user_ranking_edit">user ranking edit</string>
 <string name="repository">Ver codigo fuente</string>
-<string name="members">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
-    <string name="crear_alarma">Crear Alarma</string>
+<string name="members">Javier Gianneo \n Nehuen Caro \n Aldo \n Matias Mutter \n Ramon Barbitta</string>
+<string name="crear_alarma">Crear Alarma</string>
+<string name="elegir_guardia">Elegir \n guardia</string>
 
 </resources>

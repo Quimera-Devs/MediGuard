@@ -1,5 +1,6 @@
 package com.programabit.mediguard.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.programabit.mediguard.R;
 import com.programabit.mediguard.domain.AvaibleGuardViewModel;
+import com.programabit.mediguard.domain.GuardDto;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class AvaibleGuardsActivity extends BaseActivity {
@@ -44,6 +49,28 @@ public class AvaibleGuardsActivity extends BaseActivity {
         guardsViewModel.getMyGuards().observe(this,
                 myGuards->{adapter.submitList(myGuards);});
         Log.i("My Guards Activity","observing my guards list");
-      
+        adapter.setOnItemClickListener(new AvaibleGuardsListAdapter.onItemClickListener() {
+            @Override
+            public void onItemSelect(GuardDto guard) {
+                new AlertDialog.Builder(AvaibleGuardsActivity.this)
+                        .setTitle("Seleccionar guardia")
+                        .setMessage("¿Desea asignarse esta guardia?")
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    guardsViewModel.select(guard);
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
     }
 }
