@@ -52,10 +52,10 @@
     <string name="delete_confirmation_yes">SI</string>
     <string name="delete_confirmation_no">NO</string>
     <string name="medical_entity_name" translatable="false">Sociedad Médica:</string>
-    <string name="medical_entity_phone" translatable="false">X XXX XXXX</string>
+    <string name="medical_entity_phone" translatable="false">+598 X XXX XXXX</string>
+    <string name="medical_entity_email" translatable="false">ejemplo@mail.com</string>
     <string name="tech_support">Soporte Técnico:</string>
-    <string name="medical_entity_email" translatable="false">sociedad_medica@mail.com</string>
     <string name="tech_support_email" translatable="false">devschimera@gmail.com</string>
-    <string name="tech_support_wpp" translatable="false">+598 XXX XXX XXX</string>
+    <string name="tech_support_wpp" translatable="false">+598 XX XXX XXX</string>
 
 </resources>

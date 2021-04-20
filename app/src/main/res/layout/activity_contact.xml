@@ -10,7 +10,7 @@
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
             android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:stretchColumns="*">
+            android:padding="@dimen/activity_horizontal_margin">
 
             <TextView
                 android:id="@+id/tvMedicalEntityName"
@@ -36,11 +35,14 @@
                 android:textColor="@color/colorSecundario"
                 android:textSize="24sp" />
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="entityCall">
                 <ImageButton
                     android:id="@+id/imgMedicalEntityPhone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/user_phone_name"
                     app:srcCompat="@drawable/ic_baseline_call_24" />
@@ -48,7 +50,7 @@
                 <TextView
                     android:id="@+id/tvMedicalEntityPhone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/medical_entity_phone"
                     android:textStyle="bold"
                     android:gravity="center_vertical"
@@ -56,11 +58,14 @@
                     android:layout_marginLeft="5dp" />
             </TableRow>
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="entityMail">
             <ImageButton
                     android:id="@+id/imgMedicalEntityMail"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/medical_entity_email"
                     app:srcCompat="@drawable/ic_baseline_email_24" />
@@ -86,11 +91,14 @@
                 android:textColor="@color/colorSecundario"
                 android:textSize="24sp" />
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="chimeraCall">
                 <ImageButton
                     android:id="@+id/imgTechSupportPhone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/user_phone_name"
                     app:srcCompat="@drawable/ic_baseline_call_24" />
@@ -106,11 +114,15 @@
                     android:layout_marginLeft="5dp" />
             </TableRow>
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="chimeraMail">
+
                 <ImageButton
                     android:id="@+id/imgTechSupportEmail"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/tech_support_email"
                     app:srcCompat="@drawable/ic_baseline_email_24" />
