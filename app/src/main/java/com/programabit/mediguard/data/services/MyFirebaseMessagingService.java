@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Build;
-import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.util.Log;
 
@@ -21,6 +20,7 @@ import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.ui.AvaibleGuardsActivity;
 import com.programabit.mediguard.ui.MyGuardsActivity;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Map;
 
@@ -54,9 +54,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String title = dataMap.get("title");
             String body = dataMap.get("body");
             String place = dataMap.get("place");
-            //String otherdatavalue = dataMap.get("otherdatakey");
-        
-
+            String date = dataMap.get("fecha");
+            String turn = dataMap.get("turno");
+            String guardID = dataMap.get("id");
 
             switch (title) {
                 case "NUEVA GUARDIA DISPONIBLE":
@@ -71,9 +71,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setContentTitle(title)
                             .setContentText(place)
                             .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(body))
+                            .bigText(body))
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true)
+                            //.setContentIntent(pendingAlarmGuard)
+                            //.addAction(R.drawable.ic_menu_send, getString(R.string.crear_alarma), pendingAlarmGuard)
                             .build();
 
                     NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
@@ -81,33 +83,40 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     return;
 
                 case "GUARDIA ASIGNADA":
-                    //Intent para que la notificacion lleve al usuario a Mis Guardias
+                    //Intent para que al presionar notificacion lleve al usuario a Mis Guardias
                     Intent toMyGuards = new Intent(this, MyGuardsActivity.class).putExtra("token", token);
                     TaskStackBuilder stackBuilder2 = TaskStackBuilder.create(this);
                     stackBuilder2.addNextIntentWithParentStack(toMyGuards);
                     PendingIntent toMyGuardsPendingIntent =
                             stackBuilder2.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
+                    //parsear date para ponerla en el putExtra
+                    LocalDate date_parsed = LocalDate.parse(date);
+                    int date_day = date_parsed.getDayOfMonth();
+                    int date_month = date_parsed.getMonthValue();
+                    int date_year = date_parsed.getYear();
+                    assert turn != null;
+                    int turn_hour = Integer.parseInt(ParseTurno(turn));
+
+                    //Intent y pendingIntent para que al presionar "Crear Alarma" se despliegue
+                    //la aplicacion calendar por defecto del dispositivo
                     Calendar beginTime = Calendar.getInstance();
-                    beginTime.set(2024, 0, 19, 7, 30);
+                    beginTime.set(date_year,date_month,date_day,turn_hour,00);
+                    Log.e("DATOS FECHA",Integer.toString(date_year) + Integer.toString(date_month) + Integer.toString(date_day) );
                     Calendar endTime = Calendar.getInstance();
-                    endTime.set(2024, 0, 19, 8, 30);
-                    Intent intent = new Intent(Intent.ACTION_INSERT)
+                    endTime.set(date_day,date_month,date_year,turn_hour,00);
+
+                    Intent alarmGuardIntent = new Intent(Intent.ACTION_INSERT)
                             .setData(CalendarContract.Events.CONTENT_URI)
                             .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                            .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                            .putExtra(CalendarContract.Events.TITLE, title + place)
-                            .putExtra(CalendarContract.Events.DESCRIPTION, "datos test")
-                            .putExtra(CalendarContract.Events.EVENT_LOCATION, "Hospital test")
-                            .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
-                            .putExtra(Intent.EXTRA_EMAIL, "email@test");
-                    startActivity(intent);
+                            //.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                            .putExtra(CalendarContract.Events.TITLE, place + " " + turn)
+                            .putExtra(CalendarContract.Events.DESCRIPTION, body)
+                            .putExtra(CalendarContract.Events.EVENT_LOCATION, place)
+                            .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
 
-
-                    Intent alarmGuardIntent = new Intent(Intent.ACTION_MAIN);
-                    alarmGuardIntent.addCategory(Intent.CATEGORY_APP_CALENDAR);
                     PendingIntent pendingAlarmGuard =
-                            PendingIntent.getBroadcast(this, 0, alarmGuardIntent, 0);
+                            PendingIntent.getActivity(this, 0, alarmGuardIntent, 0);
 
                     Notification notification2 = new NotificationCompat.Builder(this, "mediguardPush")
                             .setContentIntent(toMyGuardsPendingIntent)
@@ -118,13 +127,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true)
                             .setContentIntent(pendingAlarmGuard)
-                            .addAction(R.drawable.ic_menu_share, getString(R.string.crear_alarma),
-                                    pendingAlarmGuard)
+                            .addAction(R.drawable.ic_menu_send, getString(R.string.crear_alarma), pendingAlarmGuard)
                             .build();
 
                     NotificationManagerCompat manager2 = NotificationManagerCompat.from(getApplicationContext());
                     manager2.notify(RandomInt(), notification2);
-                    return;
             }
         }
     }
@@ -145,15 +152,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-    public void createAlarm(String message, int hour, int minutes) {
-        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
-                .putExtra(AlarmClock.EXTRA_MESSAGE, message)
-                .putExtra(AlarmClock.EXTRA_HOUR, hour)
-                .putExtra(AlarmClock.EXTRA_MINUTES, minutes);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
+    public String ParseTurno(String str) {
+        return str.length() < 2 ? str : str.substring(0, 2);
     }
+
 
 }
 
