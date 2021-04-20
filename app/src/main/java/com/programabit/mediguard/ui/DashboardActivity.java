@@ -37,7 +37,7 @@ public class DashboardActivity extends BaseActivity {
     CardView cvMisGuardias;
     CardView cvGuardiasDispo;
     String myToken = "";
-    MedicDto myself;
+    static MedicDto myself;
     TextView tvGuardiasActivas;
 
     @Override
@@ -162,5 +162,9 @@ public class DashboardActivity extends BaseActivity {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
+    }
+
+    public static MedicDto getMyself() {
+        return myself;
     }
 }

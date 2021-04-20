@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MediGuard</string>
+    <string name="title_activity_login">Welcome to MediGuard</string>
+    <string name="btn_login">Log in</string>
+    <string name="hintUsuario">Username</string>
+    <string name="hintContraseña">Password</string>
+    <string name="activity_name_dashboard">Dashboard</string>
+    <string name="activity_name_avalible_guards">Available Guards</string>
+    <string name="activity_name_my_guards">My Guards</string>
+    <string name="activity_name_user_panel">User Settings</string>
+    <string name="activity_name_contact">Contact</string>
+    <string name="activity_name_about">About</string>
+    <string name="user_name">Username</string>
+    <string name="user_id_name">Identity Card</string>
+    <string name="user_addres_name">Address</string>
+    <string name="btn_save_changes">Save Changes</string>
+    <string name="user_phone_name">"Phone "</string>
+    <string name="user_dir_edit">New Address</string>
+    <string name="user_phone_edit">New Phone</string>
+    <string name="user_account_n_name">Professional ID</string>
+    <string name="identification">ID Card</string>
+    <string name="btn_edit_user_settings">Edit Profile</string>
+    <string name="activity_name_logoff">Log Out</string>
+    <string name="selectphoto">Choose from Gallery</string>
+    <string name="capturephoto">Open Camera</string>
+    <string name="bienvenido">Welcome to MediGuard</string>
+    <string name="misguardias">MY GUARDS</string>
+    <string name="guardiasdispo">AVAILABLE GUARDS</string>
+    <string name="acivity_name_update_photo">Update Profile Picture</string>
+    <string name="user_department">User Location</string>
+    <string name="user_department_edit">Change Location</string>
+    <string name="user_ranking">My Ranking</string>
+    <string name="notification_success_msg">Mediguard has been synchronized</string>
+    <string name="dashboard_welcome_dr">Welcome Dr.</string>
+    <string name="delete_confirmation_title">Remove Guard</string>
+    <string name="delete_confirmation_msg">Would you like to return this guard?</string>
+    <string name="delete_confirmation_yes">YES</string>
+    <string name="delete_confirmation_no">NO</string>
+    <string name="msg_subscribe_medic_failed">Could Not synchronize with Medic ID</string>
+    <string name="msg_subscribe_dept_failed">Could Not synchronize location</string>
+</resources>

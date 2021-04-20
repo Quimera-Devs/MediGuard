@@ -1,6 +1,7 @@
 package com.programabit.mediguard.domain;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -14,13 +15,26 @@ public class AvaibleGuardViewModel extends AndroidViewModel {
     private AvaibleGuardRestRpository guardRestRepository;
     private final MutableLiveData<List<GuardDto>> avaibleGuards;
     private String token;
+    private Application myapplication;
 
-    public AvaibleGuardViewModel(Application application, String tokenValue) throws ExecutionException, InterruptedException {
+
+    public AvaibleGuardViewModel(Application application, String tokenValue)
+            throws ExecutionException, InterruptedException {
         super(application);
         token = tokenValue;
+        myapplication = application;
         guardRestRepository = new AvaibleGuardRestRpository(application,tokenValue);
         avaibleGuards = new MutableLiveData<List<GuardDto>>();
-        avaibleGuards.setValue(guardRestRepository.execute(new String[]{token}).get());
+        avaibleGuards.setValue(guardRestRepository.execute(new String[]{token,"getAvailableGuards"}).get());
+    }
+
+    public void assing(GuardDto selectedGuard) throws ExecutionException, InterruptedException {
+        guardRestRepository = new AvaibleGuardRestRpository(myapplication,token);
+        guardRestRepository.setSelectedGuard(selectedGuard);
+        guardRestRepository.execute(new String[]{token,"assignGuards"}).get();
+        Log.i("GuardsViewModel", "assign complete");
+        guardRestRepository = new AvaibleGuardRestRpository(myapplication,token);
+        avaibleGuards.setValue(guardRestRepository.execute(new String[]{token,"getAvailableGuards"}).get());
     }
 
     public AvaibleGuardRestRpository getGuardRestRepository() {
