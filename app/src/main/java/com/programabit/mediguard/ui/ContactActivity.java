@@ -3,21 +3,13 @@ package com.programabit.mediguard.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.programabit.mediguard.R;
 
 public class ContactActivity extends BaseActivity {
-    ImageButton imgMedicalEntityPhone;
-    ImageButton imgChimeraDevsPhone;
-    ImageButton imgMedicalEntityMail;
-    ImageButton imgChimeraDevsMail;
-    TextView tvMedicalEntityPhone;
-    TextView tvChimeraDevsPhone;
-    TextView tvMedicalEntityMail;
-    TextView tvChimeraDevsMail;
     String entityPhone;
     String entityMail;
     String chimeraPhone;
@@ -27,46 +19,63 @@ public class ContactActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        entityPhone = "2486-5008"; //ASSE
-        entityMail = String.valueOf(R.string.medical_entity_email);
-        chimeraPhone = "+598-99-000-000";
-        chimeraMail = String.valueOf(R.string.tech_support_email);
+        entityPhone = getString(R.string.medical_entity_phone);
+        entityMail = getString(R.string.medical_entity_email);
+        chimeraPhone = getString(R.string.tech_support_phone);
+        chimeraMail = getString(R.string.tech_support_email);
     }
 
     public void entityCall(View view) {
-        startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", entityPhone, null)));
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + Uri.encode(entityPhone)));
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.i("contact dial error", e.getMessage());
+            e.printStackTrace();
+            Snackbar.make(view, R.string.call_error, Snackbar.LENGTH_LONG).show();
+        }
     }
 
 
     public void entityMail(View view) {
-
-        Intent email = new Intent(Intent.ACTION_SEND);
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"youremail@yahoo.com"});
-        email.putExtra(Intent.EXTRA_SUBJECT, "subject");
-        email.putExtra(Intent.EXTRA_TEXT, "message");
-        email.setType("message/rfc822");
-        startActivity(Intent.createChooser(email, "Choose an Email client :"));
-
-        //Intent intentEntity = new Intent(Intent.ACTION_SEND);
-        //intentEntity.setType("text/plain");
-        //intentEntity.putExtra(Intent.EXTRA_EMAIL, entityMail);
-        //intentEntity.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-        //intentEntity.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
-
-        //startActivity(Intent.createChooser(intent, "Send Email"));
+        Intent intentEntity = new Intent(Intent.ACTION_SEND);
+        intentEntity.setType("message/rfc822");
+        intentEntity.putExtra(Intent.EXTRA_EMAIL, new String[]{entityMail});
+        intentEntity.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject_to_entity));
+        try {
+            startActivity(Intent.createChooser(intentEntity, getString(R.string.email_chooser_text)));
+        } catch (Exception e) {
+            Log.i("contact email error", e.getMessage());
+            e.printStackTrace();
+            Snackbar.make(view, R.string.email_error, Snackbar.LENGTH_LONG).show();
+        }
     }
 
-    public void chimeraCall(View view) {
-        startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", chimeraPhone, null)));
+    public void chimeraWpp(View view) {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND, Uri.parse("smsto:"+ chimeraPhone));
+        sendIntent.setPackage("com.whatsapp");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Chimera Devs - soporte técnico");
+        try {
+            startActivity(sendIntent);
+        } catch (android.content.ActivityNotFoundException e) {
+            Log.i("whatsapp not found", e.getMessage());
+            e.printStackTrace();
+            Snackbar.make(view, R.string.wpp_error_toast, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     public void chimeraMail(View view) {
         Intent intentChimera = new Intent(Intent.ACTION_SEND);
-        intentChimera.setType("text/plain");
-        intentChimera.putExtra(Intent.EXTRA_EMAIL, chimeraMail);
-        intentChimera.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-        intentChimera.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
-
-        startActivity(Intent.createChooser(intentChimera, "Send Email"));
+        intentChimera.setType("message/rfc822");
+        intentChimera.putExtra(Intent.EXTRA_EMAIL, new String[]{chimeraMail});
+        intentChimera.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject_to_support));
+        try {
+            startActivity(Intent.createChooser(intentChimera, getString(R.string.email_chooser_text)));
+        } catch (Exception e) {
+            Log.i("contact email error", e.getMessage());
+            e.printStackTrace();
+            Snackbar.make(view, R.string.email_error, Snackbar.LENGTH_LONG).show();
+        }
     }
 }

@@ -40,4 +40,10 @@
     <string name="msg_subscribe_medic_failed">Could Not synchronize with Medic ID</string>
     <string name="msg_subscribe_dept_failed">Could Not synchronize location</string>
     <string name="tech_support">Tech Support:</string>
+    <string name="email_subject_to_support">MediGuard - Tech Support</string>
+    <string name="email_subject_to_entity">MediGuard - Subject</string>
+    <string name="email_chooser_text">Send Email</string>
+    <string name="wpp_error_toast">Error, Whatsapp not found.</string>
+    <string name="call_error">Phone call error.</string>
+    <string name="email_error">Send email error.</string>
 </resources>
