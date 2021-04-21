@@ -35,7 +35,10 @@
                 android:textColor="@color/colorSecundario"
                 android:textSize="24sp" />
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="entityCall">
                 <ImageButton
                     android:id="@+id/imgMedicalEntityPhone"
                     android:layout_width="wrap_content"
@@ -55,7 +58,10 @@
                     android:layout_marginLeft="5dp" />
             </TableRow>
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="entityMail">
             <ImageButton
                     android:id="@+id/imgMedicalEntityMail"
                     android:layout_width="wrap_content"
@@ -85,27 +91,36 @@
                 android:textColor="@color/colorSecundario"
                 android:textSize="24sp" />
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="chimeraWpp">
+
                 <ImageButton
-                    android:id="@+id/imgTechSupportPhone"
+                    android:id="@+id/imgWpp"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:contentDescription="@string/user_phone_name"
-                    app:srcCompat="@drawable/ic_baseline_call_24" />
+                    android:contentDescription="@string/wpp"
+                    app:srcCompat="@drawable/ic_baseline_wpp_24" />
 
                 <TextView
                     android:id="@+id/tvTechSupportWpp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tech_support_wpp"
+                    android:text="@string/tech_support_phone"
                     android:textStyle="bold"
                     android:gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="5dp" />
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"/>
             </TableRow>
 
-            <TableRow android:paddingTop="20dp">
+            <TableRow
+                android:paddingTop="20dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:onClick="chimeraMail">
+
                 <ImageButton
                     android:id="@+id/imgTechSupportEmail"
                     android:layout_width="wrap_content"

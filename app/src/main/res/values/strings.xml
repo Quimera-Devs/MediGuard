@@ -52,10 +52,17 @@
     <string name="delete_confirmation_yes">SI</string>
     <string name="delete_confirmation_no">NO</string>
     <string name="medical_entity_name" translatable="false">Sociedad Médica:</string>
-    <string name="medical_entity_phone" translatable="false">X-XXX-XX-XX</string>
+    <string name="medical_entity_phone" translatable="false">2 486 5008</string><!-- teléfono de sociedad médica (ASSE) -->
+    <string name="medical_entity_email" translatable="false">sociedadmedica@mail.com</string>
     <string name="tech_support">Soporte Técnico:</string>
-    <string name="medical_entity_email" translatable="false">sociedad_medica@mail.com</string>
+    <string name="tech_support_phone" translatable="false">+598 99 184 494</string><!-- teléfono de matías (por favor cambiar) -->
+    <string name="wpp" translatable="false">Whatsapp</string>
     <string name="tech_support_email" translatable="false">devschimera@gmail.com</string>
-    <string name="tech_support_wpp" translatable="false">+598 XXX XXX XXX</string>
+    <string name="email_subject_to_support">MediGuard - Soporte Técnico</string>
+    <string name="email_subject_to_entity">MediGuard - Consulta</string>
+    <string name="email_chooser_text">Enviar Email</string>
+    <string name="wpp_error_toast">Whatsapp no se ha encontrado en el dispositivo.</string>
+    <string name="call_error">No se ha podido realizar la llamada</string>
+    <string name="email_error">No se puede enviar mail.</string>
 
 </resources>
