@@ -99,4 +99,6 @@ public class GuardDto {
     public void setMin_ranking(int min_ranking) {
         this.min_ranking = min_ranking;
     }
+
+
 }
