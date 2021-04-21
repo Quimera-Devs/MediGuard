@@ -37,7 +37,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-
         }
     }
 
@@ -57,6 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String date = dataMap.get("fecha");
             String turn = dataMap.get("turno");
             String guardID = dataMap.get("id");
+            String medic = dataMap.get("medico");
 
             switch (title) {
                 case "NUEVA GUARDIA DISPONIBLE":
@@ -74,8 +74,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .bigText(body))
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true)
-                            //.setContentIntent(pendingAlarmGuard)
-                            //.addAction(R.drawable.ic_menu_send, getString(R.string.crear_alarma), pendingAlarmGuard)
                             .build();
 
                     NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
@@ -127,7 +125,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true)
                             .setContentIntent(pendingAlarmGuard)
-                            .addAction(R.drawable.ic_menu_send, getString(R.string.crear_alarma), pendingAlarmGuard)
+                            .addAction(R.drawable.booking_confirmed, getString(R.string.crear_alarma), pendingAlarmGuard)
                             .build();
 
                     NotificationManagerCompat manager2 = NotificationManagerCompat.from(getApplicationContext());
