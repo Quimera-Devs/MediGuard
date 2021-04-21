@@ -69,7 +69,7 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
                 if (response.isSuccessful()) {
                     Log.i("GuardsRepo", "delete complete");
                 }
-            case "assignGuardsNotiff":
+          /*  case "assignGuardsNotiff":
                 Call<GuardDto> patchcall = apiService.patchGuard(selectedGuard.getId(),
                         selectedGuard.getMedico(),
                         selectedGuard.isDisponible(),
@@ -86,7 +86,7 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
                 }
                 if (response.isSuccessful()) {
                     Log.i("GuardsRepo", "delete complete");
-                }
+                }*/
         }
         return null;
     }
