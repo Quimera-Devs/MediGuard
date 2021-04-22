@@ -37,7 +37,6 @@ public class ContactActivity extends BaseActivity {
         }
     }
 
-
     public void entityMail(View view) {
         Intent intentEntity = new Intent(Intent.ACTION_SEND);
         intentEntity.setType("message/rfc822");
@@ -53,11 +52,13 @@ public class ContactActivity extends BaseActivity {
     }
 
     public void chimeraWpp(View view) {
-        Intent sendIntent = new Intent(Intent.ACTION_SEND, Uri.parse("smsto:"+ chimeraPhone));
-        sendIntent.setPackage("com.whatsapp");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Chimera Devs - soporte técnico");
+
+
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        String uri = "whatsapp://send?phone=" + chimeraPhone + "&text=" + getString(R.string.email_subject_to_support);
+        sendIntent.setData(Uri.parse(uri));
         try {
-            startActivity(sendIntent);
+            startActivity(Intent.createChooser(sendIntent, ""));
         } catch (android.content.ActivityNotFoundException e) {
             Log.i("whatsapp not found", e.getMessage());
             e.printStackTrace();
