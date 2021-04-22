@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AboutActivity">
+    tools:context=".ui.AboutActivity"
+    android:background="@color/colorBlanco">
 
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 
@@ -41,7 +42,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        android:onClick="changeLogo"
+        android:clickable="true"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/members"
