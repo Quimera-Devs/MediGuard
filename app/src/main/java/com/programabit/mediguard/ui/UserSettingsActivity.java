@@ -10,6 +10,7 @@ import com.programabit.mediguard.R;
 import com.programabit.mediguard.data.MedicRestRepositoryAsync;
 import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.domain.MedicDto;
+import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.ExecutionException;
 
@@ -71,6 +72,10 @@ public class UserSettingsActivity extends BaseActivity {
                 ranking.setText(String.format("%sº", myself.getRanking()));
                 department.setText(myself.getDepartamento());
                 Log.i("Settings", "filled user data correctly");
+                Log.i("imagen", myself.getImagen());
+                Picasso.with(this)
+                        .load("https://alduxsan.pythonanywhere.com/"+myself.getImagen())
+                        .into(imgUserPhoto);
             }
         }
 
