@@ -87,5 +87,8 @@
                 android:value=".ui.UserSettingsActivity" />
         </activity>
     </application>
+    <queries>
+        <package android:name="com.whatsapp" />
+    </queries>
 
 </manifest>
