@@ -58,7 +58,7 @@ public class ContactActivity extends BaseActivity {
         String uri = "whatsapp://send?phone=" + chimeraPhone + "&text=" + getString(R.string.email_subject_to_support);
         sendIntent.setData(Uri.parse(uri));
         try {
-            startActivity(Intent.createChooser(sendIntent, getString(R.string.wpp)));
+            startActivity(Intent.createChooser(sendIntent, getString(R.string.wpp_chooser_text)));
         } catch (android.content.ActivityNotFoundException e) {
             Log.i("whatsapp not found", e.getMessage());
             e.printStackTrace();
