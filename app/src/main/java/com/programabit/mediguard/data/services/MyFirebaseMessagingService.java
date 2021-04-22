@@ -91,17 +91,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     //parsear date para ponerla en el putExtra
                     LocalDate date_parsed = LocalDate.parse(date);
                     int date_day = date_parsed.getDayOfMonth();
-                    int date_month = date_parsed.getMonthValue();
+                    Log.i("dateday", String.valueOf(date_day));
+                    int date_month = date_parsed.getMonthValue() - 1;
+                    Log.i("datemonth", String.valueOf(date_month));
                     int date_year = date_parsed.getYear();
+                    Log.i("dateyear", String.valueOf(date_year));
+
                     assert turn != null;
                     int turn_hour = Integer.parseInt(ParseTurno(turn));
 
                     //Intent y pendingIntent para que al presionar "Crear Alarma" se despliegue
                     //la aplicacion calendar por defecto del dispositivo
+
+
                     Calendar beginTime = Calendar.getInstance();
-                    beginTime.set(date_year,date_month,date_day,turn_hour,00);
+                    beginTime.set(date_year ,date_month,date_day,turn_hour,00);
+                    Log.i("begintime", String.valueOf(beginTime));
                     Calendar endTime = Calendar.getInstance();
-                    endTime.set(date_day,date_month,date_year,turn_hour,00);
+                    endTime.set(date_day,date_month,date_year,turn_hour,05);
 
                     Intent alarmGuardIntent = new Intent(Intent.ACTION_INSERT)
                             .setData(CalendarContract.Events.CONTENT_URI)
