@@ -1,199 +1,196 @@
 package com.programabit.mediguard.ui;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.programabit.mediguard.R;
+import com.programabit.mediguard.data.UserService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.Calendar;
 
 public class UserPhotoActivity extends BaseActivity {
 
-
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99 ;
+    private static final int CAPTURE_REQUEST_CODE = 0;
+    private static final int SELECT_REQUEST_CODE = 1;
     private Button btnSelect, btnUpload;
     private ImageView imageView;
     private Uri filePath;
-    private final int PICK_IMAGE_REQUEST = 22;
-    FirebaseStorage storage;
-    StorageReference storageReference;
+
+    private UserService ourRetrofitClient;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_photo);
-
-        btnSelect = findViewById(R.id.btnChoose);
         btnUpload = findViewById(R.id.btnUpload);
+        btnSelect = findViewById(R.id.btnChoose);
         imageView = findViewById(R.id.userPicture);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://alduxsan.pythonanywhere.com/").addConverterFactory(GsonConverterFactory.create()).build();
+        ourRetrofitClient = retrofit.create(UserService.class);
+        progressDialog = new ProgressDialog(UserPhotoActivity.this);
+        progressDialog.setMessage("Subiendo imagen....");
 
-        // get the Firebase  storage reference
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
-        // on pressing btnSelect SelectImage() is called
-        btnSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                SelectImage();
-            }
-        });
-
-        // on pressing btnUpload uploadImage() is called
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                uploadImage();
+            public void onClick(View view) {
+                if(CheckPermission()) {
+                    Intent capture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(capture, CAPTURE_REQUEST_CODE);
+                }
+            }
+        });
+
+
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(CheckPermission()) {
+                    Intent select = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(select, SELECT_REQUEST_CODE);
+                }
             }
         });
     }
 
-    // Select Image method
-    private void SelectImage()
-    {
 
-        // Defining Implicit Intent to mobile gallery
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(
-                Intent.createChooser(
-                        intent,
-                        "Seleccionar imagen desde"),
-                PICK_IMAGE_REQUEST);
-    }
-
-    // Override onActivityResult method
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        super.onActivityResult(requestCode,
-                resultCode,
-                data);
+        switch (requestCode){
 
-        // checking request code and result code
-        // if request code is PICK_IMAGE_REQUEST and
-        // resultCode is RESULT_OK
-        // then set image in the image view
-        if (requestCode == PICK_IMAGE_REQUEST
-                && resultCode == RESULT_OK
-                && data != null
-                && data.getData() != null) {
+            case CAPTURE_REQUEST_CODE:
+            {
+                if(resultCode == RESULT_OK){
 
-            // Get the Uri of data
-            filePath = data.getData();
-            try {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    imageView.setImageBitmap(bitmap);
+                    progressDialog.show();
+                    ImageUpload(bitmap);
 
-                // Setting image on image view using Bitmap
-                Bitmap bitmap = MediaStore
-                        .Images
-                        .Media
-                        .getBitmap(
-                                getContentResolver(),
-                                filePath);
-                imageView.setImageBitmap(bitmap);
+                }
+
             }
+            break;
 
-            catch (IOException e) {
-                // Log the exception
-                e.printStackTrace();
+            case SELECT_REQUEST_CODE:
+            {
+                if(resultCode == RESULT_OK){
+
+                    try {
+                        Uri ImageUri = data.getData();
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), ImageUri);
+                        imageView.setImageBitmap(bitmap);
+                        progressDialog.show();
+                        ImageUpload(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
+            break;
         }
+
     }
 
-    // UploadImage method
-    private void uploadImage()
-    {
-        if (filePath != null) {
+    private void ImageUpload(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        String image = Base64.encodeToString(byteArrayOutputStream.toByteArray(),Base64.DEFAULT);
+        String name = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        Call<ResponseClass> call = ourRetrofitClient.UploadImage(name,image);
 
-            // Code for showing progressDialog while uploading
-            ProgressDialog progressDialog
-                    = new ProgressDialog(this);
-            progressDialog.setTitle("Cargando...");
-            progressDialog.show();
+        call.enqueue(new Callback<ResponseClass>() {
+            @Override
+            public void onResponse(Call<ResponseClass> call, Response<ResponseClass> response) {
+                Toast.makeText(UserPhotoActivity.this, "Foto subida con exito", Toast.LENGTH_SHORT).show();
 
-            // Defining the child of storageReference
-            StorageReference ref
-                    = storageReference
-                    .child(
-                            "images/"
-                                    + UUID.randomUUID().toString());
+                progressDialog.dismiss();
+            }
 
-            // adding listeners on upload
-            // or failure of image
-            ref.putFile(filePath)
-                    .addOnSuccessListener(
-                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onFailure(Call<ResponseClass> call, Throwable t) {
+                Toast.makeText(UserPhotoActivity.this, "Falla al subir foto", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
 
-                                @Override
-                                public void onSuccess(
-                                        UploadTask.TaskSnapshot taskSnapshot)
-                                {
+    }
 
-                                    // Image uploaded successfully
-                                    // Dismiss dialog
-                                    progressDialog.dismiss();
-                                    Toast
-                                            .makeText(UserPhotoActivity.this,
-                                                    "Imagen cargada!!",
-                                                    Toast.LENGTH_SHORT)
-                                            .show();
-                                }
-                            })
 
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e)
-                        {
+    public boolean CheckPermission() {
+        if (ContextCompat.checkSelfPermission(UserPhotoActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(UserPhotoActivity.this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(UserPhotoActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(UserPhotoActivity.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) || ActivityCompat.shouldShowRequestPermissionRationale(UserPhotoActivity.this,
+                    Manifest.permission.CAMERA) || ActivityCompat.shouldShowRequestPermissionRationale(UserPhotoActivity.this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                new AlertDialog.Builder(UserPhotoActivity.this)
+                        .setTitle("Permission")
+                        .setMessage("Por favor concede permisos")
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(UserPhotoActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
 
-                            // Error, Image not uploaded
-                            progressDialog.dismiss();
-                            Toast
-                                    .makeText(UserPhotoActivity.this,
-                                            "Fallo la carga " + e.getMessage(),
-                                            Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    })
-                    .addOnProgressListener(
-                            new OnProgressListener<UploadTask.TaskSnapshot>() {
 
-                                // Progress Listener for loading
-                                // percentage on the dialog box
-                                @Override
-                                public void onProgress(
-                                        UploadTask.TaskSnapshot taskSnapshot)
-                                {
-                                    double progress
-                                            = (100.0
-                                            * taskSnapshot.getBytesTransferred()
-                                            / taskSnapshot.getTotalByteCount());
-                                    progressDialog.setMessage(
-                                            "Foto de perfil cargada "
-                                                    + (int)progress + "%");
-                                }
-                            });
+                                startActivity(new Intent(UserPhotoActivity
+                                        .this, MainActivity.class));
+                                UserPhotoActivity   .this.overridePendingTransition(0, 0);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                ActivityCompat.requestPermissions(UserPhotoActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+
+            return false;
+        } else {
+
+            return true;
+
         }
     }
 }
