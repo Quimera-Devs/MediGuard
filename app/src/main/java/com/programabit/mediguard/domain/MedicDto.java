@@ -20,9 +20,13 @@ public class MedicDto {
     private String direccion;
     @SerializedName("departamento")
     private String departamento;
+    @SerializedName("imagen")
+    private String imagen;
 
-    public MedicDto(int ci, String nombre_apellido, int ranking, int nroCaja,
+
+    public MedicDto(int ci, String nombre_apellido, int ranking, int nroCaja, String imagen,
                     int telefono, String departamento, String direccion, int usuario) {
+
         this.nombre_apellido = nombre_apellido;
         this.ci = ci;
         this.ranking = ranking;
@@ -31,6 +35,7 @@ public class MedicDto {
         this.telefono = telefono;
         this.direccion = direccion;
         this.departamento = departamento;
+        this.imagen = imagen;
     }
 
     public MedicDto() {
@@ -42,6 +47,13 @@ public class MedicDto {
 
     public void setNombre_apellido(String nombre_apellido) {
         this.nombre_apellido = nombre_apellido;
+    }
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public int getCi() {

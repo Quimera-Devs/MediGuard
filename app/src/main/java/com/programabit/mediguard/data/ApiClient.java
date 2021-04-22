@@ -16,19 +16,16 @@ public class ApiClient {
                 addInterceptor(httpLoggingInterceptor).
                 build();
 
-        Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://alduxsan.pythonanywhere.com/")
                 .client(okHttpClient)
                 .build();
-
-        return retrofit;
     }
 
     public static UserService getUserService(){
-        UserService userService = getRetrofit().create(UserService.class);
 
-        return userService;
+        return getRetrofit().create(UserService.class);
     }
 
 }
