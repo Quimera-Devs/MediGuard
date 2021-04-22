@@ -33,23 +33,21 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
+        setTheme(R.style.AppTheme);
 
         setContentView(R.layout.activity_login);username = findViewById(R.id.edUsername);
         password = findViewById(R.id.edPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnLogin.setOnClickListener(view -> {
 
-                if(TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())){
-                    Toast.makeText(LoginActivity.this,"Usuario / Contraseña Requeridos", Toast.LENGTH_LONG).show();
-                }else{
-                    //proceed to login
-                    login();
-                }
-
+            if(TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())){
+                Toast.makeText(LoginActivity.this,"Usuario / Contraseña Requeridos", Toast.LENGTH_LONG).show();
+            }else{
+                //proceed to login
+                login();
             }
+
         });
     }
     private void createNotificationChannel() {
