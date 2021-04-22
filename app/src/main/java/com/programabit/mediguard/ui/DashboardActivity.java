@@ -89,9 +89,9 @@ public class DashboardActivity extends BaseActivity {
         int guardsNum = guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
         if (guardsNum == 1) {
-            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardia activa", guardsViewModel.getNumGuards()));
+            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardia asignada", guardsViewModel.getNumGuards()));
         } else {
-            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardias activas", guardsViewModel.getNumGuards()));
+            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardias asignadas", guardsViewModel.getNumGuards()));
         }
 
       

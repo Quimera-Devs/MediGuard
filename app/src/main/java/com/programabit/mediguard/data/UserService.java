@@ -2,11 +2,14 @@ package com.programabit.mediguard.data;
 
 import com.programabit.mediguard.domain.GuardDto;
 import com.programabit.mediguard.domain.MedicDto;
+import com.programabit.mediguard.ui.ResponseClass;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
@@ -38,6 +41,10 @@ public interface UserService {
                              @Query("idMedic") int idMedic,
                              @Query("available") boolean available,
                              @Header("Authorization") String token);
+
+    @POST("/medico_datos/profile_photos")
+    @FormUrlEncoded
+    Call<ResponseClass> UploadImage(@Field("name") String name, @Field("image") String image);
 
 
 }
