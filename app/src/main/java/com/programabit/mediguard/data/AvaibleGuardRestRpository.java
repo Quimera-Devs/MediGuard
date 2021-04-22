@@ -69,6 +69,24 @@ public class AvaibleGuardRestRpository extends AsyncTask<String,Void,List<GuardD
                 if (response.isSuccessful()) {
                     Log.i("GuardsRepo", "delete complete");
                 }
+          /*  case "assignGuardsNotiff":
+                Call<GuardDto> patchcall = apiService.patchGuard(selectedGuard.getId(),
+                        selectedGuard.getMedico(),
+                        selectedGuard.isDisponible(),
+                        "Token " + token);
+                response = null;
+                guardsList = null;
+                try {
+                    response = patchcall.execute();
+                    Log.i("GuardsRepo", "try assign notiff response");
+
+                } catch (IOException e) {
+                    Log.i("response ioexception", e.getMessage());
+                    e.printStackTrace();
+                }
+                if (response.isSuccessful()) {
+                    Log.i("GuardsRepo", "delete complete");
+                }*/
         }
         return null;
     }

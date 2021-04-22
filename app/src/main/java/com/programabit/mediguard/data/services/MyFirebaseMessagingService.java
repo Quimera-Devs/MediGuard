@@ -37,7 +37,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-
         }
     }
 
@@ -57,6 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String date = dataMap.get("fecha");
             String turn = dataMap.get("turno");
             String guardID = dataMap.get("id");
+            String medic = dataMap.get("medico");
 
             switch (title) {
                 case "NUEVA GUARDIA DISPONIBLE":
@@ -74,8 +74,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .bigText(body))
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true)
-                            //.setContentIntent(pendingAlarmGuard)
-                            //.addAction(R.drawable.ic_menu_send, getString(R.string.crear_alarma), pendingAlarmGuard)
                             .build();
 
                     NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
@@ -85,10 +83,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case "GUARDIA ASIGNADA":
                     //Intent para que al presionar notificacion lleve al usuario a Mis Guardias
                     Intent toMyGuards = new Intent(this, MyGuardsActivity.class).putExtra("token", token);
-                    TaskStackBuilder stackBuilder2 = TaskStackBuilder.create(this);
-                    stackBuilder2.addNextIntentWithParentStack(toMyGuards);
+                    TaskStackBuilder AsignadaStackBuilder = TaskStackBuilder.create(this);
+                    AsignadaStackBuilder.addNextIntentWithParentStack(toMyGuards);
                     PendingIntent toMyGuardsPendingIntent =
-                            stackBuilder2.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                            AsignadaStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     //parsear date para ponerla en el putExtra
                     LocalDate date_parsed = LocalDate.parse(date);
@@ -102,14 +100,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     //la aplicacion calendar por defecto del dispositivo
                     Calendar beginTime = Calendar.getInstance();
                     beginTime.set(date_year,date_month,date_day,turn_hour,00);
-                    Log.e("DATOS FECHA",Integer.toString(date_year) + Integer.toString(date_month) + Integer.toString(date_day) );
                     Calendar endTime = Calendar.getInstance();
                     endTime.set(date_day,date_month,date_year,turn_hour,00);
 
                     Intent alarmGuardIntent = new Intent(Intent.ACTION_INSERT)
                             .setData(CalendarContract.Events.CONTENT_URI)
                             .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                            //.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
                             .putExtra(CalendarContract.Events.TITLE, place + " " + turn)
                             .putExtra(CalendarContract.Events.DESCRIPTION, body)
                             .putExtra(CalendarContract.Events.EVENT_LOCATION, place)
@@ -118,7 +114,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     PendingIntent pendingAlarmGuard =
                             PendingIntent.getActivity(this, 0, alarmGuardIntent, 0);
 
-                    Notification notification2 = new NotificationCompat.Builder(this, "mediguardPush")
+                    Notification assignNotification = new NotificationCompat.Builder(this, "mediguardPush")
                             .setContentIntent(toMyGuardsPendingIntent)
                             .setContentTitle(title)
                             .setContentText(place)
@@ -127,11 +123,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true)
                             .setContentIntent(pendingAlarmGuard)
-                            .addAction(R.drawable.ic_menu_send, getString(R.string.crear_alarma), pendingAlarmGuard)
+                            .addAction(R.drawable.booking_confirmed, getString(R.string.crear_alarma), pendingAlarmGuard)
                             .build();
 
-                    NotificationManagerCompat manager2 = NotificationManagerCompat.from(getApplicationContext());
-                    manager2.notify(RandomInt(), notification2);
+                    NotificationManagerCompat AssignManager = NotificationManagerCompat.from(getApplicationContext());
+                    AssignManager.notify(RandomInt(), assignNotification);
             }
         }
     }
