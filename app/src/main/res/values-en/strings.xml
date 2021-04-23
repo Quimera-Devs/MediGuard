@@ -54,4 +54,6 @@
     <string name="registry_location">"Your location: "</string>
     <string name="not_assigned_guards">You dont have any assigned guard</string>
     <string name="not_avalible_guards">Not avalible guards</string>
+    <string name="btn_save_user_settings">Save changes</string>
+    <string name="activity_name_activity_user_update">Update user data</string>
 </resources>

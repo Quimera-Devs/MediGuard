@@ -18,7 +18,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         configureToolbar(toolbar, layoutResID);
     }
 
@@ -38,6 +38,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             } else if (layoutResID == R.layout.activity_user_settings) {
                 getSupportActionBar().setSubtitle(R.string.activity_name_user_panel);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            } else if (layoutResID == R.layout.activity_user_update) {
+                getSupportActionBar().setSubtitle(R.string.activity_name_activity_user_update);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             } else if (layoutResID == R.layout.activity_user_photo) {
                 getSupportActionBar().setSubtitle(R.string.acivity_name_update_photo);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,16 +19,16 @@ import java.util.concurrent.ExecutionException;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserSettingsActivity extends BaseActivity {
-    CircleImageView userPhoto;
-    TextView username;
-    TextView ci;
-    TextView dir;
-    TextView phone;
-    TextView account_num;
-    TextView ranking;
-    TextView department;
-    MedicRestRepositoryAsync medicRepo;
-    MedicDto myself;
+    private CircleImageView userPhoto;
+    private TextView username;
+    private TextView ci;
+    private TextView dir;
+    private TextView phone;
+    private TextView account_num;
+    private TextView ranking;
+    private TextView department;
+    private MedicRestRepositoryAsync medicRepo;
+    private MedicDto myself;
     protected String myToken;
 
 
@@ -86,5 +87,10 @@ public class UserSettingsActivity extends BaseActivity {
     public void uploadPhoto(View view) {
         Log.i("Settings", "Go to User Photo");
         startActivity(new Intent(UserSettingsActivity.this, UserPhotoActivity.class).putExtra("token", myToken));
+    }
+
+    public void goToeditUser(View view) {
+        Log.i("Dashboard", "Go to User Update Activity");
+        startActivity(new Intent(this, UserUpdateActivity.class));
     }
 }
