@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.programabit.mediguard.R;
+import com.programabit.mediguard.data.preferences.GuardCountPreference;
 import com.programabit.mediguard.domain.GuardDto;
 import com.programabit.mediguard.domain.GuardsViewModel;
 
@@ -40,6 +41,7 @@ public class MyGuardsActivity extends BaseActivity {
         if(intent.getExtras() != null) {
             myToken = (intent.getStringExtra("token"));
         }
+        GuardCountPreference preference = new GuardCountPreference(this);
         Log.i("My Guards Activity","got token");
         guardsViewModel = new ViewModelProvider(this,
                 new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
@@ -63,6 +65,7 @@ public class MyGuardsActivity extends BaseActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     guardsViewModel.delete(myGuard);
+                                    preference.setCount(preference.getCount()-1);
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
                                 } catch (InterruptedException e) {

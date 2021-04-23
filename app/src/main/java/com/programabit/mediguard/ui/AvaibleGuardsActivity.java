@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.programabit.mediguard.R;
+import com.programabit.mediguard.data.preferences.GuardCountPreference;
 import com.programabit.mediguard.domain.AvaibleGuardViewModel;
 import com.programabit.mediguard.domain.GuardDto;
 
@@ -24,7 +25,7 @@ public class AvaibleGuardsActivity extends BaseActivity {
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_avaible_guards);
-
+        GuardCountPreference preference = new GuardCountPreference(this);
         final AvaibleGuardsListAdapter adapter = new AvaibleGuardsListAdapter
                 (new AvaibleGuardsListAdapter.guardDiff());
 
@@ -48,8 +49,16 @@ public class AvaibleGuardsActivity extends BaseActivity {
         adapter.setOnItemClickListener(new AvaibleGuardsListAdapter.onItemClickListener() {
             @Override
             public void onItemAssign(GuardDto myGuard) throws ExecutionException, InterruptedException {
+                try{
                 guardsViewModel.assing(myGuard);
+                    preference.setCount(preference.getCount()+1);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
         });
     }
 }
