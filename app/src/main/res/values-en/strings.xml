@@ -47,4 +47,9 @@
     <string name="wpp_error_toast">Error, Whatsapp not found on device.</string>
     <string name="call_error">Phone call error.</string>
     <string name="email_error">Send email error.</string>
+    <string name="crear_alarma">Create alarm</string>
+    <string name="medical_entity_name">Medic society</string>
+    <string name="multiple_asigned_guard_count">You have: % assigned Guards</string>
+    <string name="single_asigned_guard_count">You have: % assigned Guard</string>
+    <string name="registry_location">"Your location: "</string>
 </resources>
