@@ -46,7 +46,7 @@
     <string name="members" translatable="false">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
     <string name="crear_alarma">Crear Alarma</string>
     <string name="notification_success_msg">Mediguard ha sido sincronizado correctamente</string>
-    <string name="dashboard_welcome_dr">Bienvenido Dr.</string>
+    <string name="dashboard_welcome_dr" formatted="false">Bienvenido Dr. %1$s</string>
     <string name="delete_confirmation_title">Quitar Guardia</string>
     <string name="delete_confirmation_msg">Desea darse de baja de esta guardia?</string>
     <string name="delete_confirmation_yes">SI</string>
@@ -66,9 +66,30 @@
     <string name="call_error">No se ha podido realizar la llamada</string>
     <string name="email_error">No se puede enviar mail.</string>
     <string name="app_version" translatable="false">version 1.0.1</string>
-    <string name="multiple_asigned_guard_count">Ud. tiene: %s guardias asignadas</string>
-    <string name="single_asigned_guard_count">Ud. tiene: % guardia asignada</string>
-    <string name="registry_location">Departamento de registro:</string>
+    <string name="multiple_asigned_guard_count" formatted="false">Ud. tiene: %1$s guardias asignadas</string>
+    <string name="single_asigned_guard_count" formatted="false">Ud. tiene: %1$s guardia asignada</string>
+    <string name="registry_location">Departamento de registro: </string>
     <string name="not_assigned_guards">No tienes ninguna guardia asignada</string>
     <string name="not_avalible_guards">No hay guardias disponibles</string>
+    <string name="btn_save_user_settings">Guardar Cambios</string>
+    <string name="artigas" translatable="false">Artigas</string>
+    <string name="canelones" translatable="false">Canelones</string>
+    <string name="cerro_largo" translatable="false">Cerro Largo</string>
+    <string name="colonia" translatable="false">Colonia</string>
+    <string name="durazno" translatable="false">Durazno</string>
+    <string name="flores" translatable="false">Flores</string>
+    <string name="florida" translatable="false">Florida</string>
+    <string name="lavalleja" translatable="false">Lavalleja</string>
+    <string name="maldonado" translatable="false">Maldonado</string>
+    <string name="montevideo" translatable="false">Montevideo</string>
+    <string name="paysandu" translatable="false">Paysandú</string>
+    <string name="rio_megro" translatable="false">Río Negro</string>
+    <string name="rivera" translatable="false">Rivera</string>
+    <string name="rocha" translatable="false">Rocha</string>
+    <string name="salto" translatable="false">Salto</string>
+    <string name="san_jose" translatable="false">San José</string>
+    <string name="soriano" translatable="false">Soriano</string>
+    <string name="tacuarembo" translatable="false">Tacuarembó</string>
+    <string name="trenta_y_tres" translatable="false">Treinta y Tres</string>
+    <string name="activity_name_activity_user_update">Actualizar mis datos</string>
 </resources>

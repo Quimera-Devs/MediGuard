@@ -32,7 +32,7 @@
     <string name="user_department_edit">Change Location</string>
     <string name="user_ranking">My Ranking</string>
     <string name="notification_success_msg">Mediguard has been synchronized</string>
-    <string name="dashboard_welcome_dr">Welcome Dr.</string>
+    <string name="dashboard_welcome_dr" formatted="false">Welcome Dr. %1$s</string>
     <string name="delete_confirmation_title">Remove Guard</string>
     <string name="delete_confirmation_msg">Would you like to return this guard?</string>
     <string name="delete_confirmation_yes">YES</string>
@@ -49,9 +49,11 @@
     <string name="email_error">Send email error.</string>
     <string name="crear_alarma">Create alarm</string>
     <string name="medical_entity_name">Medic society</string>
-    <string name="multiple_asigned_guard_count">You have: % assigned Guards</string>
-    <string name="single_asigned_guard_count">You have: % assigned Guard</string>
+    <string name="multiple_asigned_guard_count" formatted="false">You have: %1$s! assigned Guards</string>
+    <string name="single_asigned_guard_count" formatted="false">You have: %1$s! assigned Guard</string>
     <string name="registry_location">"Your location: "</string>
     <string name="not_assigned_guards">You dont have any assigned guard</string>
     <string name="not_avalible_guards">Not avalible guards</string>
+    <string name="btn_save_user_settings">Save changes</string>
+    <string name="activity_name_activity_user_update">Update user data</string>
 </resources>
