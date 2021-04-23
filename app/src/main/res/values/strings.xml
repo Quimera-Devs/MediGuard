@@ -69,4 +69,6 @@
     <string name="multiple_asigned_guard_count">Ud. tiene: %s guardias asignadas</string>
     <string name="single_asigned_guard_count">Ud. tiene: % guardia asignada</string>
     <string name="registry_location">Departamento de registro:</string>
+    <string name="not_assigned_guards">No tienes ninguna guardia asignada</string>
+    <string name="not_avalible_guards">No hay guardias disponibles</string>
 </resources>

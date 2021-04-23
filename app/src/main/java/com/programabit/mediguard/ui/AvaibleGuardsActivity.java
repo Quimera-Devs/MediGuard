@@ -3,6 +3,8 @@ package com.programabit.mediguard.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import com.programabit.mediguard.data.preferences.GuardCountPreference;
 import com.programabit.mediguard.domain.AvaibleGuardViewModel;
 import com.programabit.mediguard.domain.GuardDto;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
@@ -20,6 +23,7 @@ public class AvaibleGuardsActivity extends BaseActivity {
     private AvaibleGuardViewModel guardsViewModel;
     private RecyclerView recyclerView;
     private String myToken;
+    private TextView tvGuardsMessage;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -60,5 +64,23 @@ public class AvaibleGuardsActivity extends BaseActivity {
             }
 
         });
+        messageGuardsNotFound();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        messageGuardsNotFound();
+    }
+
+    private void messageGuardsNotFound() {
+        tvGuardsMessage = findViewById(R.id.tvNoGuardsFound);
+        if (Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() == 0) {
+            tvGuardsMessage.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            tvGuardsMessage.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -52,4 +52,6 @@
     <string name="multiple_asigned_guard_count">You have: % assigned Guards</string>
     <string name="single_asigned_guard_count">You have: % assigned Guard</string>
     <string name="registry_location">"Your location: "</string>
+    <string name="not_assigned_guards">You dont have any assigned guard</string>
+    <string name="not_avalible_guards">Not avalible guards</string>
 </resources>
