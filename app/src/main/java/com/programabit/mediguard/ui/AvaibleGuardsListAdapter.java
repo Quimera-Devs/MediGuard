@@ -2,6 +2,7 @@ package com.programabit.mediguard.ui;
 
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -30,7 +31,7 @@ public class AvaibleGuardsListAdapter extends ListAdapter<GuardDto, AvaibleGuard
         GuardDto currentGuard = getItem(position);
         holder.bind(currentGuard.getCentroSalud(),currentGuard.getFecha(),currentGuard.getTurno());
 
-        Button assignGuard = holder.itemView.findViewById(R.id.select_guard);
+        ImageButton assignGuard = holder.itemView.findViewById(R.id.select_guard);
         assignGuard.setOnClickListener(view ->{
             if(listener!=null){
                 try {
