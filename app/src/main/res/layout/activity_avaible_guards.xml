@@ -9,19 +9,15 @@
     android:orientation="vertical"
     tools:context=".ui.AvaibleGuardsActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewGuards"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/guard_item" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewGuards"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/guard_item" />
 
-    </FrameLayout>
     <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 </RelativeLayout>
