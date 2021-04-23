@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.programabit.mediguard.R;
 import com.programabit.mediguard.data.MedicRestRepositoryAsync;
+import com.programabit.mediguard.data.preferences.GuardCountPreference;
 import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.domain.GuardsViewModel;
 import com.programabit.mediguard.domain.MedicDto;
@@ -88,6 +89,8 @@ public class DashboardActivity extends BaseActivity {
         Log.i("dashboard","observing my guards");
         int guardsNum = guardsViewModel.getNumGuards();
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
+        GuardCountPreference guardCountPreference = new GuardCountPreference(DashboardActivity.this);
+        guardCountPreference.setCount(guardsViewModel.getNumGuards());
         if (guardsNum == 1) {
             tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardia asignada", guardsViewModel.getNumGuards()));
         } else {
@@ -157,9 +160,15 @@ public class DashboardActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         TokenPreference preference = new TokenPreference(this);
+        GuardCountPreference guardCountPreference = new GuardCountPreference(this);
         if (preference.getToken().isEmpty()) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
+        }
+        if (guardCountPreference.getCount() == 1) {
+            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardia asignada", guardCountPreference.getCount()));
+        } else {
+            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardias asignadas", guardCountPreference.getCount()));
         }
     }
 
