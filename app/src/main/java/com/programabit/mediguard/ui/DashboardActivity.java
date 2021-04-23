@@ -71,13 +71,15 @@ public class DashboardActivity extends BaseActivity {
         // Intent a MIS GUARDIAS (Nehuen)
         cvMisGuardias.setOnClickListener(v -> {
             Log.i("Dashboard","Go to My Guards Activity");
-            startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).putExtra("token",myToken));
+            startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).
+                    putExtra("token",myToken));
         });
 
         // Intent a GUARDIAS DISPONIBLES (Javier)
         cvGuardiasDispo.setOnClickListener(v -> {
             Log.i("Dashboard","Go to Avaible Guards Activity");
-            startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).putExtra("token",myToken));
+            startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).
+                    putExtra("token",myToken));
         });
 
         // ViewModel
@@ -92,12 +94,14 @@ public class DashboardActivity extends BaseActivity {
         GuardCountPreference guardCountPreference = new GuardCountPreference(DashboardActivity.this);
         guardCountPreference.setCount(guardsViewModel.getNumGuards());
         if (guardsNum == 1) {
-            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardia asignada", guardsViewModel.getNumGuards()));
+            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.single_asigned_guard_count),
+                    guardsViewModel.getNumGuards()));
         } else {
-            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardias asignadas", guardsViewModel.getNumGuards()));
+            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.multiple_asigned_guard_count),
+                    guardsViewModel.getNumGuards()));
         }
 
-      
+
         String TAG = "DashboardActivity";
 
         FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
@@ -105,7 +109,7 @@ public class DashboardActivity extends BaseActivity {
 
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        String msg = ("Mediguard se ha sincronizado");
+                        String msg = String.valueOf(R.string.notification_success_msg);
                         Log.e("TOPICO CI", Integer.toString(myself.getCi()));
                         if (!task.isSuccessful()) {
                            msg = getString(R.string.msg_subscribe_medic_failed);
@@ -121,7 +125,7 @@ public class DashboardActivity extends BaseActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        String msg = ("Departamento de registro: " + myself.getDepartamento());
+                        String msg = (R.string.registry_location + myself.getDepartamento());
                         Log.e("TOPICO DEPARTAMAENTO", myself.getDepartamento());
 
                         if (!task.isSuccessful()) {
@@ -140,7 +144,8 @@ public class DashboardActivity extends BaseActivity {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
+            NotificationChannel channel =
+                    new NotificationChannel("mediguardPush", "MediGuard Notifications", importance);
             channel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -166,9 +171,11 @@ public class DashboardActivity extends BaseActivity {
             finish();
         }
         if (guardCountPreference.getCount() == 1) {
-            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardia asignada", guardCountPreference.getCount()));
+            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.single_asigned_guard_count),
+                    guardCountPreference.getCount()));
         } else {
-            tvGuardiasActivas.setText(String.format("Ud. tiene: %s guardias asignadas", guardCountPreference.getCount()));
+            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.multiple_asigned_guard_count),
+                    guardCountPreference.getCount()));
         }
     }
 
