@@ -66,4 +66,6 @@
     <string name="call_error">No se ha podido realizar la llamada</string>
     <string name="email_error">No se puede enviar mail.</string>
     <string name="app_version" translatable="false">version 1.0.1</string>
+    <string name="not_assigned_guards">No tienes ninguna guardia asignada</string>
+    <string name="not_avalible_guards">No hay guardias disponibles</string>
 </resources>

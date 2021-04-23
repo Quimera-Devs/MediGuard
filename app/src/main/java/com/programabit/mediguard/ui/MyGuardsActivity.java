@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +26,7 @@ public class MyGuardsActivity extends BaseActivity {
     private GuardsViewModel guardsViewModel;
     private RecyclerView recyclerView;
     private String myToken;
+    private TextView tvGuardsMessage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,5 +82,24 @@ public class MyGuardsActivity extends BaseActivity {
                 //
             }
         });
+
+        messageGuardsNotFound();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        messageGuardsNotFound();
+    }
+
+    private void messageGuardsNotFound() {
+        tvGuardsMessage = findViewById(R.id.tvNoGuardsFound);
+        if (recyclerView.getAdapter().getItemCount() == 0) {
+            tvGuardsMessage.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            tvGuardsMessage.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }

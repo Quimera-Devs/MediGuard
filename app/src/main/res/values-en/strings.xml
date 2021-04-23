@@ -47,4 +47,6 @@
     <string name="wpp_error_toast">Error, Whatsapp not found on device.</string>
     <string name="call_error">Phone call error.</string>
     <string name="email_error">Send email error.</string>
+    <string name="not_assigned_guards">You dont have any assigned guard</string>
+    <string name="not_avalible_guards">Not avalible guards</string>
 </resources>
