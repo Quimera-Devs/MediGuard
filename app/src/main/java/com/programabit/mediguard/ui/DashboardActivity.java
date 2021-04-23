@@ -52,7 +52,7 @@ public class DashboardActivity extends BaseActivity {
         if(intent.getExtras() != null) {
             myToken = (intent.getStringExtra("data"));
             medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
-            medicRepo.execute(new String[]{myToken});
+            medicRepo.execute(myToken);
             try {
                 myself = medicRepo.get();
             } catch (ExecutionException e) {
@@ -63,7 +63,7 @@ public class DashboardActivity extends BaseActivity {
                 e.printStackTrace();
             }
             if (myself != null) {
-                username.setText("Bienvenido Dr." + myself.getNombre_apellido());
+                username.setText(getString(R.string.dashboard_welcome_dr,myself.getNombre_apellido()));
                 Log.i("dashboard","got user correctly");
             }
         }
@@ -93,48 +93,43 @@ public class DashboardActivity extends BaseActivity {
         Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
         GuardCountPreference guardCountPreference = new GuardCountPreference(DashboardActivity.this);
         guardCountPreference.setCount(guardsViewModel.getNumGuards());
-        if (guardsNum == 1) {
-            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.single_asigned_guard_count),
-                    guardsViewModel.getNumGuards()));
-        } else {
-            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.multiple_asigned_guard_count),
-                    guardsViewModel.getNumGuards()));
-        }
+        setGuardCountMessage(guardsNum);
 
 
         String TAG = "DashboardActivity";
 
         FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = String.valueOf(R.string.notification_success_msg);
-                        Log.e("TOPICO CI", Integer.toString(myself.getCi()));
-                        if (!task.isSuccessful()) {
-                           msg = getString(R.string.msg_subscribe_medic_failed);
+                .addOnCompleteListener(task -> {
+                    String msg = getString(R.string.notification_success_msg);
+                    Log.e("TOPICO CI", Integer.toString(myself.getCi()));
+                    if (!task.isSuccessful()) {
+                       msg = getString(R.string.msg_subscribe_medic_failed);
 
 
-                        }
-                        Log.d(TAG, msg);
-                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
+                    Log.d(TAG, msg);
+                    Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                 });
 
         FirebaseMessaging.getInstance().subscribeToTopic(myself.getDepartamento())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = (R.string.registry_location + myself.getDepartamento());
-                        Log.e("TOPICO DEPARTAMAENTO", myself.getDepartamento());
+                .addOnCompleteListener(task -> {
+                    String msg = (getString(R.string.registry_location) + myself.getDepartamento());
+                    Log.e("TOPICO DEPARTAMAENTO", myself.getDepartamento());
 
-                        if (!task.isSuccessful()) {
-                            msg = getString(R.string.msg_subscribe_dept_failed);
-                        }
-                        Log.d(TAG, msg);
-                        Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    if (!task.isSuccessful()) {
+                        msg = getString(R.string.msg_subscribe_dept_failed);
                     }
+                    Log.d(TAG, msg);
+                    Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void setGuardCountMessage(int guardsNum) {
+        if (guardsNum == 1) {
+            tvGuardiasActivas.setText(getString(R.string.single_asigned_guard_count,String.valueOf(guardsNum)));
+        } else {
+            tvGuardiasActivas.setText(getString(R.string.multiple_asigned_guard_count,String.valueOf(guardsNum)));
+        }
     }
 
     /*We need create notification channel for the push notification, the docs says it's ok call this
@@ -170,13 +165,7 @@ public class DashboardActivity extends BaseActivity {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
-        if (guardCountPreference.getCount() == 1) {
-            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.single_asigned_guard_count),
-                    guardCountPreference.getCount()));
-        } else {
-            tvGuardiasActivas.setText(String.format(String.valueOf(R.string.multiple_asigned_guard_count),
-                    guardCountPreference.getCount()));
-        }
+        setGuardCountMessage(guardCountPreference.getCount());
     }
 
     public static MedicDto getMyself() {

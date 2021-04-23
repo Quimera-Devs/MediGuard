@@ -46,7 +46,7 @@
     <string name="members" translatable="false">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
     <string name="crear_alarma">Crear Alarma</string>
     <string name="notification_success_msg">Mediguard ha sido sincronizado correctamente</string>
-    <string name="dashboard_welcome_dr">Bienvenido Dr.</string>
+    <string name="dashboard_welcome_dr" formatted="false">Bienvenido Dr. %1$s</string>
     <string name="delete_confirmation_title">Quitar Guardia</string>
     <string name="delete_confirmation_msg">Desea darse de baja de esta guardia?</string>
     <string name="delete_confirmation_yes">SI</string>
@@ -66,9 +66,9 @@
     <string name="call_error">No se ha podido realizar la llamada</string>
     <string name="email_error">No se puede enviar mail.</string>
     <string name="app_version" translatable="false">version 1.0.1</string>
-    <string name="multiple_asigned_guard_count">Ud. tiene: %s guardias asignadas</string>
-    <string name="single_asigned_guard_count">Ud. tiene: % guardia asignada</string>
-    <string name="registry_location">Departamento de registro:</string>
+    <string name="multiple_asigned_guard_count" formatted="false">Ud. tiene: %1$s guardias asignadas</string>
+    <string name="single_asigned_guard_count" formatted="false">Ud. tiene: %1$s guardia asignada</string>
+    <string name="registry_location">Departamento de registro: </string>
     <string name="not_assigned_guards">No tienes ninguna guardia asignada</string>
     <string name="not_avalible_guards">No hay guardias disponibles</string>
 </resources>
