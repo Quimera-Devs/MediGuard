@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/tvMedicalEntityName"
-                android:layout_width="wrap_content"
+                android:layout_width="286dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:text="@string/medical_entity_name"
@@ -83,9 +83,9 @@
 
             <TextView
                 android:id="@+id/tvTechSupport"
-                android:layout_width="378dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="80dp"
+                android:paddingTop="20dp"
                 android:paddingBottom="20dp"
                 android:text="@string/tech_support"
                 android:textColor="@color/colorSecundario"
