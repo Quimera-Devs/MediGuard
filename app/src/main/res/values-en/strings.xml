@@ -56,4 +56,8 @@
     <string name="not_avalible_guards">Not avalible guards</string>
     <string name="btn_save_user_settings">Save changes</string>
     <string name="activity_name_activity_user_update">Update user data</string>
+    <string name="update_confirmation_msg">Save changes?</string>
+    <string name="update_confirmation_title">Update user</string>
+    <string name="user_edit_error">Error, cannot upload user.</string>
+    <string name="user_edit_success">User profile will be updated on next session.</string>
 </resources>

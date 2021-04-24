@@ -92,4 +92,8 @@
     <string name="tacuarembo" translatable="false">Tacuarembó</string>
     <string name="trenta_y_tres" translatable="false">Treinta y Tres</string>
     <string name="activity_name_activity_user_update">Actualizar mis datos</string>
+    <string name="update_confirmation_msg">Desea guardar los cambios?</string>
+    <string name="update_confirmation_title">Actualizar datos</string>
+    <string name="user_edit_error">No se pudieron guardar los cambios.</string>
+    <string name="user_edit_success">Verá sus datos actualizados en su próxima sesión.</string>
 </resources>
