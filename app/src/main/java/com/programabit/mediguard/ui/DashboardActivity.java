@@ -50,7 +50,6 @@ public class DashboardActivity extends BaseActivity {
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
         try {
-
             // Setear extras (token y usuario)
             Intent intent = getIntent();
             if(intent.getExtras() != null) {
@@ -71,20 +70,6 @@ public class DashboardActivity extends BaseActivity {
                     Log.i("dashboard","got user correctly");
                 }
             }
-
-            // Intent a MIS GUARDIAS (Nehuen)
-            cvMisGuardias.setOnClickListener(v -> {
-                Log.i("Dashboard","Go to My Guards Activity");
-                startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).
-                        putExtra("token",myToken));
-            });
-
-            // Intent a GUARDIAS DISPONIBLES (Javier)
-            cvGuardiasDispo.setOnClickListener(v -> {
-                Log.i("Dashboard","Go to Avaible Guards Activity");
-                startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).
-                        putExtra("token",myToken));
-            });
 
             // ViewModel
             guardsViewModel = new ViewModelProvider(this,
@@ -108,6 +93,19 @@ public class DashboardActivity extends BaseActivity {
             finish();
         }
 
+        // Intent a MIS GUARDIAS (Nehuen)
+        cvMisGuardias.setOnClickListener(v -> {
+            Log.i("Dashboard","Go to My Guards Activity");
+            startActivity(new Intent(DashboardActivity.this,MyGuardsActivity.class).
+                    putExtra("token",myToken));
+        });
+
+        // Intent a GUARDIAS DISPONIBLES (Javier)
+        cvGuardiasDispo.setOnClickListener(v -> {
+            Log.i("Dashboard","Go to Avaible Guards Activity");
+            startActivity(new Intent(DashboardActivity.this,AvaibleGuardsActivity.class).
+                    putExtra("token",myToken));
+        });
 
         String TAG = "DashboardActivity";
 
