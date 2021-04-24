@@ -49,11 +49,16 @@
     <string name="email_error">Send email error.</string>
     <string name="crear_alarma">Create alarm</string>
     <string name="medical_entity_name">Medic society</string>
-    <string name="multiple_asigned_guard_count" formatted="false">You have: %1$s! assigned Guards</string>
-    <string name="single_asigned_guard_count" formatted="false">You have: %1$s! assigned Guard</string>
+    <string name="multiple_asigned_guard_count" formatted="false">You have: %1$s assigned Guards</string>
+    <string name="single_asigned_guard_count" formatted="false">You have: %1$s assigned Guard</string>
     <string name="registry_location">"Your location: "</string>
     <string name="not_assigned_guards">You dont have any assigned guard</string>
     <string name="not_avalible_guards">Not avalible guards</string>
     <string name="btn_save_user_settings">Save changes</string>
     <string name="activity_name_activity_user_update">Update user data</string>
+    <string name="update_confirmation_msg">Save changes?</string>
+    <string name="update_confirmation_title">Update user</string>
+    <string name="user_edit_error">Error, cannot upload user.</string>
+    <string name="user_edit_success">User profile will be updated on next session.</string>
+    <string name="repository">View source code</string>
 </resources>

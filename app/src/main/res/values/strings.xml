@@ -42,7 +42,7 @@
     <string name="user_department_edit">Ingresar Departamento</string>
     <string name="user_ranking">Ranking</string>
     <string name="user_ranking_edit" translatable="false">XX</string>
-    <string name="repository" translatable="false">Ver codigo fuente</string>
+    <string name="repository">Ver codigo fuente</string>
     <string name="members" translatable="false">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
     <string name="crear_alarma">Crear Alarma</string>
     <string name="notification_success_msg">Mediguard ha sido sincronizado correctamente</string>
@@ -92,4 +92,8 @@
     <string name="tacuarembo" translatable="false">Tacuarembó</string>
     <string name="trenta_y_tres" translatable="false">Treinta y Tres</string>
     <string name="activity_name_activity_user_update">Actualizar mis datos</string>
+    <string name="update_confirmation_msg">Desea guardar los cambios?</string>
+    <string name="update_confirmation_title">Actualizar datos</string>
+    <string name="user_edit_error">No se pudieron guardar los cambios.</string>
+    <string name="user_edit_success">Verá sus datos actualizados en su próxima sesión.</string>
 </resources>

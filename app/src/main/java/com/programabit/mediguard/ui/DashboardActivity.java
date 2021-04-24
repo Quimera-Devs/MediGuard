@@ -2,7 +2,9 @@ package com.programabit.mediguard.ui;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,25 +49,48 @@ public class DashboardActivity extends BaseActivity {
         tvGuardiasActivas = findViewById(R.id.tvGuardiasActivas);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
 
-        // Setear extras (token y usuario)
-        Intent intent = getIntent();
-        if(intent.getExtras() != null) {
-            myToken = (intent.getStringExtra("data"));
-            medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
-            medicRepo.execute(myToken);
-            try {
-                myself = medicRepo.get();
-            } catch (ExecutionException e) {
-                Log.i("excecute exception", e.getMessage());
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                Log.i("interrup exception", e.getMessage());
-                e.printStackTrace();
+        try {
+            // Setear extras (token y usuario)
+            Intent intent = getIntent();
+            if(intent.getExtras() != null) {
+                myToken = (intent.getStringExtra("data"));
+                medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
+                medicRepo.execute(myToken);
+                try {
+                    myself = medicRepo.get();
+                } catch (ExecutionException e) {
+                    Log.i("excecute exception", e.getMessage());
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    Log.i("interrup exception", e.getMessage());
+                    e.printStackTrace();
+                }
+                if (myself != null) {
+                    username.setText(getString(R.string.dashboard_welcome_dr,myself.getNombre_apellido()));
+                    Log.i("dashboard","got user correctly");
+                }
             }
-            if (myself != null) {
-                username.setText(getString(R.string.dashboard_welcome_dr,myself.getNombre_apellido()));
-                Log.i("dashboard","got user correctly");
-            }
+
+            // ViewModel
+            guardsViewModel = new ViewModelProvider(this,
+                    new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
+            Log.i("dashboard","guardsViewModel created");
+            guardsViewModel.getMyGuards().observe(this,
+                    adapter::submitList);
+            Log.i("dashboard","observing my guards");
+            int guardsNum = guardsViewModel.getNumGuards();
+            Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
+            GuardCountPreference guardCountPreference = new GuardCountPreference(DashboardActivity.this);
+            guardCountPreference.setCount(guardsViewModel.getNumGuards());
+            setGuardCountMessage(guardsNum);
+
+        } catch(NullPointerException e) {
+            TokenPreference preferences = new TokenPreference(this);
+            preferences.saveToken("");
+            this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
+            Log.i("DASHBOARD","posiblemente token no existe o no valido: " + e);
+            startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
+            finish();
         }
 
         // Intent a MIS GUARDIAS (Nehuen)
@@ -82,20 +107,6 @@ public class DashboardActivity extends BaseActivity {
                     putExtra("token",myToken));
         });
 
-        // ViewModel
-        guardsViewModel = new ViewModelProvider(this,
-                new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
-        Log.i("dashboard","guardsViewModel created");
-        guardsViewModel.getMyGuards().observe(this,
-                adapter::submitList);
-        Log.i("dashboard","observing my guards");
-        int guardsNum = guardsViewModel.getNumGuards();
-        Log.i("guardsViewModels",""+guardsViewModel.getNumGuards());
-        GuardCountPreference guardCountPreference = new GuardCountPreference(DashboardActivity.this);
-        guardCountPreference.setCount(guardsViewModel.getNumGuards());
-        setGuardCountMessage(guardsNum);
-
-
         String TAG = "DashboardActivity";
 
         FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
@@ -103,9 +114,7 @@ public class DashboardActivity extends BaseActivity {
                     String msg = getString(R.string.notification_success_msg);
                     Log.e("TOPICO CI", Integer.toString(myself.getCi()));
                     if (!task.isSuccessful()) {
-                       msg = getString(R.string.msg_subscribe_medic_failed);
-
-
+                        msg = getString(R.string.msg_subscribe_medic_failed);
                     }
                     Log.d(TAG, msg);
                     Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();

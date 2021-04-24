@@ -1,5 +1,6 @@
 package com.programabit.mediguard.data;
 
+import com.google.gson.annotations.SerializedName;
 import com.programabit.mediguard.domain.GuardDto;
 import com.programabit.mediguard.domain.MedicDto;
 import com.programabit.mediguard.ui.ResponseClass;
@@ -14,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -31,6 +33,16 @@ public interface UserService {
     @GET("/medico_datos")
     Call<List<MedicDto>> getMedic(@Header("Authorization") String token);
 
+    @PUT("/medico_datos/{ci}")
+    Call<List<MedicDto>> editMedic(@Path("ci") int ci,
+                                   @Field("ranking")  int ranking,
+                                   @Field("nroCaja")  int nroCaja,
+                                   @Field("telefono")  int telefono,
+                                   @Field("departamento")  String departamento,
+                                   @Field("direccion")  String direccion,
+                                   @Field("usuario")  int usuario,
+                                   @Header("Authorization") String token);
+
     @PATCH("/modificar_guardia/{id}/")
     Call<GuardDto> editGuard(@Path("id") int Id,
                              @Body GuardDto guard,
@@ -45,6 +57,5 @@ public interface UserService {
     @POST("/medico_datos/profile_photos")
     @FormUrlEncoded
     Call<ResponseClass> UploadImage(@Field("name") String name, @Field("image") String image);
-
 
 }

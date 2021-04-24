@@ -82,7 +82,8 @@
                     android:background="@color/colorPrincipal"
                     android:text="@string/btn_save_user_settings"
                     android:textColor="@color/colorBlanco"
-                    android:layout_marginBottom="50dp"/>
+                    android:layout_marginBottom="50dp"
+                    android:onClick="configUserEdir"/>
             </LinearLayout>
         </ScrollView>
         <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
