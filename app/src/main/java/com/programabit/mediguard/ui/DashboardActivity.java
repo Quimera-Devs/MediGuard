@@ -84,7 +84,7 @@ public class DashboardActivity extends BaseActivity {
             guardCountPreference.setCount(guardsViewModel.getNumGuards());
             setGuardCountMessage(guardsNum);
 
-        } catch(NullPointerException e) {
+        } catch(Exception e) {
             TokenPreference preferences = new TokenPreference(this);
             preferences.saveToken("");
             this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
