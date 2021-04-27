@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorPrincipal"
-                    android:text="@string/uploadphoto"
+                    android:text="@string/capturephoto"
                     android:textColor="@color/colorBlanco" />
             </LinearLayout>
 

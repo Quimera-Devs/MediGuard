@@ -32,7 +32,7 @@
     <string name="user_department_edit">Change Location</string>
     <string name="user_ranking">My Ranking</string>
     <string name="notification_success_msg">Mediguard has been synchronized</string>
-    <string name="dashboard_welcome_dr">Welcome Dr.</string>
+    <string name="dashboard_welcome_dr" formatted="false">Welcome Dr. %1$s</string>
     <string name="delete_confirmation_title">Remove Guard</string>
     <string name="delete_confirmation_msg">Would you like to return this guard?</string>
     <string name="delete_confirmation_yes">YES</string>
@@ -43,7 +43,22 @@
     <string name="email_subject_to_support">MediGuard - Tech Support</string>
     <string name="email_subject_to_entity">MediGuard - Subject</string>
     <string name="email_chooser_text">Send Email</string>
-    <string name="wpp_error_toast">Error, Whatsapp not found.</string>
+    <string name="wpp_chooser_text">Send WhatsApp</string>
+    <string name="wpp_error_toast">Error, Whatsapp not found on device.</string>
     <string name="call_error">Phone call error.</string>
     <string name="email_error">Send email error.</string>
+    <string name="crear_alarma">Create alarm</string>
+    <string name="medical_entity_name">Medic society</string>
+    <string name="multiple_asigned_guard_count" formatted="false">You have: %1$s assigned Guards</string>
+    <string name="single_asigned_guard_count" formatted="false">You have: %1$s assigned Guard</string>
+    <string name="registry_location">"Your location: "</string>
+    <string name="not_assigned_guards">You dont have any assigned guard</string>
+    <string name="not_avalible_guards">Not avalible guards</string>
+    <string name="btn_save_user_settings">Save changes</string>
+    <string name="activity_name_activity_user_update">Update user data</string>
+    <string name="update_confirmation_msg">Save changes?</string>
+    <string name="update_confirmation_title">Update user</string>
+    <string name="user_edit_error">Error, cannot upload user.</string>
+    <string name="user_edit_success">User profile will be updated on next session.</string>
+    <string name="repository">View source code</string>
 </resources>

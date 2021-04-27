@@ -1,68 +1,99 @@
 <resources>
-<string name="app_name">MediGuard</string>
-<string name="title_activity_login">Bienvenido a MediGuard</string>
-<string name="btn_login">Ingresar</string>
-<string name="hintUsuario">Usuario</string>
-<string name="hintContraseña">Contraseña</string>
-<string name="img_Logo" translatable="false">Logo</string>
-<string name="nav_header_desc" translatable="false">Navigation header</string>
-<string name="action_settings" translatable="false">Settings</string>
-<string name="activity_name_dashboard">Dashboard</string>
-<string name="activity_name_avalible_guards">Guardias disponibles</string>
-<string name="activity_name_my_guards">Mis guardias</string>
-<string name="activity_name_user_panel">Opciones de usuario</string>
-<string name="activity_name_contact">Contacto</string>
-<string name="activity_name_about">Acerca de</string>
-<string name="imgProfile" translatable="false">Foto Usuario</string>
-<string name="user_name">Nombre de usuario</string>
-<string name="user_id_name">Documento</string>
-<string name="user_addres_name">Dirección</string>
-<string name="user_dir_edit">Ingresar domicilio</string>
-<string name="btn_save_changes">Guardar cambios</string>
-<string name="user_phone_name">Teléfono</string>
-<string name="user_phone_edit">Ingresar número</string>
-<string name="user_account_n_name">Nº de Caja</string>
-<string name="identification">Cédula</string>
-<string name="cheking_account" translatable="false">xxxxxxxxxxxxx</string>
-<string name="btn_edit_user_settings">Editar datos</string>
-<string name="activity_name_logoff">Cerrar sesión</string>
-<string name="selectphoto">Seleccionar de galeria</string>
-<string name="capturephoto">Abrir camara</string>
-<string name="uploadphoto" translatable="false">Guardar</string>
-<string name="bienvenido">Bienvenido a MediGuard</string>
-<string name="misguardias">MIS GUARDIAS</string>
-<string name="guardiasdispo">GUARDIAS DISPONIBLES</string>
-<string name="acivity_name_update_photo">Actualizar foto</string>
-<string name="channel_description" translatable="false">Canal de notificaciones para Mediguard</string>
-<string name="msg_subscribe_medic_failed">No ha sido posible sincronizar el ID del Medico</string>
-<string name="msg_subscribe_dept_failed">No ha sido posible sincronizar Departamento</string>
-<string name="default_notification_channel_id" translatable="false">mediguardPush</string>
-<string name="channel_name" translatable="false">mediguard Notifications</string>
-<string name="user_department">userdepartament</string>
-<string name="user_department_edit">user deptartament edit</string>
-<string name="user_ranking">user rnaking edit</string>
-<string name="user_ranking_edit" translatable="false">user ranking edit</string>
-<string name="repository" translatable="false">Ver codigo fuente</string>
-<string name="members" translatable="false">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
-    <string name="crear_alarma" translatable="false">Crear Alarma</string>
+    <string name="app_name">MediGuard</string>
+    <string name="title_activity_login">Bienvenido a MediGuard</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="hintUsuario">Usuario</string>
+    <string name="hintContraseña">Contraseña</string>
+    <string name="img_Logo" translatable="false">Logo</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="activity_name_dashboard">Dashboard</string>
+    <string name="activity_name_avalible_guards">Guardias disponibles</string>
+    <string name="activity_name_my_guards">Mis guardias</string>
+    <string name="activity_name_user_panel">Opciones de usuario</string>
+    <string name="activity_name_contact">Contacto</string>
+    <string name="activity_name_about">Acerca de</string>
+    <string name="imgProfile" translatable="false">Foto Usuario</string>
+    <string name="user_name">Nombre de usuario</string>
+    <string name="user_id_name">Documento</string>
+    <string name="user_addres_name">Dirección</string>
+    <string name="user_dir_edit">Ingresar domicilio</string>
+    <string name="btn_save_changes">Guardar cambios</string>
+    <string name="user_phone_name">Teléfono</string>
+    <string name="user_phone_edit">Ingresar número</string>
+    <string name="user_account_n_name">Nº de Caja</string>
+    <string name="identification">Cédula</string>
+    <string name="cheking_account" translatable="false">xxxxxxxxxxxxx</string>
+    <string name="btn_edit_user_settings">Editar datos</string>
+    <string name="activity_name_logoff">Cerrar sesión</string>
+    <string name="selectphoto">Seleccionar de galeria</string>
+    <string name="capturephoto">Abrir camara</string>
+    <string name="uploadphoto" translatable="false">Guardar</string>
+    <string name="bienvenido">Bienvenido a MediGuard</string>
+    <string name="misguardias">MIS GUARDIAS</string>
+    <string name="guardiasdispo">GUARDIAS DISPONIBLES</string>
+    <string name="acivity_name_update_photo">Actualizar foto</string>
+    <string name="channel_description" translatable="false">Canal de notificaciones para Mediguard</string>
+    <string name="msg_subscribe_medic_failed">No ha sido posible sincronizar el ID del Medico</string>
+    <string name="msg_subscribe_dept_failed">No ha sido posible sincronizar Departamento</string>
+    <string name="default_notification_channel_id" translatable="false">mediguardPush</string>
+    <string name="channel_name" translatable="false">mediguard Notifications</string>
+    <string name="user_department">Departamento</string>
+    <string name="user_department_edit">Ingresar Departamento</string>
+    <string name="user_ranking">Ranking</string>
+    <string name="user_ranking_edit" translatable="false">XX</string>
+    <string name="repository">Ver codigo fuente</string>
+    <string name="members" translatable="false">Javier \n Nehuen \n Aldo \n Matias \n Ramon</string>
+    <string name="crear_alarma">Crear Alarma</string>
     <string name="notification_success_msg">Mediguard ha sido sincronizado correctamente</string>
-    <string name="dashboard_welcome_dr">Bienvenido Dr.</string>
+    <string name="dashboard_welcome_dr" formatted="false">Bienvenido Dr. %1$s</string>
     <string name="delete_confirmation_title">Quitar Guardia</string>
     <string name="delete_confirmation_msg">Desea darse de baja de esta guardia?</string>
     <string name="delete_confirmation_yes">SI</string>
     <string name="delete_confirmation_no">NO</string>
-    <string name="medical_entity_name" translatable="false">Sociedad Médica:</string>
+    <string name="medical_entity_name">Sociedad Médica:</string>
     <string name="medical_entity_phone" translatable="false">2 486 5008</string><!-- teléfono de sociedad médica (ASSE) -->
     <string name="medical_entity_email" translatable="false">sociedadmedica@mail.com</string>
     <string name="tech_support">Soporte Técnico:</string>
     <string name="tech_support_phone" translatable="false">+598 99 184 494</string><!-- teléfono de matías (por favor cambiar) -->
-    <string name="wpp" translatable="false">Whatsapp</string>
+    <string name="wpp" translatable="false">WhatSapp</string>
     <string name="tech_support_email" translatable="false">devschimera@gmail.com</string>
     <string name="email_subject_to_support">MediGuard - Soporte Técnico</string>
     <string name="email_subject_to_entity">MediGuard - Consulta</string>
     <string name="email_chooser_text">Enviar Email</string>
+    <string name="wpp_chooser_text">Enviar WhatsApp</string>
     <string name="wpp_error_toast">Whatsapp no se ha encontrado en el dispositivo.</string>
     <string name="call_error">No se ha podido realizar la llamada</string>
     <string name="email_error">No se puede enviar mail.</string>
-
+    <string name="app_version" translatable="false">version 1.0.1</string>
+    <string name="multiple_asigned_guard_count" formatted="false">Ud. tiene: %1$s guardias asignadas</string>
+    <string name="single_asigned_guard_count" formatted="false">Ud. tiene: %1$s guardia asignada</string>
+    <string name="registry_location">Departamento de registro: </string>
+    <string name="not_assigned_guards">No tienes ninguna guardia asignada</string>
+    <string name="not_avalible_guards">No hay guardias disponibles</string>
+    <string name="btn_save_user_settings">Guardar Cambios</string>
+    <string name="artigas" translatable="false">Artigas</string>
+    <string name="canelones" translatable="false">Canelones</string>
+    <string name="cerro_largo" translatable="false">Cerro Largo</string>
+    <string name="colonia" translatable="false">Colonia</string>
+    <string name="durazno" translatable="false">Durazno</string>
+    <string name="flores" translatable="false">Flores</string>
+    <string name="florida" translatable="false">Florida</string>
+    <string name="lavalleja" translatable="false">Lavalleja</string>
+    <string name="maldonado" translatable="false">Maldonado</string>
+    <string name="montevideo" translatable="false">Montevideo</string>
+    <string name="paysandu" translatable="false">Paysandú</string>
+    <string name="rio_megro" translatable="false">Río Negro</string>
+    <string name="rivera" translatable="false">Rivera</string>
+    <string name="rocha" translatable="false">Rocha</string>
+    <string name="salto" translatable="false">Salto</string>
+    <string name="san_jose" translatable="false">San José</string>
+    <string name="soriano" translatable="false">Soriano</string>
+    <string name="tacuarembo" translatable="false">Tacuarembó</string>
+    <string name="trenta_y_tres" translatable="false">Treinta y Tres</string>
+    <string name="activity_name_activity_user_update">Actualizar mis datos</string>
+    <string name="update_confirmation_msg">Desea guardar los cambios?</string>
+    <string name="update_confirmation_title">Actualizar datos</string>
+    <string name="user_edit_error">No se pudieron guardar los cambios.</string>
+    <string name="user_edit_success">Verá sus datos actualizados en su próxima sesión.</string>
 </resources>

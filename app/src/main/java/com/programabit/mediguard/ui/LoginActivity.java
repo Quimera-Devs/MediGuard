@@ -2,18 +2,16 @@ package com.programabit.mediguard.ui;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.programabit.mediguard.R;
@@ -21,8 +19,6 @@ import com.programabit.mediguard.data.ApiClient;
 import com.programabit.mediguard.data.LoginRequest;
 import com.programabit.mediguard.data.LoginResponse;
 import com.programabit.mediguard.data.preferences.TokenPreference;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,23 +33,21 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
+        setTheme(R.style.AppTheme);
 
         setContentView(R.layout.activity_login);username = findViewById(R.id.edUsername);
         password = findViewById(R.id.edPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnLogin.setOnClickListener(view -> {
 
-                if(TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())){
-                    Toast.makeText(LoginActivity.this,"Usuario / Contraseña Requeridos", Toast.LENGTH_LONG).show();
-                }else{
-                    //proceed to login
-                    login();
-                }
-
+            if(TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(password.getText().toString())){
+                Toast.makeText(LoginActivity.this,"Usuario / Contraseña Requeridos", Toast.LENGTH_LONG).show();
+            }else{
+                //proceed to login
+                login();
             }
+
         });
     }
     private void createNotificationChannel() {

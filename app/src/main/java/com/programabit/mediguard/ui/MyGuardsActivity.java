@@ -5,18 +5,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.programabit.mediguard.R;
+import com.programabit.mediguard.data.preferences.GuardCountPreference;
 import com.programabit.mediguard.domain.GuardDto;
 import com.programabit.mediguard.domain.GuardsViewModel;
 
@@ -28,6 +26,7 @@ public class MyGuardsActivity extends BaseActivity {
     private GuardsViewModel guardsViewModel;
     private RecyclerView recyclerView;
     private String myToken;
+    private TextView tvGuardsMessage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +44,7 @@ public class MyGuardsActivity extends BaseActivity {
         if(intent.getExtras() != null) {
             myToken = (intent.getStringExtra("token"));
         }
+        GuardCountPreference preference = new GuardCountPreference(this);
         Log.i("My Guards Activity","got token");
         guardsViewModel = new ViewModelProvider(this,
                 new GuardsFactory(this.getApplication(), myToken)).get(GuardsViewModel.class);
@@ -68,6 +68,7 @@ public class MyGuardsActivity extends BaseActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     guardsViewModel.delete(myGuard);
+                                    preference.setCount(preference.getCount()-1);
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
                                 } catch (InterruptedException e) {
@@ -81,5 +82,24 @@ public class MyGuardsActivity extends BaseActivity {
                 //
             }
         });
+
+        messageGuardsNotFound();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        messageGuardsNotFound();
+    }
+
+    private void messageGuardsNotFound() {
+        tvGuardsMessage = findViewById(R.id.tvNoGuardsFound);
+        if (recyclerView.getAdapter().getItemCount() == 0) {
+            tvGuardsMessage.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            tvGuardsMessage.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }

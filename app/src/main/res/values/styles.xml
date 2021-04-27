@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorSecundario</item>
         <item name="colorAccent">@color/colorEnfasis</item>
         <item name="actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
