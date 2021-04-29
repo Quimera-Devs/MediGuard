@@ -30,27 +30,23 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (layoutResID == R.layout.activity_dashboard) {
                 getSupportActionBar().setSubtitle(R.string.activity_name_dashboard);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            } else if (layoutResID == R.layout.activity_my_guards) {
-                getSupportActionBar().setSubtitle(R.string.activity_name_my_guards);
+            } else {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            } else if (layoutResID == R.layout.activity_avaible_guards) {
-                getSupportActionBar().setSubtitle(R.string.activity_name_avalible_guards);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            } else if (layoutResID == R.layout.activity_user_settings) {
-                getSupportActionBar().setSubtitle(R.string.activity_name_user_panel);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            } else if (layoutResID == R.layout.activity_user_update) {
-                getSupportActionBar().setSubtitle(R.string.activity_name_activity_user_update);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            } else if (layoutResID == R.layout.activity_user_photo) {
-                getSupportActionBar().setSubtitle(R.string.acivity_name_update_photo);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            } else if (layoutResID == R.layout.activity_about) {
-                getSupportActionBar().setSubtitle(R.string.activity_name_about);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            } else if (layoutResID == R.layout.activity_contact) {
-                getSupportActionBar().setSubtitle(R.string.activity_name_contact);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                if (layoutResID == R.layout.activity_my_guards) {
+                    getSupportActionBar().setSubtitle(R.string.activity_name_my_guards);
+                } else if (layoutResID == R.layout.activity_avaible_guards) {
+                    getSupportActionBar().setSubtitle(R.string.activity_name_avalible_guards);
+                } else if (layoutResID == R.layout.activity_user_settings) {
+                    getSupportActionBar().setSubtitle(R.string.activity_name_user_panel);
+                } else if (layoutResID == R.layout.activity_user_update) {
+                    getSupportActionBar().setSubtitle(R.string.activity_name_activity_user_update);
+                } else if (layoutResID == R.layout.activity_user_photo) {
+                    getSupportActionBar().setSubtitle(R.string.acivity_name_update_photo);
+                } else if (layoutResID == R.layout.activity_about) {
+                    getSupportActionBar().setSubtitle(R.string.activity_name_about);
+                } else if (layoutResID == R.layout.activity_contact) {
+                    getSupportActionBar().setSubtitle(R.string.activity_name_contact);
+                }
             }
         }
     }
@@ -58,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     //Back button
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        finish();
         return true;
     }
 
@@ -73,18 +69,35 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.mSettings) {
+        if (itemId == android.R.id.home) {
+            finish();
+            return true;
+        } else if (itemId == R.id.mSettings && layoutID != R.layout.activity_user_settings) {
             startActivity(new Intent(this, UserSettingsActivity.class));
-        } else if (itemId == R.id.mContact) {
+            finishCurrent();
+        } else if (itemId == R.id.mContact && layoutID != R.layout.activity_contact) {
             startActivity(new Intent(this, ContactActivity.class));
-        } else if (itemId == R.id.mAbout) {
+            finishCurrent();
+        } else if (itemId == R.id.mAbout && layoutID != R.layout.activity_about) {
             startActivity(new Intent(this, AboutActivity.class));
+            finishCurrent();
         } else if (itemId == R.id.mLogoff) {
             TokenPreference preferences = new TokenPreference(this);
             preferences.saveToken("");
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean finishCurrent() {
+        if (layoutID != R.layout.activity_dashboard) {
+            finish();
+            return true;
+        } else {
+            onPause();
+            return false;
+        }
+    }
 }
