@@ -87,7 +87,16 @@ public class DashboardActivity extends BaseActivity {
         } catch(Exception e) {
             TokenPreference preferences = new TokenPreference(this);
             preferences.saveToken("");
-            this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
+            //this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
+            try {
+                // clearing app data
+                String packageName = getApplicationContext().getPackageName();
+                Runtime runtime = Runtime.getRuntime();
+                runtime.exec("pm clear "+packageName);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             Log.i("DASHBOARD","posiblemente token no existe o no valido: " + e);
             startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
             finish();
