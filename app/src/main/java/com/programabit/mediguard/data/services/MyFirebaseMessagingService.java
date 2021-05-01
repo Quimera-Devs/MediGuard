@@ -61,6 +61,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             switch (title) {
                 case "NUEVA GUARDIA DISPONIBLE":
                     Intent toAvaibleGuards = new Intent(this, AvaibleGuardsActivity.class).putExtra("token", token);
+                    toAvaibleGuards.putExtra("notification", true);
                     TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
                     stackBuilder.addNextIntentWithParentStack(toAvaibleGuards);
                     PendingIntent resultPendingIntent =
@@ -83,6 +84,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case "GUARDIA ASIGNADA":
                     //Intent para que al presionar notificacion lleve al usuario a Mis Guardias
                     Intent toMyGuards = new Intent(this, MyGuardsActivity.class).putExtra("token", token);
+                    toMyGuards.putExtra("notification", true);
                     TaskStackBuilder AsignadaStackBuilder = TaskStackBuilder.create(this);
                     AsignadaStackBuilder.addNextIntentWithParentStack(toMyGuards);
                     PendingIntent toMyGuardsPendingIntent =

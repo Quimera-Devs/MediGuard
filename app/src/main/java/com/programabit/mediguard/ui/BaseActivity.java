@@ -1,6 +1,7 @@
 package com.programabit.mediguard.ui;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -70,6 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == android.R.id.home) {
+            notificationIntentChecker();
             finish();
             return true;
         } else if (itemId == R.id.mSettings && layoutID != R.layout.activity_user_settings) {
@@ -89,6 +91,22 @@ public abstract class BaseActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void notificationIntentChecker() {
+        Intent intent = getIntent();
+        if(intent.getExtras() != null) {
+            try {
+                boolean isNotification = getIntent().getExtras().getBoolean("notification");
+                if (isNotification) {
+                    String myToken = (intent.getStringExtra("token"));
+                    startActivity(new Intent(this,DashboardActivity.class).putExtra("data",myToken));
+                }
+            } catch (Exception e) {
+                Log.i("Back Button exception", "No estas volviendo desde una nofiticación" + e);
+                e.printStackTrace();
+            }
+        }
     }
 
     private boolean finishCurrent() {
