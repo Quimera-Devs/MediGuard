@@ -3,7 +3,7 @@ package com.programabit.mediguard.data.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class TokenPreference {
+public class TokenPreference                                            {
 
     private final String KEY_TOKEN = TokenPreference.class.getSimpleName() + "token";
 
