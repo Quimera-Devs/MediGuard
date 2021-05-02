@@ -27,6 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <receiver android:name=".data.services.NotifReceiver"  android:exported="true"/>
+
         <activity
             android:name=".ui.UserUpdateActivity"
             android:parentActivityName=".ui.UserSettingsActivity">
@@ -100,6 +103,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.UserSettingsActivity" />
         </activity>
+
     </application>
 
 </manifest>
