@@ -86,11 +86,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.mLogoff) {
             TokenPreference preferences = new TokenPreference(this);
             preferences.saveToken("");
+            clearAppData();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clearAppData() {
+        try {
+            // clearing app data
+            //TokenPreference preferences = new TokenPreference(this);
+            //preferences.saveToken("");
+            this.getSharedPreferences("KEY_COUNT", 0).edit().clear().apply();
+            this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
+            String packageName = getApplicationContext().getPackageName();
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear "+packageName);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void notificationIntentChecker() {
