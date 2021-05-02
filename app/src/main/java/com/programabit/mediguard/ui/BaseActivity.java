@@ -86,7 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else if (itemId == R.id.mLogoff) {
             TokenPreference preferences = new TokenPreference(this);
             preferences.saveToken("");
-            clearAppData();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return true;

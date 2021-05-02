@@ -109,6 +109,10 @@ public class DashboardActivity extends BaseActivity {
 
         String TAG = "DashboardActivity";
 
+        //redirigir a guardias disponibles o asignadas si ee intent proviene de una notificacion
+        checkIfIsNotificationIntent();
+
+
         FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
                 .addOnCompleteListener(task -> {
                     String msg = getString(R.string.notification_success_msg);
@@ -131,6 +135,26 @@ public class DashboardActivity extends BaseActivity {
                     Log.d(TAG, msg);
                     Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void checkIfIsNotificationIntent() {
+        Intent intent = getIntent();
+        if(intent.getExtras() != null) {
+            String notificationType;
+            try {
+                notificationType = getIntent().getStringExtra("notif_type");
+                String myToken = getIntent().getStringExtra("token");
+                if (notificationType.equals("avalibe")) {
+                    startActivity(new Intent(this,AvaibleGuardsActivity.class).putExtra("token",myToken));
+                    onPause();
+                } /*else if (notificationType.equals("assigned")) {
+                    startActivity(new Intent(this,MyGuardsActivity.class).putExtra("token",myToken));
+                }*/
+            } catch (Exception e) {
+                Log.i("Back Button exception", "No estas volviendo desde una nofiticación" + e);
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setGuardCountMessage(int guardsNum) {
