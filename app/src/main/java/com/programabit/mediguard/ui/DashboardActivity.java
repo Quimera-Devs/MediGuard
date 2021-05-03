@@ -48,16 +48,22 @@ public class DashboardActivity extends BaseActivity {
         cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
         tvGuardiasActivas = findViewById(R.id.tvGuardiasActivas);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
-
+        TokenPreference preferences = new TokenPreference(this);
         try {
             // Setear extras (token y usuario)
             Intent intent = getIntent();
             if(intent.getExtras() != null) {
                 myToken = (intent.getStringExtra("data"));
                 medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
-                medicRepo.execute(myToken);
                 try {
+                    medicRepo.execute(myToken);
                     myself = medicRepo.get();
+                    if(myself==null){
+                        preferences.saveToken("");
+                        clearAppData();
+                        startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
+                        finish();
+                    }
                 } catch (ExecutionException e) {
                     Log.i("excecute exception", e.getMessage());
                     e.printStackTrace();
@@ -85,7 +91,7 @@ public class DashboardActivity extends BaseActivity {
             setGuardCountMessage(guardsNum);
 
         } catch(Exception e) {
-            TokenPreference preferences = new TokenPreference(this);
+
             preferences.saveToken("");
             clearAppData();
             Log.i("DASHBOARD","posiblemente token no existe o no valido: " + e);
