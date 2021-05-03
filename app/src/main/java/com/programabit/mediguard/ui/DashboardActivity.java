@@ -60,6 +60,7 @@ public class DashboardActivity extends BaseActivity {
                     myself = medicRepo.get();
                     if(myself==null){
                         preferences.saveToken("");
+                        clearAppData();
                         startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
                         finish();
                     }
