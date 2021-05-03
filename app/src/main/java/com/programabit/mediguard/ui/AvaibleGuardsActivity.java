@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.programabit.mediguard.R;
 import com.programabit.mediguard.data.preferences.GuardCountPreference;
+import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.domain.AvaibleGuardViewModel;
 import com.programabit.mediguard.domain.GuardDto;
 
@@ -38,9 +39,9 @@ public class AvaibleGuardsActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Intent intent = getIntent();
 
-        if(intent.getExtras() != null) {
-            myToken = (intent.getStringExtra("token"));
-        }
+        TokenPreference tokenPreference = new TokenPreference(this);
+        myToken = tokenPreference.getToken();
+
         Log.i("My Guards Activity","got token");
         guardsViewModel = new ViewModelProvider(this,
                 new AvaibleGuardsFactory(this.getApplication(), myToken))
