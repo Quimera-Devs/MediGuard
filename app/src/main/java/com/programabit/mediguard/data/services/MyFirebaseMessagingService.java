@@ -18,6 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.programabit.mediguard.R;
 import com.programabit.mediguard.data.preferences.TokenPreference;
 import com.programabit.mediguard.ui.AvaibleGuardsActivity;
+import com.programabit.mediguard.ui.DashboardActivity;
 import com.programabit.mediguard.ui.MyGuardsActivity;
 
 import java.time.LocalDate;
@@ -61,7 +62,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             switch (title) {
                 case "NUEVA GUARDIA DISPONIBLE":
-                    Intent toAvaibleGuards = new Intent(this, AvaibleGuardsActivity.class).putExtra("token", token);
+                    Intent toAvaibleGuards = new Intent(this, DashboardActivity.class).putExtra("data", token);
+                    toAvaibleGuards.putExtra("notification", true);
+                    toAvaibleGuards.putExtra("notif_type", "avalibe");
                     TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
                     stackBuilder.addNextIntentWithParentStack(toAvaibleGuards);
                     PendingIntent resultPendingIntent =
@@ -84,6 +87,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case "GUARDIA ASIGNADA":
                     //Intent para que al presionar notificacion lleve al usuario a Mis Guardias
                     Intent toMyGuards = new Intent(this, MyGuardsActivity.class).putExtra("token", token);
+                    //Intent toMyGuards = new Intent(this, DashboardActivity.class).putExtra("data", token); // <- no arregla bug
+                    toMyGuards.putExtra("notification", true);
+                    toMyGuards.putExtra("notif_type", "assigned");
                     TaskStackBuilder AsignadaStackBuilder = TaskStackBuilder.create(this);
                     AsignadaStackBuilder.addNextIntentWithParentStack(toMyGuards);
                     PendingIntent toMyGuardsPendingIntent =

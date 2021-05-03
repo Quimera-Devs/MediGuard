@@ -48,16 +48,22 @@ public class DashboardActivity extends BaseActivity {
         cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
         tvGuardiasActivas = findViewById(R.id.tvGuardiasActivas);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
-
+        TokenPreference preferences = new TokenPreference(this);
         try {
             // Setear extras (token y usuario)
             Intent intent = getIntent();
             if(intent.getExtras() != null) {
                 myToken = (intent.getStringExtra("data"));
                 medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
-                medicRepo.execute(myToken);
                 try {
+                    medicRepo.execute(myToken);
                     myself = medicRepo.get();
+                    if(myself==null){
+                        preferences.saveToken("");
+                        clearAppData();
+                        startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
+                        finish();
+                    }
                 } catch (ExecutionException e) {
                     Log.i("excecute exception", e.getMessage());
                     e.printStackTrace();
@@ -85,9 +91,9 @@ public class DashboardActivity extends BaseActivity {
             setGuardCountMessage(guardsNum);
 
         } catch(Exception e) {
-            TokenPreference preferences = new TokenPreference(this);
+
             preferences.saveToken("");
-            this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
+            clearAppData();
             Log.i("DASHBOARD","posiblemente token no existe o no valido: " + e);
             startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
             finish();
@@ -108,6 +114,10 @@ public class DashboardActivity extends BaseActivity {
         });
 
         String TAG = "DashboardActivity";
+
+        //redirigir a guardias disponibles o asignadas si ee intent proviene de una notificacion
+        checkIfIsNotificationIntent();
+
 
         FirebaseMessaging.getInstance().subscribeToTopic(Integer.toString(myself.getCi()))
                 .addOnCompleteListener(task -> {
@@ -131,6 +141,26 @@ public class DashboardActivity extends BaseActivity {
                     Log.d(TAG, msg);
                     Toast.makeText(DashboardActivity.this, msg, Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private void checkIfIsNotificationIntent() {
+        Intent intent = getIntent();
+        if(intent.getExtras() != null) {
+            String notificationType;
+            try {
+                notificationType = getIntent().getStringExtra("notif_type");
+                String myToken = getIntent().getStringExtra("token");
+                if (notificationType.equals("avalibe")) {
+                    startActivity(new Intent(this,AvaibleGuardsActivity.class).putExtra("token",myToken));
+                    onPause();
+                } /*else if (notificationType.equals("assigned")) {
+                    startActivity(new Intent(this,MyGuardsActivity.class).putExtra("token",myToken));
+                }*/
+            } catch (Exception e) {
+                Log.i("Back Button exception", "No estas volviendo desde una nofiticación" + e);
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setGuardCountMessage(int guardsNum) {

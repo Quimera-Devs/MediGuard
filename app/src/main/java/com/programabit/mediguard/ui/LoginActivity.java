@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity{
                     finish();
 
                 }else{
+                    Log.i("login error", response.message() );
                     Toast.makeText(LoginActivity.this,"Usuario o Contraseña incorrectos", Toast.LENGTH_LONG).show();
 
                 }
