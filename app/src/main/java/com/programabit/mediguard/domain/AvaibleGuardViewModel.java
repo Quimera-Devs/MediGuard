@@ -61,8 +61,4 @@ public class AvaibleGuardViewModel extends AndroidViewModel {
     public MutableLiveData<List<GuardDto>> getMyGuards() {
         return avaibleGuards;
     }
-
-    public void select(GuardDto guard) throws ExecutionException, InterruptedException {
-
-    }
 }
