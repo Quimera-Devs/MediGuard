@@ -48,16 +48,25 @@ public class DashboardActivity extends BaseActivity {
         cvGuardiasDispo = findViewById(R.id.cvGuardiasDispo);
         tvGuardiasActivas = findViewById(R.id.tvGuardiasActivas);
         final MyGuardsListAdapter adapter = new MyGuardsListAdapter(new MyGuardsListAdapter.guardDiff());
-
+        TokenPreference preferences = new TokenPreference(this);
         try {
             // Setear extras (token y usuario)
             Intent intent = getIntent();
             if(intent.getExtras() != null) {
                 myToken = (intent.getStringExtra("data"));
-                medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
-                medicRepo.execute(myToken);
+
+
                 try {
+                    medicRepo = new MedicRestRepositoryAsync(this.getApplication(), myToken);
+                    medicRepo.execute(myToken);
                     myself = medicRepo.get();
+                    if (myself == null){
+                        Log.i("dash medicRepo","no tengo user");
+                        preferences.saveToken("");
+                        this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
+                        startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
+                        finish();
+                    }
                 } catch (ExecutionException e) {
                     Log.i("excecute exception", e.getMessage());
                     e.printStackTrace();
@@ -85,12 +94,14 @@ public class DashboardActivity extends BaseActivity {
             setGuardCountMessage(guardsNum);
 
         } catch(Exception e) {
-            TokenPreference preferences = new TokenPreference(this);
+            Log.i("DASHBOARD","posiblemente token no existe o no valido: " + e.getMessage());
+            /*
             preferences.saveToken("");
             this.getSharedPreferences("KEY_TOKEN", 0).edit().clear().apply();
-            Log.i("DASHBOARD","posiblemente token no existe o no valido: " + e);
+
             startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
             finish();
+            */
         }
 
         // Intent a MIS GUARDIAS (Nehuen)
