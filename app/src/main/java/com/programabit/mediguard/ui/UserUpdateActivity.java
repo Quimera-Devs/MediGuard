@@ -115,7 +115,7 @@ public class UserUpdateActivity extends BaseActivity {
                             //Snackbar.make(view, R.string.user_edit_success, Snackbar.LENGTH_LONG).show();
                             Toast msg = Toast.makeText(UserUpdateActivity.this, R.string.user_edit_success, Toast.LENGTH_LONG);
                             msg.show();
-                            startActivity(new Intent(UserUpdateActivity.this, UserSettingsActivity.class).putExtra("token", myToken));
+                            finish();
                             Log.i("Acepted User Edit",  phone.getText() + ", " + getDir + ", " + getDepartment);
                         } catch (Exception e) {
                             e.printStackTrace();
