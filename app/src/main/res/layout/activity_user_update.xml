@@ -74,16 +74,23 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/btnSaveUserSettings"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="30dp"
-                    android:background="@color/colorPrincipal"
-                    android:text="@string/btn_save_user_settings"
-                    android:textColor="@color/colorBlanco"
-                    android:layout_marginBottom="50dp"
-                    android:onClick="configUserEdir"/>
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:layout_marginBottom="?attr/actionBarSize">
+
+                    <Button
+                        android:id="@+id/btnSaveUserSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="30dp"
+                        android:background="@color/colorPrincipal"
+                        android:text="@string/btn_save_user_settings"
+                        android:textColor="@color/colorBlanco"
+                        android:layout_marginBottom="50dp"
+                        android:onClick="configUserEdir"/>
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
         <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
