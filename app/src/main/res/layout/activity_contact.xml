@@ -119,7 +119,8 @@
             <TableRow
                 android:paddingTop="20dp"
                 android:padding="@dimen/activity_horizontal_margin"
-                android:onClick="chimeraMail">
+                android:onClick="chimeraMail"
+                android:layout_marginBottom="50dp">
 
                 <ImageButton
                     android:id="@+id/imgTechSupportEmail"
