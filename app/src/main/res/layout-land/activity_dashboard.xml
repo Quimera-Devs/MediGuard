@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBlanco"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ui.DashboardActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:fillViewport="true"
+        android:fadeScrollbars="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <ImageView
+                android:id="@+id/imgViewPP"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:contentDescription="@string/img_Logo"
+                android:src="@drawable/banner" />
+
+            <TextView
+                android:id="@+id/tvBienvenido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center_horizontal"
+                android:text="@string/bienvenido"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrincipal"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background = "@android:color/transparent"
+                android:rowCount="1"
+                android:columnCount="2"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvGuardiasActivas"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    app:cardCornerRadius="4dp"
+                    android:background="@color/colorBlanco"
+                    android:elevation="4dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+
+                        <TextView
+                            android:id="@+id/tvGuardiasActivas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/misguardias"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorPrincipal"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background = "@android:color/transparent"
+                android:rowCount="1"
+                android:columnCount="2"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvMisGuardias"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    app:cardCornerRadius="4dp"
+                    android:background="@color/colorBlanco"
+                    android:elevation="4dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imgMisGuardias"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/booking_confirmed"
+                            android:layout_marginTop="20dp"
+                            android:contentDescription="@string/misguardias" />
+
+                        <TextView
+                            android:id="@+id/txtMyGuards"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/misguardias"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorPrincipal"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvGuardiasDispo"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    app:cardCornerRadius="4dp"
+                    android:background="@color/colorBlanco"
+                    android:elevation="4dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="10dp">
+                        <ImageView
+                            android:id="@+id/imgGuardiasDispo"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/medicine_wellness"
+                            android:layout_marginTop="20dp"
+                            android:contentDescription="@string/guardiasdispo" />
+                        <TextView
+                            android:id="@+id/txtAvalibelGuards"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/guardiasdispo"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorPrincipal"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
+</RelativeLayout>
