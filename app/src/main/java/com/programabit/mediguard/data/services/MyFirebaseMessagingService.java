@@ -86,7 +86,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 case "GUARDIA ASIGNADA":
                     //Intent para que al presionar notificacion lleve al usuario a Mis Guardias
-                    Intent toMyGuards = new Intent(this, MyGuardsActivity.class).putExtra("token", token);
+                    Intent toMyGuards = new Intent(this, DashboardActivity.class).putExtra("data", token);
                     //Intent toMyGuards = new Intent(this, DashboardActivity.class).putExtra("data", token); // <- no arregla bug
                     toMyGuards.putExtra("notification", true);
                     toMyGuards.putExtra("notif_type", "assigned");
